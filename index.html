@@ -1,3 +1,14 @@
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -46,13 +57,14 @@
                 width: 100%; height: 100%; z-index: 9999 !important; pointer-events: none !important;
             }
             
-            /* 核心修复：防止超级表格底部和最后一个元素强制换页产生空白页 */
+           /* 核心修复：防止超级表格底部和最后一个元素强制换页产生空白页 */
             table.main-print-table { width: 100% !important; margin: 0 auto !important; border-collapse: collapse; border: none !important; page-break-after: avoid !important; }
             table.main-print-table > thead > tr > td { border: none !important; }
-            table.main-print-table > tfoot > tr > td { border: none !important; height: 8mm !important; } 
+            table.main-print-table > tfoot > tr > td { border: none !important; height: 12mm !important; } 
             
-            .print-header-wrap { padding-top: 8mm !important; padding-bottom: 8mm !important; padding-left: 6mm !important; padding-right: 6mm !important; }
-.print-content-wrap { padding-top: 0mm !important; padding-left: 6mm !important; padding-right: 6mm !important; padding-bottom: 0mm !important; }
+            /* 调整为黄金边距：顶部 4mm 防切字，底部预留 12mm 页码位 */
+            .print-header-wrap { padding-top: 4mm !important; padding-bottom: 4mm !important; padding-left: 6mm !important; padding-right: 6mm !important; }
+            .print-content-wrap { padding-top: 0mm !important; padding-left: 6mm !important; padding-right: 6mm !important; padding-bottom: 0mm !important; }
             
             /* 消灭幽灵空白页的终极魔法指令 */
             .hengshui-font > div:last-child { margin-bottom: 0 !important; padding-bottom: 0 !important; page-break-after: avoid !important; }
@@ -324,6 +336,33 @@
     </div>
 </div>
 
+<div v-else-if="block.type === 'tChart'" class="bg-emerald-50 p-4 rounded-lg border border-emerald-200 space-y-4">
+    <div class="flex items-center gap-2 border-b border-emerald-100 pb-2">
+        <input type="checkbox" v-model="block.data.showMainTitle" class="w-4 h-4 text-emerald-500 rounded">
+        <label class="text-xs font-bold text-emerald-700">显示大标题</label>
+        <input v-model="block.data.titleMain" :disabled="!block.data.showMainTitle" class="flex-1 border rounded px-2 py-1 text-sm outline-none focus:border-emerald-400 disabled:bg-slate-100 disabled:text-slate-400" placeholder="大标题内容 (如: Living vs Non-living)">
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-1">
+            <label class="text-xs font-bold text-emerald-700">左侧标题</label>
+            <input v-model="block.data.titleA" class="w-full border rounded px-2 py-1 text-sm outline-none focus:border-emerald-400">
+        </div>
+        <div class="space-y-1">
+            <label class="text-xs font-bold text-emerald-700">右侧标题</label>
+            <input v-model="block.data.titleB" class="w-full border rounded px-2 py-1 text-sm outline-none focus:border-emerald-400">
+        </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-1">
+            <label class="text-xs font-bold text-emerald-700">左侧内容 (用 / 隔开或回车换行)</label>
+            <textarea v-model="block.data.listA" rows="4" class="w-full border rounded px-2 py-1 text-sm outline-none focus:border-emerald-400"></textarea>
+        </div>
+        <div class="space-y-1">
+            <label class="text-xs font-bold text-emerald-700">右侧内容 (用 / 隔开或回车换行)</label>
+            <textarea v-model="block.data.listB" rows="4" class="w-full border rounded px-2 py-1 text-sm outline-none focus:border-emerald-400"></textarea>
+        </div>
+    </div>
+</div>
                     <div v-else-if="'items' in block.data && !['factFile', 'clilRead', 'literature', 'wordMorph', 'picQnA', 'flashcards', 'phonicsFocus', 'keyWords'].includes(block.type)" class="space-y-2">
                         <div v-if="block.type === 'transform'" class="flex flex-wrap gap-1.5 mb-2 bg-rose-50 p-2 rounded border border-rose-100 items-center">
                             <span class="text-xs font-bold text-rose-400">快捷要求后缀：</span>
@@ -597,11 +636,32 @@
         <textarea v-model="block.data.title" rows="2" class="w-full border-2 border-sky-300 rounded-xl px-3 py-2 text-sm font-bold text-center text-sky-900 bg-white outline-none focus:border-sky-500 shadow-sm" placeholder="第一行标题&#10;第二行标题 (回车新增)"></textarea>
     </div>
     
-    <div class="flex gap-6 bg-white p-2.5 rounded-lg border border-sky-100 justify-center">
-        <label class="flex items-center gap-1.5 cursor-pointer text-sm font-bold text-slate-600"><input type="checkbox" v-model="block.data.showTitle" class="w-4 h-4 text-sky-500 rounded"> 显示总标题</label>
-        <label class="flex items-center gap-1.5 cursor-pointer text-sm font-bold text-slate-600"><input type="checkbox" v-model="block.data.showCore" class="w-4 h-4 text-sky-500 rounded"> 显示中间核心</label>
-        <label class="flex items-center gap-1.5 cursor-pointer text-sm font-bold text-slate-600"><input type="checkbox" v-model="block.data.showDesc" class="w-4 h-4 text-sky-500 rounded"> 显示底部说明</label>
+    <div class="flex flex-col gap-2 bg-white p-2.5 rounded-lg border border-sky-100 justify-center">
+        <div class="flex justify-center gap-6">
+            <div class="flex flex-col gap-2 bg-white p-2.5 rounded-lg border border-sky-100 justify-center mb-2">
+        <div class="flex justify-center gap-6">
+            <label class="flex items-center gap-1.5 cursor-pointer text-sm font-bold text-slate-600"><input type="checkbox" v-model="block.data.showTitle" class="w-4 h-4 text-sky-500 rounded"> 显示总标题</label>
+            <label class="flex items-center gap-1.5 cursor-pointer text-sm font-bold text-slate-600"><input type="checkbox" v-model="block.data.showCore" class="w-4 h-4 text-sky-500 rounded"> 显示中间核心</label>
+            <label class="flex items-center gap-1.5 cursor-pointer text-sm font-bold text-slate-600"><input type="checkbox" v-model="block.data.showDesc" class="w-4 h-4 text-sky-500 rounded"> 显示底部说明</label>
+        </div>
+        <div class="flex justify-center items-center gap-5 border-t border-slate-100 pt-2 mt-1">
+            <div class="flex items-center gap-2">
+                <span class="text-[11px] font-bold text-sky-700">↔️ 全局宽度:</span>
+                <input type="range" v-model="block.data.coreWidth" min="130" max="250" step="5" class="w-20 cursor-pointer accent-sky-500">
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-[11px] font-bold text-sky-700">↕️ 全局高度:</span>
+                <input type="range" v-model="block.data.coreHeight" min="40" max="120" step="2" class="w-20 cursor-pointer accent-sky-500">
+            </div>
+        </div>
     </div>
+        </div>
+        <div class="flex justify-center items-center gap-3 border-t border-slate-100 pt-2 mt-1">
+            <span class="text-xs font-bold text-sky-700">上下拉伸文字框:</span>
+            <input type="range" v-model="block.data.coreHeight" min="40" max="120" step="2" class="w-48 cursor-pointer accent-sky-500">
+            <span class="text-[10px] text-slate-400 font-bold w-12">{{ block.data.coreHeight && block.data.coreHeight > 40 ? block.data.coreHeight + 'px' : '默认高度' }}</span>
+        </div>
+       </div>
     
     <div class="flex gap-2 bg-white/50 p-3 rounded-lg border border-sky-100 flex-col mb-2">
         <label class="text-xs font-bold text-sky-700">懒人操作：支持一键生成【标题】与【卡片】</label>
@@ -621,7 +681,10 @@
                     <button v-if="item.img" @click.stop="item.img=''" class="btn-del-img btn-del-img-small z-20">×</button>
                 </div>
                 <div class="flex-1 flex flex-col gap-2">
-                    <input v-model="item.core" class="w-full border-b outline-none text-sm px-1 focus:border-sky-400 text-sky-700 font-bold" placeholder="核心知识点 (如: cow ➔ milk)">
+                    <div class="flex items-center gap-2">
+                        <input v-model="item.core" class="flex-1 border-b outline-none text-sm px-1 focus:border-sky-400 text-sky-700 font-bold" placeholder="核心知识点 (如: cow ➔ milk)">
+                        <input type="number" v-model="item.h" class="w-20 border-b outline-none text-xs px-1 focus:border-sky-400 text-sky-600 text-center font-bold bg-sky-50/50" placeholder="独立高度px" title="填入数字，强制固定这个卡片的高度">
+                    </div>
                     <input v-model="item.desc" class="w-full border-b outline-none text-sm px-1 focus:border-sky-400 text-slate-600" placeholder="完整说明句 (如: We get milk from cows.)">
                 </div>
             </template>
@@ -1249,6 +1312,33 @@
     </div>
 </div>
 
+<div v-else-if="block.type === 'tChart'" class="w-full mt-4 mb-2 px-6 break-inside-avoid">
+    <div v-if="block.data.showMainTitle && block.data.titleMain" class="text-center mb-4 relative z-10">
+        <span class="bg-emerald-100 text-emerald-800 font-black text-[18px] px-8 py-1.5 rounded-full border-2 border-white shadow-sm tracking-wide">
+            {{ block.data.titleMain }}
+        </span>
+    </div>
+
+    <div class="relative w-full border-t-[4px] border-emerald-500 min-h-[140px] pt-2" :class="block.data.showMainTitle ? '-mt-2' : ''">
+        <div class="absolute inset-y-0 left-1/2 w-[3px] bg-emerald-500 -translate-x-1/2"></div>
+        
+        <div class="grid grid-cols-2">
+            <div class="px-6 py-2 flex flex-col items-center">
+                <div class="font-black text-emerald-700 text-[18px] uppercase tracking-wider mb-4 border-b-[2px] border-emerald-100 w-full text-center pb-1">
+                    {{ block.data.titleA }}
+                </div>
+                <div class="flex flex-col w-full text-slate-700 font-bold text-[17px] items-center text-center" v-html="block.data.listA.split(/[\/\n]+/).map(w=>'<div class=\'mb-2 leading-snug\'>'+w.trim()+'</div>').join('')"></div>
+            </div>
+
+            <div class="px-6 py-2 flex flex-col items-center">
+                <div class="font-black text-emerald-700 text-[18px] uppercase tracking-wider mb-4 border-b-[2px] border-emerald-100 w-full text-center pb-1">
+                    {{ block.data.titleB }}
+                </div>
+                <div class="flex flex-col w-full text-slate-700 font-bold text-[17px] items-center text-center" v-html="block.data.listB.split(/[\/\n]+/).map(w=>'<div class=\'mb-2 leading-snug\'>'+w.trim()+'</div>').join('')"></div>
+            </div>
+        </div>
+    </div>
+</div>
                                       
                                             <div v-else-if="block.type === 'keyWords'" class="w-full mt-4 mb-2 break-inside-avoid">
                                                 <div class="flex flex-wrap justify-center gap-x-12 gap-y-8 w-full px-2">
@@ -1261,29 +1351,31 @@
                                                 </div>
                                             </div>
 
-                                            <div v-else-if="block.type === 'flashcards'" class="w-full mt-2">
+                                            <div v-else-if="block.type === 'flashcards'" class="w-full mt-4">
     
-    <div v-if="block.data.showTitle && block.data.title" class="flex flex-col items-center gap-2 mb-1 w-full">
-        <div v-for="(line, lIdx) in block.data.title.split('\n').filter(l=>l.trim())" :key="'t'+lIdx" class="bg-sky-100 text-sky-800 font-bold text-[18px] px-8 py-1.5 rounded-full shadow-sm border-[2px] border-white tracking-wide text-center break-inside-avoid">
+    <div v-if="block.data.showTitle && block.data.title" class="flex flex-col items-center gap-2 mb-5 w-full">
+        <div v-for="(line, lIdx) in block.data.title.split('\n').filter(l=>l.trim())" :key="'t'+lIdx" class="bg-sky-100 text-sky-800 font-bold text-[18px] px-8 py-1.5 rounded-full shadow-sm border-[1.5px] border-sky-200 tracking-wide text-center break-inside-avoid">
             {{ line }}
         </div>
     </div>
     
-    <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 w-full px-1">
+    <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 w-full px-1">
         <template v-for="(item, idx) in block.data.items" :key="idx">
             
-            <div v-if="item.isTitle" class="w-full flex justify-center mt-1 -mb-2 break-inside-avoid">
-                <div class="bg-sky-100 text-sky-800 font-bold text-[18px] px-8 py-1.5 rounded-full shadow-sm border-[2px] border-white tracking-wide text-center">
+            <div v-if="item.isTitle" class="w-full flex justify-center mt-1 mb-2 ">
+                <div class="bg-sky-200 text-sky-800 font-bold text-[18px] px-8 py-1.5 rounded-full shadow-sm border-[1.5px] border-sky-200 tracking-wide text-center">
                     {{ item.core }}
                 </div>
             </div>
 
-            <div v-else class="flex flex-col items-center w-[160px] break-inside-avoid">
+            <div v-else class="flex flex-col items-center w-[160px] ">
                 <div class="w-[140px] h-[140px] rounded-[2.5rem] border-[4px] border-white bg-slate-50 shadow-md flex items-center justify-center overflow-hidden p-1.5 relative z-10">
                     <img v-if="item.img" :src="item.img" class="w-full h-full object-cover rounded-[2.1rem]">
                 </div>
                 
-                <div v-if="block.data.showCore && item.core" class="bg-sky-50 border-[2px] border-sky-200 text-sky-800 font-bold text-[18px] px-4 py-1.5 rounded-full text-center shadow-sm -mt-2 relative z-20 w-[115%] leading-tight break-words">
+                <div v-if="block.data.showCore && item.core" 
+                     class="bg-sky-50 border-[2px] border-sky-200 text-sky-800 font-bold text-[18px] px-2 py-1.5 rounded-full text-center shadow-sm -mt-2 relative z-20 flex items-center justify-center leading-tight break-words"
+                     :style="`width: ${(block.data.coreWidth && block.data.coreWidth > 130) ? block.data.coreWidth + 'px' : '115%'}; min-height: ${(item.h && item.h > 20) ? item.h : (block.data.coreHeight && block.data.coreHeight > 40 ? block.data.coreHeight : 46)}px;`">
                     {{ item.core }}
                 </div>
                 
@@ -1401,11 +1493,11 @@
 { id: 'textQnA', name: 'Short Answer', zhName: '简答题', color: 'text-indigo-600', bg: 'bg-indigo-500' },
 { id: 'tipBox', name: 'Cute Tip', zhName: '可爱提示框', color: 'text-yellow-600', bg: 'bg-yellow-400' },
 { id: 'keyWords', name: 'Key Words', zhName: '图文词汇', color: 'text-emerald-600', bg: 'bg-emerald-500' },
-{ id: 'venn', name: 'Venn Diagram', zhName: '韦恩图', color: 'text-purple-600', bg: 'bg-purple-500' }
+{ id: 'venn', name: 'Venn Diagram', zhName: '韦恩图', color: 'text-purple-600', bg: 'bg-purple-500' }, 
+{ id: 'tChart', name: 'T-Chart', zhName: 'T型图', color: 'text-emerald-600', bg: 'bg-emerald-500' }
                 ];
 
-                const defaultInstructions = { picQnA: 'Look, ask and answer.', wordList: 'Vocabulary', readWrite: 'Read and write.', listenFill: 'Listen and fill in the blanks.', listenYesNo: 'Listen and write "Yes" or "No".', listenComp: 'After-listening comprehension.', lookAnswer: 'Answer the questions.', storyComic: 'Read the story and answer.', lookWriteAnswer: 'Look, write and answer.', reorder: 'Reorder the words to make sentences.', chooseComplete: 'Choose and complete.', grammarFocus: 'Grammar Focus', storyRetell: 'Retell.', mc: 'Choose the best answer.', wordForm: 'Write the correct form of the words.', transform: 'Rewrite the sentences as required.', circle: 'Circle the correct words.', literature: 'Literature', clilRead: 'Read and complete the text.', wordSorting: 'Sort the words.', phonicsSorting: 'Sort the words by sounds.', oddOneOut: 'Choose the odd one out.', scramble: 'Unscramble the letters.', missing: 'Complete the words.', match: 'Match the words.', factFile: 'Read and complete the fact file.', lifeCycle: 'Complete the life cycle.', diagram: 'Label the picture.', trueFalse: 'Circle True (T) or False (F).', writingCard: 'Writing Output', orderStory: 'Number the sentences in order.', correctMistakes: 'Read and correct the mistakes.', altEnding: 'What happens next? Draw and write.', speaking: '🎤 Let\'s Talk!', textQnA: 'Answer the questions.', tipBox: '', keyWords: 'Key Words', venn: 'Classify the words into the Venn diagram.',};
-
+                const defaultInstructions = { picQnA: 'Look, ask and answer.', wordList: 'Vocabulary', readWrite: 'Read and write.', listenFill: 'Listen and fill in the blanks.', listenYesNo: 'Listen and write "Yes" or "No".', listenComp: 'After-listening comprehension.', lookAnswer: 'Answer the questions.', storyComic: 'Read the story and answer.', lookWriteAnswer: 'Look, write and answer.', reorder: 'Reorder the words to make sentences.', chooseComplete: 'Choose and complete.', grammarFocus: 'Grammar Focus', storyRetell: 'Retell.', mc: 'Choose the best answer.', wordForm: 'Write the correct form of the words.', transform: 'Rewrite the sentences as required.', circle: 'Circle the correct words.', literature: 'Literature', clilRead: 'Read and complete the text.', wordSorting: 'Sort the words.', phonicsSorting: 'Sort the words by sounds.', oddOneOut: 'Choose the odd one out.', scramble: 'Unscramble the letters.', missing: 'Complete the words.', match: 'Match the words.', factFile: 'Read and complete the fact file.', lifeCycle: 'Complete the life cycle.', diagram: 'Label the picture.', trueFalse: 'Circle True (T) or False (F).', writingCard: 'Writing Output', orderStory: 'Number the sentences in order.', correctMistakes: 'Read and correct the mistakes.', altEnding: 'What happens next? Draw and write.', speaking: '🎤 Let\'s Talk!', textQnA: 'Answer the questions.', tipBox: '', keyWords: 'Key Words', venn: 'Classify the words into the Venn diagram.', tChart: 'Classify the items.',};
                 const globalData = ref({ headerText: 'Unit 1 Ultimate Test', subTitle: 'All-in-One Worksheet', logo: '', theme: 'blue' });
                 const themes = {
                     blue: { border1: '#48b8e9', border2: '#2563eb', title: 'text-blue-700', badge: 'from-blue-600 to-indigo-600', btn: 'bg-blue-500' },
@@ -1456,6 +1548,7 @@ else if (['textQnA'].includes(type)) { data = { bulkInput: '', bulkAns: '', item
 else if (['tipBox'].includes(type)) { data = { img: '', text: 'Remember to check your spelling!' }; }
 else if (['keyWords'].includes(type)) { data = { bulkInput: '', items: [{isEg: false, img: '', word: 'apple'}, {isEg: false, img: '', word: 'banana'}] }; }
 else if (type === 'venn') { data = { titleA: 'Carnivores', titleB: 'Herbivores', titleCenter: 'Omnivores', showCenterTitle: true, listA: 'Lion / Tiger', listB: 'Cow / Rabbit', listCenter: 'Bear / Pig' }; }
+else if (type === 'tChart') { data = { titleMain: 'Topic Name', showMainTitle: true, titleA: 'Group A', titleB: 'Group B', listA: 'Item 1 / Item 2', listB: 'Item 1 / Item 2' }; }
                     return { ...base, data };
                 };
 

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -166,7 +167,7 @@
                     <div v-if="'wordBank' in block.data && block.type !== 'clilRead'" class="mb-3">
                         <input v-model="block.data.wordBank" class="w-full border border-yellow-300 rounded px-3 py-1.5 text-sm bg-yellow-50 focus:bg-white outline-none" placeholder="词库 (可选, 用于上方展示)">
                     </div>
-                    <div v-if="'img' in block.data && !['factFile', 'clilRead', 'literature'].includes(block.type)" class="mb-3 p-3 bg-slate-50 rounded border border-slate-200">
+                    <div v-if="'img' in block.data && !['factFile', 'clilRead', 'literature'].includes(block.type) && !(block.type === 'storyRetell' && block.data.retellImgMode === 'grid6')" class="mb-3 p-3 bg-slate-50 rounded border border-slate-200">
                         <label class="block text-xs text-slate-500 mb-1 font-bold">该题大主图上传 (可选)</label>
                         <input type="file" accept="image/*" class="w-full text-xs" @change="compressAndUpload($event, block.data, 'img')">
                         <div v-if="block.data.img" class="relative inline-block mt-2">
@@ -237,6 +238,17 @@
                     </div>
 
                     <div v-if="block.type === 'storyComic'" class="space-y-4">
+<div class="flex items-center gap-4 bg-amber-50/70 p-2.5 rounded-lg border border-amber-100">
+    <span class="text-xs font-bold text-amber-700">图片版式:</span>
+    <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600">
+        <input type="radio" value="square" v-model="block.data.comicImgShape" class="w-3.5 h-3.5 text-amber-500">
+        方版式
+    </label>
+    <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600">
+        <input type="radio" value="circle" v-model="block.data.comicImgShape" class="w-3.5 h-3.5 text-amber-500">
+        圆版式
+    </label>
+</div>
                         <div class="flex gap-2 mb-3 bg-amber-50/50 p-3 rounded-lg border border-amber-100 flex-col">
                             <label class="text-xs font-bold text-amber-700">懒人操作：截图题一键生成问答</label>
                             <div class="text-[10px] text-slate-500 leading-tight">
@@ -435,6 +447,21 @@
                             <span class="text-xs font-bold text-teal-700">选项开关:</span>
                             <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600"><input type="checkbox" v-model="block.data.hideWordBank" class="w-3.5 h-3.5 text-teal-500 rounded focus:ring-0"> 隐藏顶部词库 (仅作自动挖空引擎使用)</label>
                         </div>
+<div v-if="block.type === 'storyRetell'" class="bg-rose-50/50 p-3 rounded-lg border border-rose-100 space-y-3 mb-2">
+    <div class="flex flex-wrap gap-4 items-center">
+        <span class="text-xs font-bold text-rose-700">Retell 图片版式:</span>
+        <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600"><input type="radio" value="single" v-model="block.data.retellImgMode" class="w-3.5 h-3.5 text-rose-500"> 单图模式</label>
+        <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600"><input type="radio" value="grid6" v-model="block.data.retellImgMode" class="w-3.5 h-3.5 text-rose-500"> 6图模式（上3下3）</label>
+    </div>
+    <div v-if="block.data.retellImgMode === 'grid6'" class="grid grid-cols-3 gap-3">
+        <div v-for="n in 6" :key="'retell-grid-upload-' + n" class="relative h-20 bg-white border border-dashed border-rose-200 rounded-lg flex items-center justify-center overflow-hidden">
+            <input type="file" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-10" @change="compressAndUpload($event, (block.data.retellImgs || (block.data.retellImgs = ['', '', '', '', '', ''])), n - 1)">
+            <img v-if="block.data.retellImgs && block.data.retellImgs[n - 1]" :src="block.data.retellImgs[n - 1]" class="w-full h-full object-contain bg-white">
+            <span v-else class="text-[10px] text-slate-400 pointer-events-none">传图 {{ n }}</span>
+            <div v-if="block.data.retellImgs && block.data.retellImgs[n - 1]" @click.stop="block.data.retellImgs[n - 1] = ''" class="btn-del-img btn-del-img-small">×</div>
+        </div>
+    </div>
+</div>
                         <input v-if="'keywords' in block.data" v-model="block.data.keywords" class="w-full border border-blue-200 rounded px-3 py-1.5 text-sm bg-blue-50 outline-none" placeholder="挖空词库 / Keywords (用 / 隔开，引擎将自动匹配下文为填空横线)">
                         <textarea v-model="block.data.text" rows="4" class="w-full border rounded px-3 py-2 text-sm leading-relaxed outline-none" placeholder="在此输入大段文本内容... (支持用 [ ] 手动包裹挖空)"></textarea>
                     </div>
@@ -482,12 +509,85 @@
                             <label><input type="checkbox" v-model="block.data.showExpressions" class="w-4 h-4 text-blue-600 align-middle"><span class="text-xs font-bold ml-1">金句气泡</span></label>
                         </div>
                         <div v-if="block.data.showCharacters" class="bg-white p-3 rounded-md border space-y-2"><h3 class="text-xs font-bold text-blue-800">Main Characters</h3><div v-for="(char, idx) in block.data.characters" :key="idx" class="flex gap-2 items-center bg-slate-50 p-1.5 rounded border"><input v-model="char.name" class="w-24 border-b bg-transparent text-sm font-bold" placeholder="名字"><input type="file" accept="image/*" class="w-24 text-[10px]" @change="compressAndUpload($event, char, 'imgUrl')"><div v-if="char.imgUrl" class="relative inline-block"><img :src="char.imgUrl" class="w-8 h-8 rounded-full border"><div @click.stop="char.imgUrl=''" class="btn-del-img" style="width:12px; height:12px; font-size:8px; top:-2px; right:-2px;">×</div></div><button @click="block.data.characters.splice(idx,1)" class="text-red-400 ml-auto px-2">✕</button></div><button @click="block.data.characters.push({name:'',imgUrl:''})" class="text-xs text-blue-600 font-bold w-full border border-dashed rounded py-1">+ 添加主角</button></div>
-                        <div v-if="block.data.showGrammar" class="bg-white p-3 rounded-md border space-y-2"><h3 class="text-xs font-bold text-blue-800">Grammar Focus (*浅黄高亮*)</h3><div v-for="(gram, idx) in block.data.grammar" :key="idx" class="flex gap-3 items-start bg-slate-50 p-2 rounded border"><textarea v-model="gram.text" rows="2" class="flex-1 border rounded p-1 text-sm outline-none" placeholder="语法文字"></textarea><div class="w-24 flex flex-col gap-1"><input type="file" accept="image/*" class="w-full text-[10px]" @change="compressAndUpload($event, gram, 'imgUrl')"><div v-if="gram.imgUrl" class="relative inline-block"><img :src="gram.imgUrl" class="h-10 rounded border bg-white"><div @click.stop="gram.imgUrl=''" class="btn-del-img btn-del-img-small">×</div></div></div><button @click="block.data.grammar.splice(idx,1)" class="text-red-400 px-1">✕</button></div><button @click="block.data.grammar.push({imgUrl:'',text:''})" class="text-xs text-blue-600 font-bold w-full border border-dashed rounded py-1">+ 添加语法图文</button></div>
+                        <div v-if="block.data.showGrammar" class="bg-white p-3 rounded-md border space-y-3">
+    <h3 class="text-xs font-bold text-blue-800">Grammar Focus (*浅黄高亮*)</h3>
+
+    <div class="bg-blue-50/60 p-3 rounded-lg border border-blue-100 space-y-2">
+        <label class="text-xs font-bold text-blue-700">
+            批量导入 Grammar Focus
+        </label>
+        <div class="text-[10px] text-slate-500 leading-snug">
+            每一行匹配一张图片；同图多句子用 // 隔开。例：*Where's* my bag? // It's under the desk.
+        </div>
+        <textarea 
+            v-model="block.data.grammarBulkInput" 
+            rows="4" 
+            class="w-full border border-blue-200 rounded px-3 py-2 text-sm outline-none focus:border-blue-400"
+            placeholder="*Where's* my bag? // It's under the desk.&#10;I *am* happy. // He *is* sad.&#10;Can you help me? // Yes, I can."
+        ></textarea>
+        <div class="flex gap-2 justify-end">
+            <button 
+                @click="block.data.grammar = []"
+                class="px-3 py-1.5 text-xs font-bold rounded border border-slate-200 text-slate-500 hover:bg-slate-100"
+            >
+                清空 Grammar
+            </button>
+            <button 
+                @click="generateLiteratureGrammar(block)"
+                class="px-4 py-1.5 text-xs font-bold rounded bg-blue-500 hover:bg-blue-600 text-white shadow-sm"
+            >
+                一键生成 Grammar
+            </button>
+        </div>
+    </div>
+
+    <div v-for="(gram, idx) in block.data.grammar" :key="idx" class="flex gap-3 items-start bg-slate-50 p-2 rounded border">
+        <textarea 
+            v-model="gram.text" 
+            rows="2" 
+            class="flex-1 border rounded p-1 text-sm outline-none" 
+            placeholder="语法文字"
+        ></textarea>
+        <div class="w-24 flex flex-col gap-1">
+            <input 
+                type="file" 
+                accept="image/*" 
+                class="w-full text-[10px]" 
+                @change="compressAndUpload($event, gram, 'imgUrl')"
+            >
+            <div v-if="gram.imgUrl" class="relative inline-block">
+                <img :src="gram.imgUrl" class="h-10 rounded border bg-white">
+                <div @click.stop="gram.imgUrl=''" class="btn-del-img btn-del-img-small">×</div>
+            </div>
+        </div>
+        <button @click="block.data.grammar.splice(idx,1)" class="text-red-400 px-1">✕</button>
+    </div>
+
+    <button 
+        @click="block.data.grammar.push({imgUrl:'',text:''})" 
+        class="text-xs text-blue-600 font-bold w-full border border-dashed rounded py-1"
+    >
+        + 添加语法图文
+    </button>
+</div>
                         <div v-if="block.data.showExpressions" class="bg-white p-3 rounded-md border"><h3 class="text-xs font-bold text-blue-800 mb-1">Useful Expressions (回车分气泡)</h3><textarea v-model="block.data.expressions" rows="2" class="w-full border rounded p-2 text-sm outline-none" placeholder="一行一个金句"></textarea></div>
                     </div>
 
                     <div v-else-if="block.type === 'writingCard'" class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 space-y-3">
                         <input v-model="block.data.writingPrompt" type="text" class="w-full text-sm font-bold border-b border-yellow-300 bg-transparent outline-none pb-1" placeholder="中心图提示标语 (如: Draw your story and write.)">
+<div class="flex items-center gap-3 bg-white/70 border border-yellow-200 rounded-lg p-2">
+    <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-yellow-700">
+        <input type="checkbox" v-model="block.data.showOutputTitle" class="w-4 h-4 text-yellow-500 rounded">
+        显示作文标题
+    </label>
+    <input 
+        v-model="block.data.outputTitle" 
+        :disabled="!block.data.showOutputTitle"
+        type="text" 
+        class="flex-1 border-b border-yellow-300 bg-transparent outline-none text-sm font-bold text-slate-700 disabled:text-slate-300 disabled:border-slate-200"
+        placeholder="作文标题，支持 [标题|30] 生成横线"
+    >
+</div>
                         <div class="flex gap-4">
                             <div class="w-28 flex-shrink-0 space-y-1 relative"><label class="block text-[11px] font-bold text-slate-500">左侧配图</label><input type="file" accept="image/*" class="w-full text-[10px]" @change="compressAndUpload($event, block.data, 'drawImg')"><div v-if="block.data.drawImg" class="relative inline-block mt-1"><img :src="block.data.drawImg" class="w-full rounded border bg-white"><div @click.stop="block.data.drawImg=''" class="btn-del-img btn-del-img-small">×</div></div></div>
                             <div class="flex-1 flex flex-col gap-2">
@@ -495,7 +595,7 @@
                                 <div class="space-y-1"><label class="block text-[11px] font-bold text-slate-500">Sentences Bank <span class="text-amber-500">(回车分句，**加浅黄高亮)</span></label><textarea v-model="block.data.sentenceBank" rows="2" class="w-full border border-amber-200 bg-amber-50 rounded px-2 py-1 text-[11px] outline-none"></textarea></div>
                             </div>
                         </div>
-                        <div class="space-y-1"><label class="block text-[11px] font-bold text-slate-500 mb-1">作文脚手架 <span class="text-amber-500 font-normal">([ ] 生成横线, * * 浅黄高亮)</span></label><textarea v-model="block.data.writingScaffold" rows="5" class="w-full border rounded px-2 py-1 text-sm outline-none leading-relaxed"></textarea></div>
+                        <div class="space-y-1"><label class="block text-[11px] font-bold text-slate-500 mb-1">作文脚手架 <span class="text-amber-500 font-normal">([答案|数量] 生成横线，如 [running|18])</span></label><textarea v-model="block.data.writingScaffold" rows="5" class="w-full border rounded px-2 py-1 text-sm outline-none leading-relaxed"></textarea></div>
                     </div>
 
                     <div v-else-if="block.type === 'altEnding'" class="bg-fuchsia-50 p-4 rounded-lg border border-fuchsia-200 space-y-3">
@@ -844,25 +944,77 @@
                                                 </div>
                                             </div>
 
-                                            <div v-else-if="block.type === 'storyComic'" class="space-y-6 pl-2">
-                                                <div v-for="(item, idx) in block.data.items" :key="idx" class="flex items-center gap-5 break-inside-avoid">
-                                                    <div class="w-[30%] flex-shrink-0">
-                                                        <img v-if="item.img" :src="item.img" class="w-full h-auto rounded-xl border-[1.5px] border-slate-200 shadow-sm">
-                                                        <div v-else class="w-full aspect-video bg-slate-100 rounded-xl border border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs font-bold">Comic {{idx+1}}</div>
-                                                    </div>
-                                                    <div class="flex-1 flex flex-col gap-4 justify-center">
-                                                        <div v-for="(qItem, qIdx) in item.questions" :key="qIdx" class="flex flex-col gap-3 text-[17px]">
-                                                            <div class="flex items-start gap-2">
-                                                                <span class="font-bold w-6 flex-shrink-0 text-amber-500 mt-[3px]">{{ getComicQIndex(block, idx, qIdx) }}</span>
-                                                                <span class="text-slate-700 font-medium leading-snug">{{ qItem.q }}</span>
-                                                            </div>
-                                                            <div class="border-b border-slate-700 flex items-baseline pl-2 pb-[2px] w-full ml-8" style="width: calc(100% - 2rem);" :class="(qItem.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium'">
-                                                                <span v-if="isAnswerMode||qItem.isEg" class="leading-none">{{ qItem.a }}</span><span v-else class="text-transparent">&nbsp;</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <div v-else-if="block.type === 'storyComic'" class="space-y-3 pl-2">
+    <div 
+        v-for="(item, idx) in block.data.items" 
+        :key="idx" 
+        class="flex items-center break-inside-avoid"
+        :class="(block.data.comicImgShape || 'square') === 'circle' ? 'gap-3' : 'gap-5'"
+    >
+        <div 
+    class="flex-shrink-0"
+    :class="(block.data.comicImgShape || 'square') === 'circle' ? 'w-[24%]' : 'w-[30%]'"
+>
+    <template v-if="(block.data.comicImgShape || 'square') === 'circle'">
+        <div class="w-[165px] h-[165px] rounded-full overflow-hidden border-[1.5px] border-slate-200 shadow-sm bg-white mx-auto flex items-center justify-center">
+            <img 
+                v-if="item.img" 
+                :src="item.img" 
+                class="w-full h-full object-cover"
+            >
+            <div 
+                v-else 
+                class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400 text-xs font-bold"
+            >
+                Comic {{idx+1}}
+            </div>
+        </div>
+    </template>
+
+    <template v-else>
+        <img 
+            v-if="item.img" 
+            :src="item.img" 
+            class="w-full h-[165px] object-contain rounded-xl border-[1.5px] border-slate-200 shadow-sm bg-white"
+        >
+        <div 
+            v-else 
+            class="w-full h-[165px] bg-slate-100 rounded-xl border border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs font-bold"
+        >
+            Comic {{idx+1}}
+        </div>
+    </template>
+</div>
+
+        <div 
+            class="flex-1 flex flex-col gap-4 justify-center"
+            :class="(block.data.comicImgShape || 'square') === 'circle' ? '-ml-2' : ''"
+        >
+            <div v-for="(qItem, qIdx) in item.questions" :key="qIdx" class="flex flex-col gap-1.5">
+                <div class="flex items-start gap-2">
+                    <span 
+                        class="font-bold flex-shrink-0 text-amber-500 mt-[3px]"
+                        :class="(block.data.comicImgShape || 'square') === 'circle' ? 'w-5' : 'w-6'"
+                    >
+                        {{ getComicQIndex(block, idx, qIdx) }}
+                    </span>
+                    <span class="text-slate-700 font-medium leading-snug">{{ qItem.q }}</span>
+                </div>
+                <div 
+                    class="border-b border-slate-700 flex items-baseline pl-2 pb-[1px] w-full min-h-[18px]" 
+                    :class="[
+                        (qItem.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium',
+                        (block.data.comicImgShape || 'square') === 'circle' ? 'ml-7' : 'ml-8'
+                    ]"
+                    :style="(block.data.comicImgShape || 'square') === 'circle' ? 'width: calc(100% - 1.75rem);' : 'width: calc(100% - 2rem);'"
+                >
+                    <span v-if="isAnswerMode||qItem.isEg" class="leading-none">{{ qItem.a }}</span>
+                    <span v-else class="text-transparent">&nbsp;</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
                                             <div v-else-if="block.type === 'lookWriteAnswer'" class="space-y-5 pl-2">
                                                 <div v-for="(item, idx) in block.data.items" :key="idx" class="text-[17px] flex flex-col gap-3 break-inside-avoid">
@@ -925,9 +1077,18 @@
                                             </div>
 
                                             <div v-else-if="block.type === 'storyRetell'" class="flex flex-col items-center px-2">
-                                                <img v-if="block.data.img" :src="block.data.img" class="max-w-[70%] h-auto mb-6 rounded-xl shadow-sm border border-slate-200 break-inside-avoid">
-                                                <div class="leading-[2.2] text-[18px] text-justify w-full text-slate-800" v-html="replaceKw(block.data.text, block.data.keywords, false, block.data.hasEg, isAnswerMode).replace(/\(\d+\)\s/g, '')"></div>
-                                            </div>
+    <template v-if="(block.data.retellImgMode || 'single') === 'grid6'">
+        <div v-if="block.data.retellImgs && block.data.retellImgs.some(img => img)" class="grid grid-cols-3 gap-3 w-[78%] mb-6 break-inside-avoid">
+            <template v-for="(img, idx) in block.data.retellImgs" :key="'retell-preview-' + idx">
+                <div v-if="img" class="aspect-[4/3] rounded-xl shadow-sm border border-slate-200 bg-white overflow-hidden">
+                    <img :src="img" class="w-full h-full object-contain">
+                </div>
+            </template>
+        </div>
+    </template>
+    <img v-else-if="block.data.img" :src="block.data.img" class="max-w-[70%] h-auto mb-6 rounded-xl shadow-sm border border-slate-200 break-inside-avoid">
+    <div class="leading-[2.2] text-[18px] text-justify w-full text-slate-800" v-html="replaceKw(block.data.text, block.data.keywords, false, block.data.hasEg, isAnswerMode).replace(/\(\d+\)\s/g, '')"></div>
+</div>
 
                                             <div v-else-if="block.type === 'grammarFocus'" class="space-y-5 pl-2">
                                                 <div v-if="block.data.ruleImg" class="w-full flex justify-center break-inside-avoid"><img :src="block.data.ruleImg" class="max-w-[85%] h-auto bg-white"></div>
@@ -1031,22 +1192,50 @@
                                                 </div>
                                             </div>
 
-                                            <div v-else-if="block.type === 'match'" class="flex pl-2 w-full gap-12">
-                                                <div class="w-[60%] space-y-5 pr-6 relative border-r border-dashed border-slate-200">
-                                                    <div v-for="(item, idx) in block.data.items" :key="'l'+idx" class="flex items-center gap-4 text-[17px] break-inside-avoid">
-                                                        <span class="font-bold w-6 flex-shrink-0 text-purple-500">{{ getIndexStr(block.data.items, idx, true) }}</span>
-                                                        <div v-if="item.img" class="w-14 h-14 border rounded-lg overflow-hidden flex-shrink-0 shadow-sm"><img :src="item.img" class="w-full h-full object-cover"></div>
-                                                        <span class="flex-1 font-medium text-slate-700">{{ item.hint }}</span>
-                                                        <span class="w-7 text-center font-bold bg-purple-50 rounded text-lg" :class="(item.isEg&&!isAnswerMode)?'text-slate-400':'text-rose-600'"><span v-if="isAnswerMode||item.isEg">{{ getMatchAns(item.word, getShuffledMatch(block)) }}</span></span>
-                                                    </div>
-                                                </div>
-                                                <div class="w-[40%] space-y-5 pl-6 flex flex-col justify-around">
-                                                    <div v-for="(word, wIdx) in getShuffledMatch(block)" :key="'r'+wIdx" class="flex items-center gap-4 text-[17px] break-inside-avoid">
-                                                        <span class="bg-purple-100 text-purple-800 font-bold w-8 h-8 flex items-center justify-center rounded-lg shadow-sm text-base border border-purple-200">{{ ['A','B','C','D','E','F','G','H','I','J'][wIdx] }}</span>
-                                                        <span class="font-bold text-slate-700 tracking-wide text-[18px]">{{ word }}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <div v-else-if="block.type === 'match'" class="grid grid-cols-[58%_40%] w-full gap-4 pr-6">
+    <div class="pl-8 pr-3 relative">
+        <div 
+            v-for="(item, idx) in block.data.items" 
+            :key="'l'+idx" 
+            class="flex items-center gap-2.5 break-inside-avoid min-h-[46px] mb-4 last:mb-0"
+        >
+            <span class="font-bold w-5 flex-shrink-0 text-purple-500">
+                {{ getIndexStr(block.data.items, idx, true) }}
+            </span>
+
+            <div v-if="item.img" class="w-14 h-14 border rounded-lg overflow-hidden flex-shrink-0 shadow-sm">
+                <img :src="item.img" class="w-full h-full object-cover">
+            </div>
+
+            <span class="flex-1 font-medium text-slate-700">{{ item.hint }}</span>
+
+            <span 
+                class="w-7 text-center font-bold bg-purple-50 rounded text-lg"
+                :class="(item.isEg&&!isAnswerMode)?'text-slate-400':'text-rose-600'"
+            >
+                <span v-if="isAnswerMode||item.isEg">
+                    {{ getMatchAns(item.word, getShuffledMatch(block)) }}
+                </span>
+            </span>
+        </div>
+    </div>
+
+    <div class="pl-1 min-w-0">
+        <div 
+            v-for="(word, wIdx) in getShuffledMatch(block)" 
+            :key="'r'+wIdx" 
+            class="flex items-start gap-4 break-inside-avoid min-h-[46px] mb-4 last:mb-0 min-w-0"
+        >
+            <span class="bg-purple-100 text-purple-800 font-bold w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-lg shadow-sm text-base border border-purple-200">
+                {{ ['A','B','C','D','E','F','G','H','I','J'][wIdx] }}
+            </span>
+
+            <span class="font-bold text-slate-700 tracking-wide min-w-0 max-w-full whitespace-normal break-words leading-snug">
+                {{ word }}
+            </span>
+        </div>
+    </div>
+</div>
 
                                             <div v-else-if="block.type === 'factFile'" class="grid grid-cols-2 gap-6 pl-2 w-full">
                                                 <div v-for="(card, cIdx) in block.data.items" :key="cIdx" class="bg-blue-50/50 border border-blue-200 rounded-2xl p-5 shadow-sm flex flex-col break-inside-avoid">
@@ -1099,12 +1288,23 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <div v-if="block.data.showGrammar && block.data.grammar.length>0" class="grid grid-cols-3 gap-5 break-inside-avoid">
-                                                    <div v-for="(gram, idx) in block.data.grammar" :key="idx" class="bg-white border-[2px] border-slate-200 shadow-sm rounded-2xl p-4 flex flex-col items-center justify-center min-h-[120px] relative">
-                                                        <img v-if="gram.imgUrl" :src="gram.imgUrl" class="max-h-20 mb-3 rounded-lg">
-                                                        <div class="text-[17px] text-center leading-snug font-bold text-slate-800" v-html="parseGrammarColor(gram.text)"></div>
-                                                    </div>
-                                                </div>
+                                                <div v-if="block.data.showGrammar && block.data.grammar.length>0" class="flex flex-wrap justify-center gap-5 break-inside-avoid">
+    <div 
+        v-for="(gram, idx) in block.data.grammar" 
+        :key="idx" 
+        class="w-[31%] min-w-[165px] bg-white border-[2px] border-slate-200 shadow-sm rounded-2xl p-4 flex flex-col items-center justify-center min-h-[120px] relative"
+    >
+        <img 
+            v-if="gram.imgUrl" 
+            :src="gram.imgUrl" 
+            class="max-h-20 mb-3 rounded-lg"
+        >
+        <div 
+            class="text-[17px] text-center leading-snug font-bold text-slate-800" 
+            v-html="parseGrammarColor(gram.text)"
+        ></div>
+    </div>
+</div>
                                                 
                                                 <div v-if="block.data.showExpressions && block.data.expressions" class="relative break-inside-avoid">
                                                     <div class="text-center mb-6"><span class="bg-gradient-to-r from-blue-400 to-blue-500 text-white text-[20px] font-bold px-6 py-1.5 rounded-full shadow-sm border border-white">Useful Expressions</span></div>
@@ -1115,26 +1315,49 @@
                                             </div>
 
                                             <div v-else-if="block.type === 'writingCard'" class="px-2 w-full">
-                                                <div class="flex justify-center my-3 relative break-inside-avoid"><span class="bg-yellow-50 text-yellow-600 border-[1.5px] border-yellow-200 text-[18px] font-bold px-5 py-1.5 rounded-full shadow-sm transform rotate-1">{{ block.data.writingPrompt || 'Draw and write.' }}</span></div>
-                                                
-                                                <div v-if="block.data.drawImg || block.data.wordsBank || block.data.sentenceBank" class="flex gap-6 mt-4 border-[2px] border-dashed border-yellow-300 rounded-[1.5rem] p-5 bg-yellow-50/40 break-inside-avoid mb-6">
-                                                    <div v-if="block.data.drawImg" class="w-[180px] h-[240px] border border-slate-700 bg-white flex items-center justify-center flex-shrink-0 rounded-xl shadow-inner overflow-hidden"><img :src="block.data.drawImg" class="w-full h-full object-cover"></div>
-                                                    <div class="flex flex-col gap-4 flex-1 justify-center">
-                                                        <div v-if="block.data.wordsBank" class="text-sm">
-                                                            <span class="text-[17px] font-bold text-yellow-600 bg-yellow-100 px-2 py-0.5 rounded-lg mb-1.5 transform -rotate-1 inline-block border border-yellow-200 shadow-sm">Words bank:</span>
-                                                            <p class="text-[17px] leading-relaxed tracking-wide font-medium text-slate-700 mt-1" v-html="(block.data.wordsBank||'').replace(/[\n,，、]+/g, ' <span class=\'text-slate-300 mx-1\'>/</span> ')"></p>
-                                                        </div>
-                                                        <div v-if="block.data.sentenceBank" class="text-sm mt-2">
-                                                            <span class="text-[17px] font-bold text-yellow-600 bg-yellow-100 px-2 py-0.5 rounded-lg mb-1.5 transform -rotate-1 inline-block border border-yellow-200 shadow-sm">Useful sentences:</span>
-                                                            <div class="text-[17px] leading-relaxed tracking-wide font-medium text-slate-700 mt-1 space-y-1">
-                                                                <p v-for="(sentence, sIdx) in (block.data.sentenceBank||'').split('\n').filter(s=>s.trim())" :key="sIdx">· <span v-html="sentence.replace(/\*(.*?)\*/g, `<span class='bg-yellow-200 px-1 rounded'>$1</span>`)"></span></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="text-[18px] leading-[2.2] text-justify font-medium text-slate-800 px-2" v-html="parseBracketLines(block.data.writingScaffold, false, isAnswerMode).join('<br>')"></div>
-                                            </div>
+    <div class="flex justify-center my-3 relative break-inside-avoid">
+        <span class="bg-yellow-50 text-yellow-600 border-[1.5px] border-yellow-200 text-[18px] font-bold px-5 py-1.5 rounded-full shadow-sm transform rotate-1">
+            {{ block.data.writingPrompt || 'Draw and write.' }}
+        </span>
+    </div>
+    
+    <div v-if="block.data.drawImg || block.data.wordsBank || block.data.sentenceBank" class="flex gap-6 mt-4 border-[2px] border-dashed border-yellow-300 rounded-[1.5rem] p-5 bg-yellow-50/40 break-inside-avoid mb-6">
+        <div v-if="block.data.drawImg" class="w-[180px] h-[240px] border border-slate-700 bg-white flex items-center justify-center flex-shrink-0 rounded-xl shadow-inner overflow-hidden">
+            <img :src="block.data.drawImg" class="w-full h-full object-cover">
+        </div>
+
+        <div class="flex flex-col gap-4 flex-1 justify-center">
+            <div v-if="block.data.wordsBank" class="text-sm">
+                <span class="text-[17px] font-bold text-yellow-600 bg-yellow-100 px-2 py-0.5 rounded-lg mb-1.5 transform -rotate-1 inline-block border border-yellow-200 shadow-sm">
+                    Words bank:
+                </span>
+                <p class="text-[17px] leading-relaxed tracking-wide font-medium text-slate-700 mt-1" v-html="(block.data.wordsBank||'').replace(/[\n,，、]+/g, ' <span class=\'text-slate-300 mx-1\'>/</span> ')"></p>
+            </div>
+
+            <div v-if="block.data.sentenceBank" class="text-sm mt-2">
+                <span class="text-[17px] font-bold text-yellow-600 bg-yellow-100 px-2 py-0.5 rounded-lg mb-1.5 transform -rotate-1 inline-block border border-yellow-200 shadow-sm">
+                    Useful sentences:
+                </span>
+                <div class="text-[17px] leading-relaxed tracking-wide font-medium text-slate-700 mt-1 space-y-1">
+                    <p v-for="(sentence, sIdx) in (block.data.sentenceBank||'').split('\n').filter(s=>s.trim())" :key="sIdx">
+                        · <span v-html="sentence.replace(/\*(.*?)\*/g, `<span class='bg-yellow-200 px-1 rounded'>$1</span>`)"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div 
+        v-if="block.data.showOutputTitle && block.data.outputTitle" 
+        class="text-center mb-2 mt-2 break-inside-avoid text-[18px] leading-[2.2] font-medium text-slate-800 px-2"
+        v-html="parseBracketLines(block.data.outputTitle, false, isAnswerMode).join('<br>')"
+    ></div>
+
+    <div 
+        class="text-[18px] leading-[2.2] text-justify font-medium text-slate-800 px-2" 
+        v-html="parseBracketLines(block.data.writingScaffold, false, isAnswerMode).join('<br>')"
+    ></div>
+</div>
 
                                             <div v-else-if="block.type === 'altEnding'" class="break-inside-avoid px-2">
                                                 <div v-if="block.data.subTitle" class="text-center mb-5"><span class="inline-block bg-blue-400 text-white text-[18px] font-bold px-6 py-1.5 rounded-full shadow-md transform -rotate-2 border border-white">{{ block.data.subTitle }}</span></div>
@@ -1145,9 +1368,22 @@
                                             </div>
 
                                             <div v-else-if="block.type === 'speaking'" class="break-inside-avoid px-2 mt-4 w-full flex" :class="(!block.data.layout || block.data.layout === 'row') ? 'items-center gap-4' : 'flex-col items-center gap-6'">
-                                                <div v-if="block.data.img" :class="(!block.data.layout || block.data.layout === 'row') ? 'w-[35%] flex-shrink-0' : 'w-[65%] flex-shrink-0'">
-                                                    <img :src="block.data.img" class="w-full h-auto object-contain rounded-xl" :class="(!block.data.layout || block.data.layout === 'row') ? '' : 'shadow-sm border border-slate-200'">
-                                                </div>
+                                                <div 
+    v-if="block.data.img" 
+    class="flex-shrink-0 flex items-center justify-center"
+    :class="block.data.plan === '2' 
+        ? ((!block.data.layout || block.data.layout === 'row') ? 'w-[28%]' : 'w-[52%]') 
+        : ((!block.data.layout || block.data.layout === 'row') ? 'w-[35%]' : 'w-[65%]')"
+>
+    <img 
+        :src="block.data.img" 
+        class="object-contain rounded-xl"
+        :class="[
+            block.data.plan === '2' ? 'w-[200px] h-[200px]' : 'w-full h-auto',
+            (!block.data.layout || block.data.layout === 'row') ? '' : 'shadow-sm border border-slate-200'
+        ]"
+    >
+</div>
                                                 
                                                 <div class="w-full" :class="(!block.data.layout || block.data.layout === 'row') ? 'flex-1' : 'px-8'">
                                                     <div v-if="block.data.plan === '1'" class="border-[2px] border-dashed border-emerald-300 rounded-[1.5rem] p-8 text-center shadow-sm bg-emerald-50/40">
@@ -1156,16 +1392,18 @@
                                                     </div>
 
                                                     <div v-if="block.data.plan === '2'" class="bg-gradient-to-br from-emerald-50 to-white border border-emerald-200 rounded-2xl p-8 shadow-sm">
-                                                        <div class="space-y-6">
-                                                            <div v-for="(item, index) in block.data.qna.split('\n').filter(l=>l.trim())" :key="index" class="flex flex-col text-[18px]">
-                                                                <div class="flex items-center gap-4 text-slate-700 font-bold mb-2">
-                                                                    <span class="bg-emerald-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-[17px] flex-shrink-0 shadow-sm">{{ index + 1 }}</span>
-                                                                    <span>{{ item.split('|')[0] }}</span>
-                                                                </div>
-                                                                <div class="pl-12 font-bold text-slate-700" v-html="parseSpeakingBlank(item.split('|')[1], isAnswerMode)"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+    <div class="space-y-6">
+        <div v-for="(item, index) in block.data.qna.split('\n').filter(l=>l.trim())" :key="index" class="flex flex-col text-[18px]">
+            <div class="flex items-center gap-4 text-slate-700 font-bold mb-2">
+                <span class="bg-emerald-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-[17px] flex-shrink-0 shadow-sm">
+                    {{ index + 1 }}
+                </span>
+                <span v-html="parseSpeakingBlank(item.split('|')[0], isAnswerMode)"></span>
+            </div>
+            <div class="pl-12 font-bold text-slate-700" v-html="parseSpeakingBlank(item.split('|')[1], isAnswerMode)"></div>
+        </div>
+    </div>
+</div>
 
                                                     <div v-if="block.data.plan === '3'" class="flex flex-col items-center py-4 bg-emerald-50/40 border border-emerald-200 rounded-2xl">
                                                         <div class="flex gap-3 flex-wrap justify-center w-full px-4">
@@ -1524,15 +1762,15 @@
                     else if (['oddOneOut'].includes(type)) { data = { bulkInput: '', items: [{isEg: false, text: '[C] | cat / dog / apple / pig'}] }; }
                     else if (['wordForm'].includes(type)) { data = { bulkInput: '', items: [{isEg: false, text: 'Yesterday, I [played](play) football.'}] }; }
                     else if (['reorder'].includes(type)) { data = { bulkInput: '', bulkAns: '', items: [{isEg: false, scrambled: "my, Where's, bag?", ans: "Where's my bag?"}] }; }
-                    else if (['storyComic'].includes(type)) { data = { bulkInput: '', items: [{img: '', questions: [{isEg: false, q: 'Are they sleeping?', a: 'No, they aren\'t.'}]}] }; }
+                    else if (['storyComic'].includes(type)) { data = { comicImgShape: 'square', bulkInput: '', items: [{img: '', questions: [{isEg: false, q: 'Are they sleeping?', a: 'No, they aren\'t.'}]}] }; }
                     else if (['lookWriteAnswer'].includes(type)) { data = { img: '', bulkInput: '', bulkAns: '', items: [{isEg: false, hint: 'girl / read?', q: 'Is she reading?', a: 'Yes, she is.'}] }; }
                     else if (['factFile'].includes(type)) { data = { items: [{img: '', title: 'Penguin', rows: [{isEg: false, key: 'Type', val: '[bird]'}]}] }; }
                     else if (['lifeCycle'].includes(type)) { data = { items: [{isEg: false, img: '', text: 'egg'}, {isEg: false, img: '', text: '[tadpole]'}, {isEg: false, img: '', text: 'frog'}] }; }
-                    else if (['listenFill', 'listenComp', 'chooseComplete', 'storyRetell'].includes(type)) { data = { keywords: type==='listenFill'?'mountain':type==='chooseComplete'?'do / eat':'', hasEg: true, img: '', text: type==='storyRetell'?'First, they are in the [garden].':type==='chooseComplete'?'I [eat] an apple.':'Narrator: Grandpa is outside.\nJenny: Look at the mountain!' }; }
+                    else if (['listenFill', 'listenComp', 'chooseComplete', 'storyRetell'].includes(type)) { data = { keywords: type==='listenFill'?'mountain':type==='chooseComplete'?'do / eat':'', hasEg: true, img: '', ...(type==='storyRetell'?{retellImgMode:'single', retellImgs:['', '', '', '', '', '']}:{}), text: type==='storyRetell'?'First, they are in the [garden].':type==='chooseComplete'?'I [eat] an apple.':'Narrator: Grandpa is outside.\nJenny: Look at the mountain!' }; }
                     else if (['grammarFocus'].includes(type)) { data = { ruleImg: '', practiceImg: '', enableExtra: false, textImg: '', practiceText: '1. Where #are# the bag*s*?\nThey\'re @next to@ the desk.' }; }
-                    else if (['literature'].includes(type)) { data = { subTitle: 'The first day', showCharacters: true, characters: [{name:'Max',imgUrl:''}], showGrammar: true, grammar: [{imgUrl:'',text:"*Where's* my bag?"}], showExpressions: true, expressions: "Take... to school." }; }
+                    else if (['literature'].includes(type)) { data = { subTitle: 'The first day', showCharacters: true, characters: [{name:'Max',imgUrl:''}], showGrammar: true, grammarBulkInput: '', grammar: [{imgUrl:'',text:"*Where's* my bag?"}], showExpressions: true, expressions: "Take... to school." }; }
                     else if (['trueFalse'].includes(type)) { data = { bulkInput: '', bulkAns: '', items: [{isEg: false, q: 'Max is happy.', a: 'T'}] }; }
-                    else if (['writingCard'].includes(type)) { data = { drawImg: '', wordsBank: 'bag / book', sentenceBank: 'I have a *bag*.\nIt is *red*.', writingPrompt: 'Draw your story and write.', writingScaffold: 'I have a [bag].' }; }
+                    else if (['writingCard'].includes(type)) { data = { drawImg: '', wordsBank: 'bag / book', sentenceBank: 'I have a *bag*.\nIt is *red*.', writingPrompt: 'Draw your story and write.', showOutputTitle: false, outputTitle: 'My Writing', writingScaffold: 'I have a [bag].' }; }
                     else if (['clilRead'].includes(type)) { data = { layout: 'A', title: 'Our planet Earth', img: '', wordBankA: 'oxygen / Earth', passageA: 'There is [oxygen] on Earth.', wordBankB: 'grow plants\nEarth', passageB: 'This is planet [B]. You can [A].', enableChoice: true, itemsChoice: [{isEg:false, text:'Idea? | A. Earth | B. Mars | A'}], enableUnscramble: false, itemsUnscramble: [], enableBlank: true, itemsBlank: [{isEg:false, q:'What is it?', a:'[Earth]'}] }; }
                     else if (['orderStory'].includes(type)) { data = { bulkInput: '', bulkAns: '', items: [{isEg: false, img: '', ans: '3', text: 'He went to school.'}] }; }
                     else if (['correctMistakes'].includes(type)) { data = { bulkInput: '', bulkAns: '', items: [{isEg: false, q: 'I [has] an apple.', a: 'have'}] }; }
@@ -1584,7 +1822,31 @@ else if(t==='phonicsFocus') arr.push({sound:'', words:'', tip:''});
 else if(t==='keyWords') arr.push({isEg: false, img:'', word:''});
                     else arr.push({...b, img:'', text:''});
                 };
-                
+                const generateLiteratureGrammar = (block) => {
+    if (!block.data.grammarBulkInput) return;
+
+    const oldGrammar = block.data.grammar || [];
+
+    const lines = block.data.grammarBulkInput
+        .split('\n')
+        .map(l => l.trim())
+        .filter(l => l);
+
+    block.data.grammar = lines.map((line, idx) => {
+        const text = line
+            .split('//')
+            .map(s => s.trim())
+            .filter(s => s)
+            .join('\n');
+
+        return {
+            imgUrl: oldGrammar[idx]?.imgUrl || '',
+            text
+        };
+    });
+
+    block.data.grammarBulkInput = '';
+};
                                 const generateBulkItems = (block) => {
                     if(!block.data.bulkInput && !block.data.bulkAns) return;
 
@@ -1717,19 +1979,28 @@ else if(t==='keyWords') arr.push({isEg: false, img:'', word:''});
                 const getParsedBranches = (str) => { if (!str) return []; return str.split('\n').filter(l=>l.trim()).map(line => { let p = line.split('|'); return { label: p[0]?p[0].trim():'', val: p[1]?p[1].trim():'' }; }); };
 
                 const parseBracketLines = (t, hEg=false, isAns) => {
-                    if (!t) return [];
-                    let c = 1;
-                    return t.split('\n').filter(l=>l).map(l => l.replace(/\[(.*?)\]/g, (m, p) => {
-                        let isE = (hEg && c === 1);
-                        c++;
-                        if (isAns || isE) {
-                            let cls = (isE && !isAns) ? 'text-slate-500 font-bold px-1' : 'text-rose-600 font-bold px-1';
-                            return `<u class="${cls}">${p}</u>`;
-                        } else {
-                            return `______________`; 
-                        }
-                    }));
-                };
+    if (!t) return [];
+    let c = 1;
+
+    return t.split('\n').filter(l=>l).map(l => l.replace(/\[(.*?)\]/g, (m, raw) => {
+        let isE = (hEg && c === 1);
+        c++;
+
+        let parts = String(raw || '').split('|');
+        let p = (parts[0] || '').trim();
+        let n = parseInt((parts[1] || '').trim(), 10);
+
+        if (!n || n < 4) n = 18;
+        if (n > 120) n = 120;
+
+        if (isAns || isE) {
+            let cls = (isE && !isAns) ? 'text-slate-500 font-bold px-1' : 'text-rose-600 font-bold px-1';
+            return `<u class="${cls}">${p}</u>`;
+        } else {
+            return `<span class="tracking-[0.02em] whitespace-nowrap">${'_'.repeat(n)}</span>`;
+        }
+    }));
+};
                 
                 const replaceKw = (t, k, clr, hEg, isAns) => {
                     if(!t) return ''; 
@@ -1867,7 +2138,7 @@ else if(t==='keyWords') arr.push({isEg: false, img:'', word:''});
                     themes, isAnswerMode, questionTypes, globalData, blocks, addBlock, removeBlock, moveBlock, moveSubItem, addItem, quickTags, insertTransformTag, applyUnderline, generateBulkItems,
                     getSecName, getSecZhName, getSecBg, getSecColor, getOptColor, getCatColor, hasItemImages, getIndexStr, getComicQIndex, parseCorrectMistake,
                     parsePipe, parseBasicBlank, parseBracketLines, replaceKw, pMc, pTransform, pOdd, parseWordForm, parseCircleWord, parseGrammarColor,
-                    getParsedMissing, getShuffledMatch, getMatchAns, pClilPassageA, pClilPassageB, pClilChoice, parseSpeakingBlank, getParsedBranches,
+getParsedMissing, getShuffledMatch, getMatchAns, pClilPassageA, pClilPassageB, pClilChoice, parseSpeakingBlank, getParsedBranches, generateLiteratureGrammar,
                     compressAndUpload, handleLogoUpload, saveLocal, restoreLocal, exportToFile, triggerImport, importFromFile, printPdf, onDragStart, onDrop, onDragEnd, dragEnabledIndex
                 };
             }

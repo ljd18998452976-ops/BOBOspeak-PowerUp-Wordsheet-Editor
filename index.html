@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -510,20 +511,20 @@
                         </div>
                         <div v-if="block.data.showCharacters" class="bg-white p-3 rounded-md border space-y-2"><h3 class="text-xs font-bold text-blue-800">Main Characters</h3><div v-for="(char, idx) in block.data.characters" :key="idx" class="flex gap-2 items-center bg-slate-50 p-1.5 rounded border"><input v-model="char.name" class="w-24 border-b bg-transparent text-sm font-bold" placeholder="名字"><input type="file" accept="image/*" class="w-24 text-[10px]" @change="compressAndUpload($event, char, 'imgUrl')"><div v-if="char.imgUrl" class="relative inline-block"><img :src="char.imgUrl" class="w-8 h-8 rounded-full border"><div @click.stop="char.imgUrl=''" class="btn-del-img" style="width:12px; height:12px; font-size:8px; top:-2px; right:-2px;">×</div></div><button @click="block.data.characters.splice(idx,1)" class="text-red-400 ml-auto px-2">✕</button></div><button @click="block.data.characters.push({name:'',imgUrl:''})" class="text-xs text-blue-600 font-bold w-full border border-dashed rounded py-1">+ 添加主角</button></div>
                         <div v-if="block.data.showGrammar" class="bg-white p-3 rounded-md border space-y-3">
-    <h3 class="text-xs font-bold text-blue-800">Grammar Focus (*浅黄高亮*)</h3>
+    <h3 class="text-xs font-bold text-blue-800">Grammar Focus (==浅黄高亮==)</h3>
 
     <div class="bg-blue-50/60 p-3 rounded-lg border border-blue-100 space-y-2">
         <label class="text-xs font-bold text-blue-700">
             批量导入 Grammar Focus
         </label>
         <div class="text-[10px] text-slate-500 leading-snug">
-            每一行匹配一张图片；同图多句子用 // 隔开。例：*Where's* my bag? // It's under the desk.
+            每一行匹配一张图片；同图多句子用 // 隔开。例：==Where's== my bag? // It's under the desk.
         </div>
         <textarea 
             v-model="block.data.grammarBulkInput" 
             rows="4" 
             class="w-full border border-blue-200 rounded px-3 py-2 text-sm outline-none focus:border-blue-400"
-            placeholder="*Where's* my bag? // It's under the desk.&#10;I *am* happy. // He *is* sad.&#10;Can you help me? // Yes, I can."
+           placeholder="==Where's== my bag? // It's under the desk.&#10;I ==am== happy. // He ==is== sad.&#10;Can you help me? // Yes, I can."
         ></textarea>
         <div class="flex gap-2 justify-end">
             <button 
@@ -1275,7 +1276,7 @@
                                                 </div>
                                             </div>
 
-                                            <div v-else-if="block.type === 'literature'" class="relative space-y-8 mt-2 break-inside-avoid-page">
+                                            <div v-else-if="block.type === 'literature'" class="relative space-y-4 mt-1">
                                                 <div v-if="block.data.subTitle" class="text-center mb-8"><span class="inline-block bg-blue-400 text-white text-[22px] font-bold px-8 py-2 rounded-full shadow-md transform -rotate-2 border border-white">{{ block.data.subTitle }}</span></div>
                                                 
                                                 <div v-if="block.data.showCharacters && block.data.characters.length>0" class="border-[2px] border-blue-400 rounded-3xl pt-5 pb-4 px-10 relative bg-blue-50/40 shadow-sm break-inside-avoid mx-auto w-max min-w-[280px]">
@@ -1288,27 +1289,27 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <div v-if="block.data.showGrammar && block.data.grammar.length>0" class="flex flex-wrap justify-center gap-5 break-inside-avoid">
+                                                <div v-if="block.data.showGrammar && block.data.grammar.length>0" class="flex flex-wrap justify-center gap-3">
     <div 
         v-for="(gram, idx) in block.data.grammar" 
         :key="idx" 
-        class="w-[31%] min-w-[165px] bg-white border-[2px] border-slate-200 shadow-sm rounded-2xl p-4 flex flex-col items-center justify-center min-h-[120px] relative"
+        class="w-[31%] min-w-[165px] bg-white border-[2px] border-slate-200 shadow-sm rounded-xl p-3 flex flex-col items-center justify-center min-h-[100px] relative break-inside-avoid"
     >
         <img 
             v-if="gram.imgUrl" 
             :src="gram.imgUrl" 
-            class="max-h-20 mb-3 rounded-lg"
+            class="max-h-16 mb-2 rounded-lg"
         >
         <div 
             class="text-[17px] text-center leading-snug font-bold text-slate-800" 
-            v-html="parseGrammarColor(gram.text)"
+            v-html="parseLitGrammarHighlight(gram.text)"
         ></div>
     </div>
 </div>
                                                 
-                                                <div v-if="block.data.showExpressions && block.data.expressions" class="relative break-inside-avoid">
-                                                    <div class="text-center mb-6"><span class="bg-gradient-to-r from-blue-400 to-blue-500 text-white text-[20px] font-bold px-6 py-1.5 rounded-full shadow-sm border border-white">Useful Expressions</span></div>
-                                                    <div class="flex flex-wrap justify-center gap-6 px-2">
+                                                <div v-if="block.data.showExpressions && block.data.expressions" class="relative">
+                                                    <div class="text-center mb-3"><span class="bg-gradient-to-r from-blue-400 to-blue-500 text-white text-[18px] font-bold px-5 py-1 rounded-full shadow-sm border border-white">Useful Expressions</span></div>
+                                                    <div class="flex flex-wrap justify-center gap-3 px-1">
                                                         <div v-for="(expr, idx) in block.data.expressions.split('\n').filter(e=>e)" :key="idx" class="cute-bubble text-[18px]">{{ expr }}</div>
                                                     </div>
                                                 </div>
@@ -1768,7 +1769,7 @@
                     else if (['lifeCycle'].includes(type)) { data = { items: [{isEg: false, img: '', text: 'egg'}, {isEg: false, img: '', text: '[tadpole]'}, {isEg: false, img: '', text: 'frog'}] }; }
                     else if (['listenFill', 'listenComp', 'chooseComplete', 'storyRetell'].includes(type)) { data = { keywords: type==='listenFill'?'mountain':type==='chooseComplete'?'do / eat':'', hasEg: true, img: '', ...(type==='storyRetell'?{retellImgMode:'single', retellImgs:['', '', '', '', '', '']}:{}), text: type==='storyRetell'?'First, they are in the [garden].':type==='chooseComplete'?'I [eat] an apple.':'Narrator: Grandpa is outside.\nJenny: Look at the mountain!' }; }
                     else if (['grammarFocus'].includes(type)) { data = { ruleImg: '', practiceImg: '', enableExtra: false, textImg: '', practiceText: '1. Where #are# the bag*s*?\nThey\'re @next to@ the desk.' }; }
-                    else if (['literature'].includes(type)) { data = { subTitle: 'The first day', showCharacters: true, characters: [{name:'Max',imgUrl:''}], showGrammar: true, grammarBulkInput: '', grammar: [{imgUrl:'',text:"*Where's* my bag?"}], showExpressions: true, expressions: "Take... to school." }; }
+                    else if (['literature'].includes(type)) { data = { subTitle: 'The first day', showCharacters: true, characters: [{name:'Max',imgUrl:''}], showGrammar: true, grammarBulkInput: '', grammar: [{imgUrl:'',text:"==Where's== my bag?"}], showExpressions: true, expressions: "Take... to school." }; }
                     else if (['trueFalse'].includes(type)) { data = { bulkInput: '', bulkAns: '', items: [{isEg: false, q: 'Max is happy.', a: 'T'}] }; }
                     else if (['writingCard'].includes(type)) { data = { drawImg: '', wordsBank: 'bag / book', sentenceBank: 'I have a *bag*.\nIt is *red*.', writingPrompt: 'Draw your story and write.', showOutputTitle: false, outputTitle: 'My Writing', writingScaffold: 'I have a [bag].' }; }
                     else if (['clilRead'].includes(type)) { data = { layout: 'A', title: 'Our planet Earth', img: '', wordBankA: 'oxygen / Earth', passageA: 'There is [oxygen] on Earth.', wordBankB: 'grow plants\nEarth', passageB: 'This is planet [B]. You can [A].', enableChoice: true, itemsChoice: [{isEg:false, text:'Idea? | A. Earth | B. Mars | A'}], enableUnscramble: false, itemsUnscramble: [], enableBlank: true, itemsBlank: [{isEg:false, q:'What is it?', a:'[Earth]'}] }; }
@@ -2068,6 +2069,9 @@ else if(t==='keyWords') arr.push({isEg: false, img:'', word:''});
                 });
                 
                 const parseGrammarColor = (t) => t?t.replace(/#(.*?)#/g,'<span class="text-emerald-600 font-black">$1</span>').replace(/\*(.*?)\*/g,'<span class="text-rose-600 font-black">$1</span>').replace(/@(.*?)@/g,'<span class="text-blue-600 font-black">$1</span>').replace(/\^(.*?)\^/g,'<span class="text-orange-500 font-black">$1</span>').replace(/~(.*?)~/g,'<span class="text-purple-500 font-black">$1</span>').replace(/\n/g,'<br>'):'';
+const parseLitGrammarHighlight = (t) => t
+    ? t.replace(/==(.*?)==/g, '<span class="bg-yellow-200 px-1 rounded">$1</span>').replace(/\n/g, '<br>')
+    : '';
                 
                 const getParsedMissing = (block) => block.data.items.map(item => { if(!item.word)return{img:item.img, parts:[], isEg:item.isEg}; let parts=[]; if(item.word.includes('[')){let regex=/\[(.*?)\]|([^\[\]]+)/g;let match;while((match=regex.exec(item.word))!==null){if(match[1])match[1].split('').forEach(c=>parts.push({char:c,isGap:true}));else if(match[2])match[2].split('').forEach(c=>parts.push({char:c,isGap:false}));}}else{const wordLow=item.word.toLowerCase();let isGap=new Array(item.word.length).fill(false);if(!item.target){const vowels=new Set(['a','e','i','o','u']);for(let i=0;i<item.word.length;i++)if(vowels.has(wordLow[i]))isGap[i]=true;}else{item.target.split(/[\/／,，、]+/).map(s=>s.trim().toLowerCase()).filter(s=>s).forEach(t=>{let idx=wordLow.indexOf(t);while(idx!==-1){for(let i=0;i<t.length;i++)isGap[idx+i]=true;idx=wordLow.indexOf(t,idx+1);}});}parts=item.word.split('').map((c,i)=>({char:c,isGap:isGap[i]}));} return {img:item.img, parts, isEg:item.isEg}; });
                 const getShuffledMatch = (block) => { let w=block.data.items.map(i=>i.word).filter(x=>x); let n=w.length; if(n<=1)return w; let s=0, str=(block.id||'')+w.join(''); for(let i=0;i<str.length;i++) s=Math.imul(31,s)+str.charCodeAt(i)|0; let rand=()=>{s=Math.imul(s,1664525)+1013904223|0; return (s>>>0)/4294967296;}; let r=[...w], ok=false, tries=0; while(!ok && tries<50){ for(let i=n-1;i>0;i--){let j=Math.floor(rand()*(i+1)); [r[i],r[j]]=[r[j],r[i]];} ok=true; for(let i=0;i<n;i++)if(r[i]===w[i]){ok=false;break;} tries++; } if(!ok){ r=[...w]; let shift = Math.floor(rand()*(n-1))+1; r=r.slice(shift).concat(r.slice(0,shift)); } return r; };
@@ -2137,7 +2141,7 @@ else if(t==='keyWords') arr.push({isEg: false, img:'', word:''});
                 return {
                     themes, isAnswerMode, questionTypes, globalData, blocks, addBlock, removeBlock, moveBlock, moveSubItem, addItem, quickTags, insertTransformTag, applyUnderline, generateBulkItems,
                     getSecName, getSecZhName, getSecBg, getSecColor, getOptColor, getCatColor, hasItemImages, getIndexStr, getComicQIndex, parseCorrectMistake,
-                    parsePipe, parseBasicBlank, parseBracketLines, replaceKw, pMc, pTransform, pOdd, parseWordForm, parseCircleWord, parseGrammarColor,
+                    parsePipe, parseBasicBlank, parseBracketLines, replaceKw, pMc, pTransform, pOdd, parseWordForm, parseCircleWord, parseGrammarColor, parseLitGrammarHighlight,
 getParsedMissing, getShuffledMatch, getMatchAns, pClilPassageA, pClilPassageB, pClilChoice, parseSpeakingBlank, getParsedBranches, generateLiteratureGrammar,
                     compressAndUpload, handleLogoUpload, saveLocal, restoreLocal, exportToFile, triggerImport, importFromFile, printPdf, onDragStart, onDrop, onDragEnd, dragEnabledIndex
                 };

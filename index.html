@@ -60,6 +60,10 @@
             
             /* 消灭幽灵空白页的终极魔法指令 */
             .hengshui-font > div:last-child { margin-bottom: 0 !important; padding-bottom: 0 !important; page-break-after: avoid !important; }
+.story-comic-print-item {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+}
         }
         
         .toggle-checkbox:checked { right: 0; border-color: #10b981; }
@@ -81,6 +85,58 @@
         }
         .cute-bubble::after { content: ''; position: absolute; bottom: -8px; left: 24px; border-width: 8px 8px 0; border-style: solid; border-color: #fcd34d transparent transparent transparent; }
         .cute-bubble::before { content: ''; position: absolute; bottom: -5px; left: 25px; border-width: 6px 6px 0; border-style: solid; border-color: #fffbeb transparent transparent transparent; z-index: 1; }
+/* ===== Story Comic 智能分页布局 ===== */
+.story-comic-flow-item {
+    break-inside: auto;
+    page-break-inside: auto;
+}
+
+.story-comic-flow-img {
+    float: left;
+    margin-right: 18px;
+    margin-bottom: 8px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.story-comic-flow-img.square {
+    width: 30%;
+    min-width: 165px;
+    max-width: 220px;
+}
+
+.story-comic-flow-img.circle {
+    width: 24%;
+    min-width: 165px;
+    max-width: 190px;
+}
+
+.story-comic-flow-q {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 14px;
+}
+
+.story-comic-flow-clear {
+    clear: both;
+}
+
+@media print {
+    .story-comic-flow-item {
+        break-inside: auto !important;
+        page-break-inside: auto !important;
+    }
+
+    .story-comic-flow-img {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+    }
+
+    .story-comic-flow-q {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+    }
+}
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 h-screen overflow-hidden font-sans">
@@ -142,6 +198,7 @@
                         <button v-for="t in questionTypes" :key="t.id" @click="addBlock(t.id)" class="px-2 py-1.5 bg-slate-700 border border-slate-600 hover:bg-blue-600 hover:border-blue-500 rounded text-[11px] font-bold flex items-center justify-between w-[32%] transition-colors">
                             <span class="text-white">{{ t.name }}</span><span class="text-slate-400 text-[10px] ml-1 truncate">{{ t.zhName }}</span>
                         </button>
+
                     </div>
                 </div>
             </div>
@@ -237,11 +294,48 @@
     <button @click="generateBulkItems(block)" class="bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-1.5 rounded text-sm font-bold shadow-sm transition self-end">一键生成 / 导入</button>
 </div>
 
-                    <div v-if="['wordForm', 'oddOneOut', 'circle', 'transform'].includes(block.type)" class="flex gap-2 mb-3 bg-blue-50/50 p-3 rounded-lg border border-blue-100 flex-col">
-                        <label class="text-xs font-bold text-blue-700">懒人操作：单行批量生成</label>
-                        <textarea v-model="block.data.bulkInput" placeholder="通过回车换行分题，格式如: 题目 | 答案 (若需)" class="w-full border border-blue-200 rounded px-3 py-2 text-sm outline-none focus:border-blue-400" rows="2"></textarea>
-                        <button @click="generateBulkItems(block)" class="bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-1.5 rounded text-sm font-bold shadow-sm transition self-end">一键生成</button>
-                    </div>
+                    <div v-if="['wordForm', 'oddOneOut', 'circle', 'transform', 'missing'].includes(block.type)" class="flex gap-2 mb-3 bg-blue-50/50 p-3 rounded-lg border border-blue-100 flex-col">
+    <label class="text-xs font-bold text-blue-700">
+        {{ block.type === 'missing' ? '懒人操作：缺漏填空一键生成' : '懒人操作：单行批量生成' }}
+    </label>
+
+    <div 
+        v-if="block.type === 'missing'" 
+        class="text-[10px] text-slate-500 leading-snug"
+    >
+        每行一题，格式：完整单词 | 挖空部分。例：tractor | a / or
+    </div>
+
+    <div 
+        v-if="block.type === 'missing'" 
+        class="flex items-center gap-2 bg-white/70 border border-blue-100 rounded px-2 py-1"
+    >
+        <span class="text-xs font-bold text-blue-700">每行显示：</span>
+
+        <select 
+            v-model.number="block.data.cols" 
+            class="border rounded px-2 py-1 text-xs bg-white outline-none"
+        >
+            <option :value="2">2 个</option>
+            <option :value="3">3 个</option>
+            <option :value="4">4 个</option>
+            <option :value="5">5 个</option>
+            <option :value="6">6 个</option>
+            <option :value="8">8 个</option>
+        </select>
+    </div>
+
+    <textarea 
+        v-model="block.data.bulkInput" 
+        placeholder="tractor | a / or&#10;morning | o / i&#10;cloudy | ou / y"
+        class="w-full border border-blue-200 rounded px-3 py-2 text-sm outline-none focus:border-blue-400" 
+        rows="3"
+    ></textarea>
+
+    <button @click="generateBulkItems(block)" class="bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-1.5 rounded text-sm font-bold shadow-sm transition self-end">
+        一键生成
+    </button>
+</div>
 
                     <div v-if="['wordSorting', 'phonicsSorting'].includes(block.type)" class="flex gap-2 mb-3 bg-pink-50/50 p-3 rounded-lg border border-pink-200 flex-col">
                         <div class="flex justify-between items-center">
@@ -452,7 +546,326 @@
                         <button @click="addItem(block)" class="text-sm text-blue-600 font-bold w-full py-2 border border-dashed rounded">+ 添加一道题 (Item)</button>
                     </div>
 
-                    <div v-else-if="'text' in block.data && !('items' in block.data) && block.type !== 'grammarFocus'" class="space-y-3">
+<!-- Look, read and number the pictures - 版式1：上文 + 图片编号 + 题目 + 答案 -->
+<div v-else-if="block.type === 'lookReadNumber1'" class="space-y-4 bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+
+    <div class="bg-white/70 border border-yellow-200 rounded-lg p-3 space-y-2">
+        <label class="text-xs font-bold text-yellow-700">上文文本</label>
+        <textarea
+            v-model="block.data.text"
+            rows="4"
+            class="w-full border border-yellow-200 rounded px-3 py-2 text-sm outline-none focus:border-yellow-400"
+            placeholder="输入上文内容..."
+        ></textarea>
+    </div>
+
+    <div class="bg-white/70 border border-yellow-200 rounded-lg p-3 space-y-2">
+        <label class="text-xs font-bold text-yellow-700">一键生成题目：每行格式：题目 | 答案数字</label>
+        <textarea
+            v-model="block.data.bulkInput"
+            rows="4"
+            class="w-full border border-yellow-200 rounded px-3 py-2 text-sm outline-none focus:border-yellow-400"
+            placeholder="The boy is eating an apple. | 1&#10;The girl is reading a book. | 2"
+        ></textarea>
+
+        <button
+            @click="generateBulkItems(block)"
+            class="bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-1.5 rounded text-sm font-bold shadow-sm transition"
+        >
+            一键生成题目
+        </button>
+    </div>
+
+    <div class="bg-white/70 border border-yellow-200 rounded-lg p-3 space-y-3">
+        <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-yellow-700">图片模块：可增减图片，圆圈位置用百分比控制</label>
+            <button
+                @click="block.data.images.push({src:'', circles:[]})"
+                class="text-xs font-bold text-yellow-700 border border-yellow-300 bg-yellow-50 px-3 py-1 rounded"
+            >
+                + 添加图片
+            </button>
+        </div>
+
+        <div
+            v-for="(img, idx) in block.data.images"
+            :key="idx"
+            class="relative bg-white border border-dashed border-slate-300 rounded-lg p-3 space-y-2"
+        >
+            <button
+                @click="block.data.images.splice(idx, 1)"
+                class="absolute -top-2 -right-2 text-rose-500 bg-rose-100 rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-rose-500 hover:text-white transition shadow-sm font-bold"
+            >
+                ✕
+            </button>
+
+            <input
+                type="file"
+                accept="image/*"
+                class="w-full text-xs"
+                @change="compressAndUpload($event, img, 'src')"
+            >
+
+            <div v-if="img.src" class="relative mt-2 border rounded bg-white w-40 aspect-square overflow-hidden flex items-center justify-center">
+                <img :src="img.src" class="w-full h-full object-contain rounded">
+
+                <div
+                    v-for="(circle, cIdx) in img.circles"
+                    :key="cIdx"
+                    class="absolute bg-white border-2 border-red-500 rounded-full text-xs font-bold flex items-center justify-center shadow"
+                    :style="{
+                        left: circle.x + '%',
+                        top: circle.y + '%',
+                        width: '26px',
+                        height: '26px',
+                        transform: 'translate(-50%, -50%)'
+                    }"
+                >
+                    {{ circle.number }}
+                </div>
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 items-end">
+                <div>
+                    <label class="text-[10px] text-slate-500">圆圈数字</label>
+                    <input v-model="img.newNumber" class="w-full border rounded px-2 py-1 text-xs" placeholder="1">
+                </div>
+                <div>
+                    <label class="text-[10px] text-slate-500">横向 x%</label>
+                    <input v-model.number="img.newX" type="number" class="w-full border rounded px-2 py-1 text-xs" placeholder="50">
+                </div>
+                <div>
+                    <label class="text-[10px] text-slate-500">纵向 y%</label>
+                    <input v-model.number="img.newY" type="number" class="w-full border rounded px-2 py-1 text-xs" placeholder="50">
+                </div>
+                <button
+                    @click="img.circles.push({number: img.newNumber || String((img.circles || []).length + 1), x: img.newX || 50, y: img.newY || 50})"
+                    class="px-2 py-1 bg-red-500 text-white rounded text-xs font-bold"
+                >
+                    添加圆圈
+                </button>
+            </div>
+
+            <div v-if="img.circles && img.circles.length" class="flex flex-wrap gap-2 pt-1">
+                <button
+                    v-for="(circle, cIdx) in img.circles"
+                    :key="'del-circle-' + cIdx"
+                    @click="img.circles.splice(cIdx, 1)"
+                    class="text-[10px] bg-rose-50 text-rose-500 border border-rose-100 rounded px-2 py-1"
+                >
+                    删除圆圈 {{ circle.number }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white/70 border border-yellow-200 rounded-lg p-3 space-y-2">
+        <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-yellow-700">题目与答案区</label>
+            <button
+                @click="block.data.questions.push({isEg:false, q:'', a:''})"
+                class="text-xs font-bold text-yellow-700 border border-yellow-300 bg-yellow-50 px-3 py-1 rounded"
+            >
+                + 添加题目
+            </button>
+        </div>
+
+        <div
+            v-for="(q, qIdx) in block.data.questions"
+            :key="qIdx"
+            class="flex gap-2 items-center bg-white p-2 rounded border"
+        >
+            <input type="checkbox" v-model="q.isEg" class="w-4 h-4 text-emerald-500 rounded">
+            <input v-model="q.q" class="flex-1 border-b outline-none text-sm" placeholder="题目">
+            <input v-model="q.a" class="w-24 border-b outline-none text-sm text-rose-600" placeholder="答案数字">
+            <button @click="block.data.questions.splice(qIdx,1)" class="text-rose-400 hover:text-rose-600 px-2">✕</button>
+        </div>
+    </div>
+</div>
+
+<!-- Look, read and number the pictures - 版式2：上文 + 图片 + 关键词挖空 + 问答 -->
+<div v-else-if="block.type === 'lookReadNumber2'" class="space-y-4 bg-green-50 p-4 rounded-lg border border-green-200">
+
+    <div class="bg-white/70 border border-green-200 rounded-lg p-3 flex flex-wrap gap-4 items-center">
+        <span class="text-xs font-bold text-green-700">题型版式：</span>
+
+        <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600">
+            <input
+                type="radio"
+                value="blank"
+                v-model="block.data.questionLayout"
+                class="w-3.5 h-3.5 text-green-500"
+            >
+            右侧填空题（无下方问答）
+        </label>
+
+        <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600">
+            <input
+                type="radio"
+                value="qa"
+                v-model="block.data.questionLayout"
+                class="w-3.5 h-3.5 text-green-500"
+            >
+            下方问答题
+        </label>
+    </div>
+
+    <div class="bg-white/70 border border-green-200 rounded-lg p-3 flex flex-wrap gap-4 items-center">
+        <span class="text-xs font-bold text-green-700">图片版式：</span>
+
+        <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600">
+            <input
+                type="radio"
+                value="leftText"
+                v-model="block.data.imgLayout"
+                class="w-3.5 h-3.5 text-green-500"
+            >
+            左图右文
+        </label>
+
+        <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600">
+            <input
+                type="radio"
+                value="topText"
+                v-model="block.data.imgLayout"
+                class="w-3.5 h-3.5 text-green-500"
+            >
+            上图下文
+        </label>
+    </div>
+
+    <div class="bg-white/70 border border-green-200 rounded-lg p-3 space-y-2">
+        <label class="text-xs font-bold text-green-700">上文文本</label>
+        <textarea
+            v-model="block.data.text"
+            rows="5"
+            class="w-full border border-green-200 rounded px-3 py-2 text-sm outline-none focus:border-green-400"
+            placeholder="输入上文..."
+        ></textarea>
+    </div>
+
+    <div class="bg-white/70 border border-green-200 rounded-lg p-3 space-y-3">
+        <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-green-700">图片模块：支持添加多张图片</label>
+            <button
+                @click="block.data.images.push({src:''})"
+                class="text-xs font-bold text-green-700 border border-green-300 bg-green-50 px-3 py-1 rounded hover:bg-green-100"
+            >
+                + 添加图片
+            </button>
+        </div>
+
+        <div
+            v-for="(img, imgIdx) in block.data.images"
+            :key="imgIdx"
+            class="relative bg-white border border-dashed border-slate-300 rounded-lg p-3"
+        >
+            <button
+                @click="block.data.images.splice(imgIdx, 1)"
+                class="absolute -top-2 -right-2 text-rose-500 bg-rose-100 rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-rose-500 hover:text-white transition shadow-sm font-bold z-20"
+            >
+                ✕
+            </button>
+
+            <input
+                type="file"
+                accept="image/*"
+                class="w-full text-xs"
+                @change="compressAndUpload($event, img, 'src')"
+            >
+
+            <div v-if="img.src" class="relative inline-block mt-2">
+                <img :src="img.src" class="max-h-40 rounded border bg-white">
+                <div @click.stop="img.src=''" class="btn-del-img btn-del-img-small">×</div>
+            </div>
+
+            <div
+                v-else
+                class="h-24 bg-slate-50 border border-dashed border-slate-200 rounded mt-2 flex items-center justify-center text-xs text-slate-400"
+            >
+                上传图片
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white/70 border border-green-200 rounded-lg p-3 space-y-2">
+        <label class="text-xs font-bold text-green-700">挖空关键词，用 / 分隔</label>
+        <input
+            v-model="block.data.keywords"
+            class="w-full border border-green-200 rounded px-3 py-2 text-sm bg-green-50 outline-none focus:border-green-400"
+            placeholder="kitchen / apple / reading"
+        >
+
+        <div
+            v-if="(block.data.questionLayout || 'blank') === 'blank'"
+            class="flex flex-wrap items-center gap-3 bg-white/80 border border-green-100 rounded px-3 py-2"
+        >
+            <span class="text-xs font-bold text-green-700">填空线长度：</span>
+            <input
+                type="range"
+                min="60"
+                max="260"
+                step="10"
+                v-model.number="block.data.blankWidth"
+                class="w-48 accent-emerald-500"
+            >
+            <input
+                type="number"
+                min="60"
+                max="260"
+                step="10"
+                v-model.number="block.data.blankWidth"
+                class="w-20 border border-green-200 rounded px-2 py-1 text-xs text-center outline-none focus:border-green-400"
+            >
+            <span class="text-[11px] text-slate-500">px，右侧预览实时生效</span>
+        </div>
+
+        <button
+            @click="generateBulkItems(block)"
+            class="bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-1.5 rounded text-sm font-bold shadow-sm transition"
+        >
+            {{ (block.data.questionLayout || 'blank') === 'blank' ? '一键生成填空题' : '一键生成挖空和问答' }}
+        </button>
+    </div>
+
+    <div class="bg-white/70 border border-green-200 rounded-lg p-3 space-y-2">
+        <label class="text-xs font-bold text-green-700">自动挖空预览，可手动修改</label>
+        <textarea
+            v-model="block.data.blankedText"
+            rows="5"
+            class="w-full border border-green-200 rounded px-3 py-2 text-sm outline-none focus:border-green-400"
+            placeholder="点击一键生成后，这里会出现挖空文本..."
+        ></textarea>
+    </div>
+
+    <div
+        v-if="(block.data.questionLayout || 'blank') !== 'blank'"
+        class="bg-white/70 border border-green-200 rounded-lg p-3 space-y-2"
+    >
+        <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-green-700">问题区与答案区</label>
+            <button
+                @click="block.data.qaList.push({isEg:false, q:'', a:''})"
+                class="text-xs font-bold text-green-700 border border-green-300 bg-green-50 px-3 py-1 rounded hover:bg-green-100"
+            >
+                + 添加问答
+            </button>
+        </div>
+
+        <div
+            v-for="(qa, idx) in block.data.qaList"
+            :key="idx"
+            class="flex gap-2 items-center bg-white p-2 rounded border"
+        >
+            <input type="checkbox" v-model="qa.isEg" class="w-4 h-4 text-emerald-500 rounded">
+            <input v-model="qa.q" class="flex-1 border-b outline-none text-sm" placeholder="问题">
+            <input v-model="qa.a" class="w-28 border-b outline-none text-sm text-rose-600" placeholder="答案">
+            <button @click="block.data.qaList.splice(idx,1)" class="text-rose-400 hover:text-rose-600 px-2">✕</button>
+        </div>
+    </div>
+</div>
+
+<div v-else-if="'text' in block.data && !('items' in block.data) && block.type !== 'grammarFocus'" class="space-y-3">
                         <div v-if="block.type === 'listenFill'" class="bg-indigo-50/50 p-2.5 rounded-lg border border-indigo-100 flex gap-4 items-center">
                             <span class="text-xs font-bold text-indigo-700">排版切换:</span>
                             <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600"><input type="radio" value="row" v-model="block.data.layout" class="w-3.5 h-3.5 text-indigo-500"> 左右排版 (默认)</label>
@@ -557,29 +970,46 @@
     </div>
 
     <div v-for="(gram, idx) in block.data.grammar" :key="idx" class="flex gap-3 items-start bg-slate-50 p-2 rounded border">
-        <textarea 
-            v-model="gram.text" 
-            rows="2" 
-            class="flex-1 border rounded p-1 text-sm outline-none" 
-            placeholder="语法文字"
-        ></textarea>
-        <div class="w-24 flex flex-col gap-1">
-            <input 
-                type="file" 
-                accept="image/*" 
-                class="w-full text-[10px]" 
-                @change="compressAndUpload($event, gram, 'imgUrl')"
+    <textarea 
+        v-model="gram.text" 
+        rows="2" 
+        class="flex-1 border rounded p-1 text-sm outline-none" 
+        placeholder="语法文字"
+    ></textarea>
+
+    <div class="w-32 flex flex-col gap-1">
+        <input 
+            type="file" 
+            accept="image/*" 
+            class="w-full text-[10px]" 
+            @change="compressAndUpload($event, gram, 'imgUrl')"
+        >
+
+        <select 
+            v-model="gram.imgSize" 
+            class="w-full border rounded px-1 py-0.5 text-[10px] bg-white text-slate-600 outline-none"
+        >
+            <option value="sm">小图</option>
+            <option value="md">中图</option>
+            <option value="lg">大图</option>
+            <option value="xl">超大图</option>
+        </select>
+
+        <div v-if="gram.imgUrl" class="relative inline-block">
+            <img 
+                :src="gram.imgUrl" 
+                class="rounded border bg-white object-contain"
+                :style="getLitGrammarImgStyle(gram.imgSize, 'editor')"
             >
-            <div v-if="gram.imgUrl" class="relative inline-block">
-                <img :src="gram.imgUrl" class="h-10 rounded border bg-white">
-                <div @click.stop="gram.imgUrl=''" class="btn-del-img btn-del-img-small">×</div>
-            </div>
+            <div @click.stop="gram.imgUrl=''" class="btn-del-img btn-del-img-small">×</div>
         </div>
-        <button @click="block.data.grammar.splice(idx,1)" class="text-red-400 px-1">✕</button>
     </div>
 
+    <button @click="block.data.grammar.splice(idx,1)" class="text-red-400 px-1">✕</button>
+</div>
+
     <button 
-        @click="block.data.grammar.push({imgUrl:'',text:''})" 
+        @click="block.data.grammar.push({imgUrl:'', text:'', imgSize:'lg'})" 
         class="text-xs text-blue-600 font-bold w-full border border-dashed rounded py-1"
     >
         + 添加语法图文
@@ -942,7 +1372,187 @@
                                                 </div>
                                             </div>
 
-                                            <div v-else-if="block.type === 'lookAnswer'" class="flex gap-8 items-start pl-2">
+<!-- 右侧预览：Look Read Number 版式1 -->
+<div v-else-if="block.type === 'lookReadNumber1'" class="space-y-5 pl-2">
+
+    <div
+        v-if="block.data.text"
+        class="text-[17px] leading-[1.9] text-slate-800 bg-yellow-50/40 border border-yellow-100 rounded-xl px-5 py-4 text-justify"
+    >
+        {{ block.data.text }}
+    </div>
+
+    <div
+        v-if="block.data.images && block.data.images.length"
+        class="grid grid-cols-4 gap-3"
+    >
+        <div
+            v-for="(img, idx) in block.data.images"
+            :key="idx"
+            class="relative aspect-square bg-white border border-slate-200 rounded-xl shadow-sm flex items-center justify-center overflow-hidden"
+        >
+            <img
+                v-if="img.src"
+                :src="img.src"
+                class="w-full h-full object-contain bg-white"
+            >
+
+            <div
+                v-else
+                class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400 text-xs font-bold"
+            >
+                Picture {{ idx + 1 }}
+            </div>
+
+            <div
+                v-for="(circle, cIdx) in img.circles"
+                :key="cIdx"
+                class="absolute bg-white border-2 border-red-500 rounded-full text-[15px] font-black flex items-center justify-center shadow"
+                :style="{
+                    left: circle.x + '%',
+                    top: circle.y + '%',
+                    width: '30px',
+                    height: '30px',
+                    transform: 'translate(-50%, -50%)'
+                }"
+            >
+                <span v-if="isAnswerMode">{{ circle.number }}</span>
+                <span v-else>&nbsp;</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="space-y-4">
+        <div
+            v-for="(q, qIdx) in block.data.questions"
+            :key="qIdx"
+            class="flex items-start gap-3 text-[17px] break-inside-avoid"
+        >
+            <span class="font-bold w-6 flex-shrink-0 text-yellow-600 mt-[3px]">
+                {{ getIndexStr(block.data.questions, qIdx, true) }}
+            </span>
+
+            <span class="flex-1 text-slate-700 leading-snug">
+                {{ q.q }}
+            </span>
+
+            <span
+                class="w-16 border-b border-slate-700 text-center pb-[2px]"
+                :class="(q.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium'"
+            >
+                <span v-if="isAnswerMode || q.isEg">{{ q.a }}</span>
+                <span v-else class="text-transparent">&nbsp;</span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- 右侧预览：Look Read Number 版式2 -->
+<div v-else-if="block.type === 'lookReadNumber2'" class="space-y-5 pl-2">
+
+    <!-- 左图右文：左侧图片区固定竖版，右侧文本 -->
+    <div
+        v-if="(block.data.imgLayout || 'leftText') === 'leftText'"
+        class="grid gap-6 items-start"
+        style="grid-template-columns: 240px 1fr;"
+    >
+        <div
+            v-if="block.data.images && block.data.images.length"
+            class="flex flex-col gap-4 items-center"
+            style="width: 240px;"
+        >
+            <div
+                v-for="(img, imgIdx) in block.data.images"
+                :key="'left-img-' + imgIdx"
+                class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden break-inside-avoid flex items-center justify-center"
+                style="width: 220px; height: 293px; flex: 0 0 auto;"
+            >
+                <img
+                    v-if="img.src"
+                    :src="img.src"
+                    style="width: 100%; height: 100%; object-fit: contain; padding: 8px; box-sizing: border-box; display: block;"
+                >
+
+                <div
+                    v-else
+                    class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400 text-xs font-bold"
+                >
+                    Picture {{ imgIdx + 1 }}
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-[17px] leading-[2.2] text-slate-800 bg-green-50/40 border border-green-100 rounded-xl px-5 py-4 text-justify"
+            v-html="formatLookReadNumber2Text(block)"
+        ></div>
+    </div>
+
+    <!-- 上图下文：如果只有一张图，图片居中；多张图自动两列 -->
+    <div
+        v-else
+        class="space-y-4"
+    >
+        <div
+            v-if="block.data.images && block.data.images.length"
+            :class="block.data.images.length === 1 ? 'flex justify-center' : 'grid grid-cols-2 gap-4'"
+        >
+            <div
+                v-for="(img, imgIdx) in block.data.images"
+                :key="'top-img-' + imgIdx"
+                class="bg-white border border-slate-200 rounded-xl shadow-sm min-h-[150px] flex items-center justify-center overflow-hidden break-inside-avoid"
+                :style="block.data.images.length === 1 ? 'width: 360px; max-width: 75%;' : ''"
+            >
+                <img
+                    v-if="img.src"
+                    :src="img.src"
+                    class="w-full h-auto max-h-[240px] object-contain"
+                >
+
+                <div
+                    v-else
+                    class="w-full h-[150px] bg-slate-100 flex items-center justify-center text-slate-400 text-xs font-bold"
+                >
+                    Picture {{ imgIdx + 1 }}
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-[17px] leading-[2.2] text-slate-800 bg-green-50/40 border border-green-100 rounded-xl px-5 py-4 text-justify"
+            v-html="formatLookReadNumber2Text(block)"
+        ></div>
+    </div>
+
+    <div v-if="(block.data.questionLayout || 'blank') !== 'blank'" class="space-y-4">
+        <div
+            v-for="(qa, idx) in block.data.qaList"
+            :key="idx"
+            class="flex flex-col gap-2 text-[17px] break-inside-avoid"
+        >
+            <div class="flex items-start gap-2">
+                <span class="font-bold w-6 flex-shrink-0 text-emerald-600 mt-[3px]">
+                    {{ getIndexStr(block.data.qaList, idx, true) }}
+                </span>
+                <span class="text-slate-700 leading-snug font-medium">
+                    {{ qa.q }}
+                </span>
+            </div>
+
+            <div
+                class="border-b border-slate-700 w-full text-left align-baseline pb-[2px] ml-8"
+                style="width: calc(100% - 2rem);"
+                :class="(qa.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium'"
+            >
+                <span v-if="isAnswerMode || qa.isEg" class="leading-none pl-2">
+                    {{ qa.a }}
+                </span>
+                <span v-else class="text-transparent">&nbsp;</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div v-else-if="block.type === 'lookAnswer'" class="flex gap-8 items-start pl-2">
                                                 <div class="w-[45%] flex-shrink-0">
                                                     <img v-if="block.data.img" :src="block.data.img" class="w-full h-auto rounded-xl shadow-sm border border-slate-200">
                                                 </div>
@@ -962,72 +1572,76 @@
                                             <div v-else-if="block.type === 'storyComic'" class="space-y-3 pl-2">
     <div 
         v-for="(item, idx) in block.data.items" 
-        :key="idx" 
-        class="flex items-start break-inside-avoid"
-        :class="(block.data.comicImgShape || 'square') === 'circle' ? 'gap-3' : 'gap-5'"
+        :key="idx"
+        class="story-comic-flow-item"
     >
+        <!-- 左侧图片：只控制图片本身分页 -->
         <div 
-    class="flex-shrink-0"
-    :class="(block.data.comicImgShape || 'square') === 'circle' ? 'w-[24%]' : 'w-[30%]'"
->
-    <template v-if="(block.data.comicImgShape || 'square') === 'circle'">
-        <div class="w-[165px] h-[165px] rounded-full overflow-hidden border-[1.5px] border-slate-200 shadow-sm bg-white mx-auto flex items-center justify-center">
-            <img 
-                v-if="item.img" 
-                :src="item.img" 
-                class="w-full h-full object-cover"
-            >
-            <div 
-                v-else 
-                class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400 text-xs font-bold"
-            >
-                Comic {{idx+1}}
-            </div>
-        </div>
-    </template>
-
-    <template v-else>
-        <img 
-            v-if="item.img" 
-            :src="item.img" 
-            class="w-full h-[165px] object-contain rounded-xl border-[1.5px] border-slate-200 shadow-sm bg-white"
+            class="story-comic-flow-img"
+            :class="(block.data.comicImgShape || 'square') === 'circle' ? 'circle' : 'square'"
         >
-        <div 
-            v-else 
-            class="w-full h-[165px] bg-slate-100 rounded-xl border border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs font-bold"
-        >
-            Comic {{idx+1}}
-        </div>
-    </template>
-</div>
-
-        <div 
-            class="flex-1 flex flex-col gap-4 justify-start pt-0"
-            :class="(block.data.comicImgShape || 'square') === 'circle' ? '-ml-2' : ''"
-        >
-            <div v-for="(qItem, qIdx) in item.questions" :key="qIdx" class="flex flex-col gap-1.5">
-                <div class="flex items-start gap-2">
-                    <span 
-                        class="font-bold flex-shrink-0 text-amber-500 mt-[3px]"
-                        :class="(block.data.comicImgShape || 'square') === 'circle' ? 'w-5' : 'w-6'"
+            <template v-if="(block.data.comicImgShape || 'square') === 'circle'">
+                <div class="w-[165px] h-[165px] rounded-full overflow-hidden border-[1.5px] border-slate-200 shadow-sm bg-white mx-auto flex items-center justify-center">
+                    <img 
+                        v-if="item.img" 
+                        :src="item.img" 
+                        class="w-full h-full object-cover"
                     >
-                        {{ getComicQIndex(block, idx, qIdx) }}
-                    </span>
-                    <span class="text-slate-700 font-medium leading-snug">{{ qItem.q }}</span>
+                    <div 
+                        v-else 
+                        class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400 text-xs font-bold"
+                    >
+                        Comic {{ idx + 1 }}
+                    </div>
                 </div>
-                <div 
-                    class="border-b border-slate-700 flex items-baseline pl-2 pb-[1px] w-full min-h-[18px]" 
-                    :class="[
-                        (qItem.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium',
-                        (block.data.comicImgShape || 'square') === 'circle' ? 'ml-7' : 'ml-8'
-                    ]"
-                    :style="(block.data.comicImgShape || 'square') === 'circle' ? 'width: calc(100% - 1.75rem);' : 'width: calc(100% - 2rem);'"
+            </template>
+
+            <template v-else>
+                <img 
+                    v-if="item.img" 
+                    :src="item.img" 
+                    class="w-full h-[165px] object-contain rounded-xl border-[1.5px] border-slate-200 shadow-sm bg-white"
                 >
-                    <span v-if="isAnswerMode||qItem.isEg" class="leading-none">{{ qItem.a }}</span>
+                <div 
+                    v-else 
+                    class="w-full h-[165px] rounded-xl border-[1.5px] border-dashed border-slate-300 bg-slate-100 flex items-center justify-center text-slate-400 text-xs font-bold"
+                >
+                    Comic {{ idx + 1 }}
+                </div>
+            </template>
+        </div>
+
+        <!-- 右侧题目：题目自己分页，不拖图片 -->
+        <div 
+            v-for="(qItem, qIdx) in (item.questions || [])" 
+            :key="qIdx"
+            class="story-comic-flow-q flex items-start gap-2 text-[17px]"
+        >
+            <span 
+                class="font-bold w-7 flex-shrink-0 text-orange-500 mt-[2px]"
+                :class="(qItem.isEg && !isAnswerMode) ? 'text-slate-500 text-[15px]' : ''"
+            >
+                {{ getComicQIndex(block, idx, qIdx) }}
+            </span>
+
+            <div class="flex-1 min-w-0">
+                <div class="leading-snug text-slate-700">
+                    {{ qItem.q }}
+                </div>
+
+                <div 
+                    class="border-b border-slate-700 w-full text-center align-baseline pb-[2px] mt-4"
+                    :class="(qItem.isEg && !isAnswerMode) ? 'text-slate-500' : 'text-rose-600 font-medium'"
+                >
+                    <span v-if="isAnswerMode || qItem.isEg" class="leading-none">
+                        {{ qItem.a }}
+                    </span>
                     <span v-else class="text-transparent">&nbsp;</span>
                 </div>
             </div>
         </div>
+
+        <div class="story-comic-flow-clear"></div>
     </div>
 </div>
 
@@ -1106,14 +1720,36 @@
 </div>
 
                                             <div v-else-if="block.type === 'grammarFocus'" class="space-y-5 pl-2">
-                                                <div v-if="block.data.ruleImg" class="w-full flex justify-center break-inside-avoid"><img :src="block.data.ruleImg" class="max-w-[85%] h-auto bg-white"></div>
-                                                <div v-if="block.data.practiceImg" class="w-full flex justify-center break-inside-avoid"><img :src="block.data.practiceImg" class="max-w-[85%] h-auto bg-white"></div>
-                                                
-                                                <div v-if="block.data.enableExtra && (block.data.textImg || block.data.practiceText)" class="flex gap-5 items-center bg-blue-50/40 p-5 rounded-xl border border-blue-200 mt-4 break-inside-avoid">
-                                                    <div v-if="block.data.textImg" class="w-1/3 flex-shrink-0"><img :src="block.data.textImg" class="w-full h-auto bg-white"></div>
-                                                    <div class="flex-1 text-[17px] leading-[2.2] text-slate-800" v-html="parseGrammarColor(block.data.practiceText)"></div>
-                                                </div>
-                                            </div>
+    <div v-if="block.data.ruleImg" class="w-full flex justify-center">
+        <img 
+            :src="block.data.ruleImg" 
+            class="max-w-[85%] h-auto bg-white"
+        >
+    </div>
+
+    <div v-if="block.data.practiceImg" class="w-full flex justify-center">
+        <img 
+            :src="block.data.practiceImg" 
+            class="max-w-[85%] h-auto bg-white"
+        >
+    </div>
+    
+    <div 
+        v-if="block.data.enableExtra && (block.data.textImg || block.data.practiceText)" 
+        class="flex gap-5 items-center bg-blue-50/40 p-5 rounded-xl border border-blue-200 mt-4"
+    >
+        <div v-if="block.data.textImg" class="w-1/3 flex-shrink-0">
+            <img 
+                :src="block.data.textImg" 
+                class="w-full h-auto bg-white"
+            >
+        </div>
+        <div 
+            class="flex-1 text-[17px] leading-[2.2] text-slate-800" 
+            v-html="parseGrammarColor(block.data.practiceText)"
+        ></div>
+    </div>
+</div>
 
                                             <div v-else-if="block.type === 'mc'" class="space-y-4 pl-2">
                                                 <div v-for="(item, idx) in block.data.items" :key="idx" class="flex items-start text-[17px] break-inside-avoid">
@@ -1208,18 +1844,48 @@
                                                 </div>
                                             </div>
 
-                                            <div v-else-if="block.type === 'missing'" class="grid grid-cols-4 gap-y-8 gap-x-4 pl-2">
-                                                <div v-for="(item, idx) in getParsedMissing(block)" :key="idx" class="flex flex-col items-center justify-end text-[17px] relative break-inside-avoid">
-                                                    <div class="absolute -left-1 -top-1 font-bold text-rose-500 text-sm">{{ getIndexStr(block.data.items, idx, true) }}</div>
-                                                    <div v-if="item.img" class="w-16 h-16 mb-3 border rounded-lg overflow-hidden shadow-sm bg-white"><img :src="item.img" class="w-full h-full object-cover"></div>
-                                                    <div class="text-[20px] tracking-[0.15em] flex items-end font-medium text-slate-800">
-                                                        <template v-for="(part, pIdx) in item.parts" :key="pIdx">
-                                                            <span v-if="part.isGap" class="inline-block border-b border-slate-800 w-5 mx-0.5 text-center align-baseline pb-[2px] leading-none" :class="(item.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium'"><span v-if="isAnswerMode||item.isEg">{{ part.char }}</span><span v-else>&nbsp;</span></span>
-                                                            <span v-else class="font-bold">{{ part.char }}</span>
-                                                        </template>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                       
+    <div 
+    v-else-if="block.type === 'missing'" 
+    class="grid gap-y-8 gap-x-4 pl-2"
+    :style="{ gridTemplateColumns: `repeat(${block.data.cols || 4}, minmax(0, 1fr))` }"
+>
+    <div 
+        v-for="(item, idx) in getParsedMissing(block)" 
+        :key="idx" 
+        class="flex flex-col items-center justify-end text-[17px] relative break-inside-avoid"
+    >
+        <div class="absolute -left-1 -top-1 font-normal text-rose-500 text-sm">
+            {{ getIndexStr(block.data.items, idx, true) }}
+        </div>
+
+        <div v-if="item.img" class="w-16 h-16 mb-3 border rounded-lg overflow-hidden shadow-sm bg-white">
+            <img :src="item.img" class="w-full h-full object-cover">
+        </div>
+
+        <div class="text-[17px] font-normal text-slate-800 leading-none flex flex-wrap items-end justify-center">
+            <template v-for="(part, pIdx) in item.parts" :key="pIdx">
+                <span 
+                    v-if="part.char === ' '" 
+                    class="inline-block w-5"
+                ></span>
+
+                <span 
+                    v-else-if="part.isGap" 
+                    class="inline-block border-b border-slate-800 w-5 mx-[1px] text-center align-baseline pb-[1px] leading-none font-normal"
+                    :class="(item.isEg && !isAnswerMode) ? 'text-slate-500' : 'text-rose-600'"
+                >
+                    <span v-if="isAnswerMode || item.isEg">{{ part.char }}</span>
+                    <span v-else>&nbsp;</span>
+                </span>
+
+                <span v-else class="font-normal mx-[1px]">
+                    {{ part.char }}
+                </span>
+            </template>
+        </div>
+    </div>
+</div>
 
                                             <div v-else-if="block.type === 'match'" class="grid grid-cols-[58%_40%] w-full gap-4 pr-6">
     <div class="pl-8 pr-3 relative">
@@ -1321,13 +1987,14 @@
     <div 
         v-for="(gram, idx) in block.data.grammar" 
         :key="idx" 
-        class="w-[31%] min-w-[165px] bg-white border-[2px] border-slate-200 shadow-sm rounded-xl p-3 flex flex-col items-center justify-center min-h-[100px] relative break-inside-avoid"
+        class="w-[31%] min-w-[165px] bg-white border-[2px] border-slate-200 shadow-sm rounded-xl p-3 flex flex-col items-center justify-center min-h-[100px] relative "
     >
         <img 
-            v-if="gram.imgUrl" 
-            :src="gram.imgUrl" 
-            class="max-h-16 mb-2 rounded-lg"
-        >
+    v-if="gram.imgUrl" 
+    :src="gram.imgUrl" 
+    class="mb-2 rounded-lg object-contain"
+    :style="getLitGrammarImgStyle(gram.imgSize, 'preview')"
+>
         <div 
             class="text-[17px] text-center leading-snug font-bold text-slate-800" 
             v-html="parseLitGrammarHighlight(gram.text)"
@@ -1724,6 +2391,8 @@
                     { id: 'listenYesNo', name: 'Listen Y/N', zhName: '听力判断', color: 'text-purple-500', bg: 'bg-purple-400' },
                     { id: 'listenComp', name: 'Listen Comp', zhName: '听后综合', color: 'text-rose-500', bg: 'bg-rose-400' },
                     { id: 'lookAnswer', name: 'Look Answer', zhName: '大图提问', color: 'text-indigo-500', bg: 'bg-indigo-400' },
+{ id: 'lookReadNumber1', name: 'Look, read and number the pictures', zhName: '读文看图编号-版式1', color: 'text-yellow-600', bg: 'bg-yellow-400' },
+{ id: 'lookReadNumber2', name: 'Look, read and number the pictures', zhName: '关键词挖空问答-版式2', color: 'text-emerald-600', bg: 'bg-emerald-400' },
                     { id: 'keywordSentence', name: 'Make Sentences', zhName: '关键词造句', color: 'text-cyan-600', bg: 'bg-cyan-400' },
                     { id: 'storyComic', name: 'Story Comic', zhName: '连环画', color: 'text-amber-500', bg: 'bg-amber-500' },
                     { id: 'lookWriteAnswer', name: 'Look Write', zhName: '看图造句', color: 'text-indigo-500', bg: 'bg-indigo-500' },
@@ -1785,7 +2454,15 @@
                     else if (['transform'].includes(type)) { data = { bulkInput: '', items: [{isEg: false, img: '', text: 'I like apples. | Change into negative. | I don\'t like apples.'}] }; }
                     else if (['circle'].includes(type)) { data = { bulkInput: '', items: [{isEg: false, img: '', text: 'Look [at] / in the board.'}] }; }
                     else if (['scramble'].includes(type)) { data = { bulkInput: '', bulkAns: '', items: [{isEg: false, img: '', scrambled: 'pepla', ans: 'apple'}] }; }
-                    else if (['missing'].includes(type)) { data = { items: [{isEg: false, img: '', word: 'tractor', target: 'a / or'}] }; }
+                   else if (['missing'].includes(type)) { 
+    data = { 
+        cols: 4,
+        bulkInput: '',
+        items: [
+            {isEg: false, img: '', word: 'tractor', target: 'a / or'}
+        ] 
+    }; 
+}
                     else if (['match'].includes(type)) { data = { bulkInput: '', bulkAns: '', items: [{isEg: false, img: '', hint: 'A small animal.', word: 'cat'}] }; }
                     else if (['diagram'].includes(type)) { data = { img: '', wordBank: 'head / wings', items: [{isEg: false, num: '1', val: '[head]'}] }; }
                     else if (['wordSorting', 'phonicsSorting'].includes(type)) { data = { wordBank: type==='wordSorting'?'apple / dog':'c<u>a</u>t / f<u>a</u>ce', items: [{isEg: false, title: type==='wordSorting'?'Fruit':'Short a', words: type==='wordSorting'?'apple':'c<u>a</u>t'}] }; }
@@ -1798,7 +2475,18 @@
                     else if (['lifeCycle'].includes(type)) { data = { items: [{isEg: false, img: '', text: 'egg'}, {isEg: false, img: '', text: '[tadpole]'}, {isEg: false, img: '', text: 'frog'}] }; }
                     else if (['listenFill', 'listenComp', 'chooseComplete', 'storyRetell'].includes(type)) { data = { keywords: type==='listenFill'?'mountain':type==='chooseComplete'?'do / eat':'', hasEg: true, img: '', ...(type==='storyRetell'?{retellImgMode:'single', retellImgs:['', '', '', '', '', '']}:{}), text: type==='storyRetell'?'First, they are in the [garden].':type==='chooseComplete'?'I [eat] an apple.':'Narrator: Grandpa is outside.\nJenny: Look at the mountain!' }; }
                     else if (['grammarFocus'].includes(type)) { data = { ruleImg: '', practiceImg: '', enableExtra: false, textImg: '', practiceText: '1. Where #are# the bag*s*?\nThey\'re @next to@ the desk.' }; }
-                    else if (['literature'].includes(type)) { data = { subTitle: 'The first day', showCharacters: true, characters: [{name:'Max',imgUrl:''}], showGrammar: true, grammarBulkInput: '', grammar: [{imgUrl:'',text:"==Where's== my bag?"}], showExpressions: true, expressions: "Take... to school." }; }
+                    else if (['literature'].includes(type)) { 
+    data = { 
+        subTitle: 'The first day', 
+        showCharacters: true, 
+        characters: [{name:'Max',imgUrl:''}], 
+        showGrammar: true, 
+        grammarBulkInput: '', 
+        grammar: [{imgUrl:'', text:"==Where's== my bag?", imgSize:'lg'}], 
+        showExpressions: true, 
+        expressions: "Take... to school." 
+    }; 
+}
                     else if (['trueFalse'].includes(type)) { data = { bulkInput: '', bulkAns: '', items: [{isEg: false, q: 'Max is happy.', a: 'T'}] }; }
                     else if (['writingCard'].includes(type)) { data = { drawImg: '', wordsBank: 'bag / book', sentenceBank: 'I have a *bag*.\nIt is *red*.', writingPrompt: 'Draw your story and write.', showOutputTitle: false, outputTitle: 'My Writing', writingScaffold: 'I have a [bag].' }; }
                     else if (['clilRead'].includes(type)) { data = { layout: 'A', title: 'Our planet Earth', img: '', wordBankA: 'oxygen / Earth', passageA: 'There is [oxygen] on Earth.', wordBankB: 'grow plants\nEarth', passageB: 'This is planet [B]. You can [A].', enableChoice: true, itemsChoice: [{isEg:false, text:'Idea? | A. Earth | B. Mars | A'}], enableUnscramble: false, itemsUnscramble: [], enableBlank: true, itemsBlank: [{isEg:false, q:'What is it?', a:'[Earth]'}] }; }
@@ -1826,6 +2514,43 @@ else if (['phonicsFocus'].includes(type)) { data = { bulkInput: '', items: [{sou
 else if (['textQnA'].includes(type)) { data = { bulkInput: '', bulkAns: '', items: [{isEg: false, q: 'What is your name?', a: 'My name is Jack.'}] }; }
 else if (['tipBox'].includes(type)) { data = { img: '', text: 'Remember to check your spelling!' }; }
 else if (['keyWords'].includes(type)) { data = { bulkInput: '', items: [{isEg: false, img: '', word: 'apple'}, {isEg: false, img: '', word: 'banana'}] }; }
+
+else if (type === 'lookReadNumber1') { 
+    data = { 
+        text: 'Read the text. Then look at the pictures and write the numbers.',
+        bulkInput: 'The boy is eating an apple. | 1\nThe girl is reading a book. | 2',
+        images: [
+            { src: '', circles: [{ number: '1', x: 50, y: 50 }] },
+            { src: '', circles: [{ number: '2', x: 50, y: 50 }] },
+            { src: '', circles: [{ number: '3', x: 50, y: 50 }] },
+            { src: '', circles: [{ number: '4', x: 50, y: 50 }] }
+        ],
+        questions: [
+            { isEg: false, q: 'The boy is eating an apple.', a: '1' },
+            { isEg: false, q: 'The girl is reading a book.', a: '2' }
+        ]
+    }; 
+}
+
+else if (type === 'lookReadNumber2') { 
+    data = { 
+        text: 'Tom is in the kitchen. He is eating an apple. His sister is reading a book in the living room.',
+        keywords: 'kitchen / apple / reading',
+        blankedText: '',
+        fillAnswers: [],
+        blankWidth: 110,
+        questionLayout: 'blank',
+        imgLayout: 'leftText',
+        images: [
+            { src: '' }
+        ],
+        qaList: [
+            { isEg: false, q: 'Where is Tom?', a: 'kitchen' },
+            { isEg: false, q: 'What is Tom eating?', a: 'apple' },
+            { isEg: false, q: 'What is his sister doing?', a: 'reading' }
+        ]
+    }; 
+}
 else if (type === 'venn') { data = { titleA: 'Carnivores', titleB: 'Herbivores', titleCenter: 'Omnivores', showCenterTitle: true, listA: 'Lion / Tiger', listB: 'Cow / Rabbit', listCenter: 'Bear / Pig' }; }
 else if (type === 'tChart') { data = { titleMain: 'Topic Name', showMainTitle: true, titleA: 'Group A', titleB: 'Group B', listA: 'Item 1 / Item 2', listB: 'Item 1 / Item 2' }; }
                     return { ...base, data };
@@ -1882,121 +2607,210 @@ else if(t==='keyWords') arr.push({isEg: false, img:'', word:''});
             .join('\n');
 
         return {
-            imgUrl: oldGrammar[idx]?.imgUrl || '',
-            text
-        };
+    imgUrl: oldGrammar[idx]?.imgUrl || '',
+    text,
+    imgSize: oldGrammar[idx]?.imgSize || 'lg'
+};
     });
 
 };
-                                const generateBulkItems = (block) => {
-                    if(!block.data.bulkInput && !block.data.bulkAns) return;
+                                           const generateBulkItems = (block) => {
+                    if (block.type === 'lookReadNumber1') {
+                        const lines = (block.data.bulkInput || '')
+                            .split('\n')
+                            .map(l => l.trim())
+                            .filter(Boolean);
 
-                    if(block.type === 'wordList') {
-                        block.data.bulkInput.split(/[\/／]+/).map(w=>w.trim()).filter(w=>w).forEach(w=>{
-                            block.data.items.push({isEg:false, img:'', word:w, pos:'n.', phonics:''});
+                        block.data.questions = lines.map(line => {
+                            const parts = line.split('|').map(s => s.trim());
+                            return {
+                                isEg: false,
+                                q: parts[0] || '',
+                                a: parts[1] || ''
+                            };
                         });
 
-                    } else if (block.type === 'storyComic') {
-                        const lines = block.data.bulkInput.split('\n').map(l=>l.trim()).filter(l=>l);
+                        return;
+                    }
 
-                        lines.forEach(line => {
-                            const questionParts = line.split('//').map(s=>s.trim()).filter(s=>s);
-                            const questions = questionParts.map((part, index) => {
-                                const p = part.split('|').map(s=>s.trim());
-                                return {
-                                    isEg: index === 0 ? false : false,
-                                    q: p[0] || '',
-                                    a: p[1] || ''
-                                };
-                            }).filter(qItem => qItem.q || qItem.a);
+                    if (block.type === 'lookReadNumber2') {
+                        const rawText = block.data.text || '';
+                        const keywords = (block.data.keywords || '')
+                            .split(/[\/／]/)
+                            .map(k => k.trim())
+                            .filter(Boolean);
 
-                            if (questions.length > 0) {
-                                block.data.items.push({
-                                    img: '',
-                                    questions: questions
-                                });
-                            }
+                        let blanked = rawText;
+
+                        keywords.forEach((kw, idx) => {
+                            const safeKw = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                            const reg = new RegExp(safeKw, 'g');
+                            const blankLen = Math.max(4, Math.round((Number(block.data.blankWidth || 110)) / 14));
+                            blanked = blanked.replace(reg, `(${idx + 1}) ${'_'.repeat(blankLen)}`);
                         });
 
+                        block.data.blankedText = blanked;
+                        block.data.fillAnswers = keywords;
 
-                    } else if (block.type === 'keyWords') {
-                        block.data.bulkInput.split(/[\/／\n]+/).map(w=>w.trim()).filter(w=>w).forEach(w=>{
-                            block.data.items.push({isEg:false, img:'', word:w});
-                        });
-                        
-} else if (block.type === 'keywordSentence') {
-    const lines = block.data.bulkInput.split('\n').map(l=>l.trim()).filter(l=>l);
-
-    lines.forEach(line => {
-        const p = line.split('|').map(s => s.trim());
-        block.data.items.push({
-            isEg: false,
-            q: p[0] || '',
-            a: p[1] || ''
-        });
-    });
-
-    // 注意：这里故意不写 block.data.bulkInput = '';
-    // 这样一键生成后，输入框文本会保留。
-
-                    } else if (block.type === 'mc') {
-                        const lines = block.data.bulkInput.split('\n').map(l=>l.trim()).filter(l=>l);
-                        lines.forEach(line => {
-                            let p = line.split(/[|\t]+/).map(s=>s.trim());
-                            if(p.length >= 2) {
-                                let q = p[0] || '';
-                                let opts = p[1] || '';
-                                let ans = (p[2] || '').toUpperCase().replace(/[\[\]]/g, '');
-                                block.data.items.push({isEg: false, img: '', text: `[${ans}] | ${q} | ${opts}`});
-                            }
-                        });
-
-                    } else if (['orderStory', 'readWrite', 'lookAnswer', 'lookWriteAnswer', 'match', 'listenYesNo', 'trueFalse', 'correctMistakes', 'reorder', 'scramble', 'listenQuiz', 'textQnA'].includes(block.type)) {
-                        const lines = block.data.bulkInput ? block.data.bulkInput.split('\n').map(l=>l.trim().replace(/^\|?\s*/, '')).filter(l=>l) : [];
-                        const answers = block.data.bulkAns ? block.data.bulkAns.split(/[\/／\n]+/).map(a=>a.trim()).filter(a=>a) : [];
-                        const maxLen = Math.max(lines.length, answers.length);
-
-                        for(let i=0; i<maxLen; i++) {
-                            let b = {isEg: false};
-                            let qPart = lines[i] || '';
-                            let aPart = answers[i] || '';
-
-                            if(block.type === 'orderStory') block.data.items.push({...b, img:'', ans: aPart, text: qPart});
-                            else if(['listenYesNo', 'trueFalse', 'correctMistakes', 'readWrite', 'lookAnswer', 'textQnA'].includes(block.type)) block.data.items.push({...b, q: qPart, a: aPart});
-                            else if(block.type === 'lookWriteAnswer') {
-                                let pts = qPart.split('|').map(s=>s.trim());
-                                block.data.items.push({...b, hint: pts[0]||'', q: pts[1]||'', a: aPart});
-                            }
-                            else if(block.type === 'match') {
-                                let pts = qPart.split('|').map(s=>s.trim());
-                                block.data.items.push({...b, img:'', hint: pts[0]||qPart, word: aPart});
-                            }
-                            else if(block.type === 'reorder') block.data.items.push({...b, scrambled: qPart, ans: aPart});
-                            else if(block.type === 'scramble') block.data.items.push({...b, img:'', scrambled: qPart, ans: aPart});
-                            else if(block.type === 'listenQuiz') {
-                                if(block.data.plan === '1') block.data.itemsTick.push({isEg: false, q: qPart, img1: '', img2: '', img3: '', ans: parseInt(aPart)||1});
-                                else if(block.data.plan === '2') block.data.itemsNumber.push({isEg: false, q: qPart, img: '', ans: aPart});
-                                else if(block.data.plan === '3') block.data.itemsJudge.push({isEg: false, img: '', q: qPart, ans: aPart||'√'});
-                            }
+                        if ((block.data.questionLayout || 'blank') !== 'blank') {
+                            block.data.qaList = keywords.map((kw, idx) => ({
+                                isEg: false,
+                                q: `What is missing in blank ${idx + 1}?`,
+                                a: kw
+                            }));
                         }
 
-                    } else {
-                        const lines = block.data.bulkInput.split('\n').map(l=>l.trim()).filter(l=>l);
-                        lines.forEach(line => {
-                            let p = line.split('|').map(s=>s.trim());
-                            let b = {isEg: false};
+                        return;
+                    }
+                    if (!block || !block.data) return;
 
-                            if(['wordForm', 'oddOneOut', 'circle', 'transform'].includes(block.type)) block.data.items.push({...b, img: '', text: line});
-                            else if(['wordSorting', 'phonicsSorting'].includes(block.type)) block.data.items.push({...b, title: p[0]||'', words: p[1]||''});
-                            else if(['picQnA'].includes(block.type)) block.data.items.push({...b, img: '', q: p[0]||'', a: p[1]||'', hint: p[2]||''});
-                            else if(['keywordSentence'].includes(block.type)) block.data.items.push({...b, q: p[0]||'', a: p[1]||''});
-                            else if(['flashcards'].includes(block.type)) {
-                                if(line.startsWith('#')) block.data.items.push({isTitle: true, core: line.replace(/^#\s*/, '')});
-                                else block.data.items.push({...b, img: '', core: p[0]||'', desc: p[1]||''});
-                            }
-                            else if(['phonicsFocus'].includes(block.type)) block.data.items.push({sound: p[0]||'', words: p[1]||'', tip: p[2]||''});
-                            else if(block.type === 'wordMorph') block.data.items.push({...b, word: p[0]||'', ans: p[1]||''});
+                    const b = { isEg: false };
+                    const getLines = () => (block.data.bulkInput || '')
+                        .split('\n')
+                        .map(l => l.trim())
+                        .filter(l => l);
+                    const splitPipe = (line) => line.split('|').map(s => s.trim());
+                    const ensureItems = () => { block.data.items = []; return block.data.items; };
+
+                    // Vocabulary：支持用 / 或换行批量导入
+                    if (block.type === 'wordList') {
+                        const arr = ensureItems();
+                        (block.data.bulkInput || '')
+                            .split(/[\/／\n]+/)
+                            .map(w => w.trim())
+                            .filter(w => w)
+                            .forEach(w => arr.push({ ...b, img: '', word: w, pos: '', phonics: '' }));
+                        return;
+                    }
+
+                    // Key Words：图文词汇，支持用 / 或换行批量导入
+                    if (block.type === 'keyWords') {
+                        const arr = ensureItems();
+                        (block.data.bulkInput || '')
+                            .split(/[\/／\n]+/)
+                            .map(w => w.trim())
+                            .filter(w => w)
+                            .forEach(w => arr.push({ ...b, img: '', word: w }));
+                        return;
+                    }
+
+                    // Story Comic：每行一图；同图多题用 // 分隔；题问答用 | 分隔
+                    if (block.type === 'storyComic') {
+                        const oldItems = block.data.items || [];
+                        const arr = ensureItems();
+                        getLines().forEach((line, idx) => {
+                            const questions = line.split('//')
+                                .map(s => s.trim())
+                                .filter(s => s)
+                                .map(pair => {
+                                    const p = splitPipe(pair);
+                                    return { isEg: false, q: p[0] || '', a: p[1] || '' };
+                                });
+                            arr.push({
+                                img: oldItems[idx]?.img || '',
+                                questions: questions.length ? questions : [{ isEg: false, q: '', a: '' }]
+                            });
                         });
+                        return;
+                    }
+
+                    // Phonics Focus：目标音 | 单词串 | Tip
+                    if (block.type === 'phonicsFocus') {
+                        const arr = ensureItems();
+                        getLines().forEach(line => {
+                            const p = splitPipe(line);
+                            arr.push({ sound: p[0] || '', words: p[1] || '', tip: p[2] || '' });
+                        });
+                        return;
+                    }
+
+                    // Knowledge Flashcards：# 开头生成标题；否则 核心 | 说明
+                    if (block.type === 'flashcards') {
+                        const arr = ensureItems();
+                        getLines().forEach(line => {
+                            if (line.startsWith('#')) {
+                                arr.push({ isTitle: true, core: line.replace(/^#\s*/, '') });
+                            } else {
+                                const p = splitPipe(line);
+                                arr.push({ ...b, img: '', core: p[0] || '', desc: p[1] || '' });
+                            }
+                        });
+                        return;
+                    }
+
+                    // Multiple Choice：题目 | 选项1 / 选项2 / 选项3 | 答案字母
+                    if (block.type === 'mc') {
+                        const arr = ensureItems();
+                        getLines().forEach(line => {
+                            const p = line.split(/[|\t]+/).map(s => s.trim());
+                            if (p.length >= 2) {
+                                const q = p[0] || '';
+                                const opts = p[1] || '';
+                                const ans = (p[2] || '').toUpperCase().replace(/[\[\]]/g, '');
+                                arr.push({ ...b, img: '', text: `[${ans}] | ${q} | ${opts}` });
+                            }
+                        });
+                        return;
+                    }
+
+                    // 单行类题型
+                    if (['missing', 'wordForm', 'oddOneOut', 'transform', 'circle', 'wordSorting', 'phonicsSorting', 'picQnA', 'keywordSentence', 'wordMorph'].includes(block.type)) {
+                        const arr = ensureItems();
+                        getLines().forEach(line => {
+                            const p = splitPipe(line);
+                            if (block.type === 'missing') arr.push({ ...b, img: '', word: p[0] || '', target: p[1] || '' });
+                            else if (['wordForm', 'oddOneOut', 'transform', 'circle'].includes(block.type)) arr.push({ ...b, img: '', text: line });
+                            else if (['wordSorting', 'phonicsSorting'].includes(block.type)) arr.push({ ...b, title: p[0] || '', words: p[1] || '' });
+                            else if (block.type === 'picQnA') arr.push({ ...b, img: '', q: p[0] || '', a: p[1] || '', hint: p[2] || '' });
+                            else if (block.type === 'keywordSentence') arr.push({ ...b, q: p[0] || '', a: p[1] || '' });
+                            else if (block.type === 'wordMorph') arr.push({ ...b, word: p[0] || '', ans: p[1] || '' });
+                        });
+                        return;
+                    }
+
+                    // 需要“题目区 + 答案区”两列导入的题型
+                    if (['orderStory', 'readWrite', 'lookAnswer', 'lookWriteAnswer', 'match', 'listenYesNo', 'trueFalse', 'correctMistakes', 'reorder', 'scramble', 'listenQuiz', 'textQnA'].includes(block.type)) {
+                        const lines = (block.data.bulkInput || '')
+                            .split('\n')
+                            .map(l => l.trim().replace(/^\|?\s*/, ''))
+                            .filter(l => l);
+                        const answers = (block.data.bulkAns || '')
+                            .split(/[\/／\n]+/)
+                            .map(a => a.trim())
+                            .filter(a => a);
+                        const maxLen = Math.max(lines.length, answers.length);
+
+                        if (block.type === 'listenQuiz') {
+                            if (block.data.plan === '1') block.data.itemsTick = [];
+                            if (block.data.plan === '2') block.data.itemsNumber = [];
+                            if (block.data.plan === '3') block.data.itemsJudge = [];
+                        } else {
+                            ensureItems();
+                        }
+
+                        for (let i = 0; i < maxLen; i++) {
+                            const qPart = lines[i] || '';
+                            const aPart = answers[i] || '';
+
+                            if (block.type === 'orderStory') block.data.items.push({ ...b, img: '', ans: aPart, text: qPart });
+                            else if (['listenYesNo', 'trueFalse', 'correctMistakes', 'readWrite', 'lookAnswer', 'textQnA'].includes(block.type)) block.data.items.push({ ...b, q: qPart, a: aPart });
+                            else if (block.type === 'lookWriteAnswer') {
+                                const pts = splitPipe(qPart);
+                                block.data.items.push({ ...b, hint: pts[0] || '', q: pts[1] || '', a: aPart });
+                            }
+                            else if (block.type === 'match') {
+                                const pts = splitPipe(qPart);
+                                block.data.items.push({ ...b, img: '', hint: pts[0] || qPart, word: aPart });
+                            }
+                            else if (block.type === 'reorder') block.data.items.push({ ...b, scrambled: qPart, ans: aPart });
+                            else if (block.type === 'scramble') block.data.items.push({ ...b, img: '', scrambled: qPart, ans: aPart });
+                            else if (block.type === 'listenQuiz') {
+                                if (block.data.plan === '1') block.data.itemsTick.push({ ...b, q: qPart, img1: '', img2: '', img3: '', ans: parseInt(aPart) || 1 });
+                                else if (block.data.plan === '2') block.data.itemsNumber.push({ ...b, q: qPart, img: '', ans: aPart || String(i + 1) });
+                                else if (block.data.plan === '3') block.data.itemsJudge.push({ ...b, img: '', q: qPart, ans: aPart || '√' });
+                            }
+                        }
+                        return;
                     }
                 };
 
@@ -2020,12 +2834,23 @@ else if(t==='keyWords') arr.push({isEg: false, img:'', word:''});
                 };
 
                 const getComicQIndex = (block, pIdx, qIdx) => {
-                    let count = 1;
-                    for (let i = 0; i < pIdx; i++) count += block.data.items[i].questions.filter(q => !q.isEg).length;
-                    for (let j = 0; j < qIdx; j++) if (!block.data.items[pIdx].questions[j].isEg) count++;
-                    return block.data.items[pIdx].questions[qIdx].isEg ? 'e.g.' : count + '.';
-                };
+    const items = block?.data?.items || [];
+    const currentQuestions = items[pIdx]?.questions || [];
 
+    if (!currentQuestions[qIdx]) return '';
+
+    let count = 1;
+
+    for (let i = 0; i < pIdx; i++) {
+        count += (items[i]?.questions || []).filter(q => !q.isEg).length;
+    }
+
+    for (let j = 0; j < qIdx; j++) {
+        if (!currentQuestions[j]?.isEg) count++;
+    }
+
+    return currentQuestions[qIdx]?.isEg ? 'e.g.' : count + '.';
+};
                 const parsePipe = (t, e) => t ? t.split('\n').filter(l=>l).map(l=>{let p=l.split('|').map(s=>s.trim()); while(p.length<e)p.push(''); return p;}) : [];
                 
                 const parseBasicBlank = (t, isEg, isAns) => t ? t.replace(/\[(.*?)\]/g, (m, p) => `<span class="inline-block align-baseline border-b border-slate-800 min-w-[70px] px-2 mx-1 text-center pb-[2px] leading-none ${(isEg&&!isAns)?'text-slate-500':(isAns||isEg?'text-rose-600 font-medium':'text-transparent')}">${(isAns||isEg)?p:'&nbsp;'}</span>`) : '';
@@ -2122,6 +2947,27 @@ else if(t==='keyWords') arr.push({isEg: false, img:'', word:''});
                 });
                 
                 const parseGrammarColor = (t) => t?t.replace(/#(.*?)#/g,'<span class="text-emerald-600 font-black">$1</span>').replace(/\*(.*?)\*/g,'<span class="text-rose-600 font-black">$1</span>').replace(/@(.*?)@/g,'<span class="text-blue-600 font-black">$1</span>').replace(/\^(.*?)\^/g,'<span class="text-orange-500 font-black">$1</span>').replace(/~(.*?)~/g,'<span class="text-purple-500 font-black">$1</span>').replace(/\n/g,'<br>'):'';
+
+const getLitGrammarImgStyle = (size = 'lg', mode = 'preview') => {
+    const previewMap = {
+        sm: { maxHeight: '48px', maxWidth: '90px' },
+        md: { maxHeight: '66px', maxWidth: '120px' },
+        lg: { maxHeight: '90px', maxWidth: '155px' },
+        xl: { maxHeight: '118px', maxWidth: '190px' }
+    };
+
+    const editorMap = {
+        sm: { height: '40px', maxWidth: '80px' },
+        md: { height: '58px', maxWidth: '105px' },
+        lg: { height: '76px', maxWidth: '130px' },
+        xl: { height: '96px', maxWidth: '150px' }
+    };
+
+    return mode === 'editor'
+        ? (editorMap[size] || editorMap.lg)
+        : (previewMap[size] || previewMap.lg);
+};
+
 const parseLitGrammarHighlight = (t) => t
     ? t.replace(/==(.*?)==/g, '<span class="bg-yellow-200 px-1 rounded">$1</span>').replace(/\n/g, '<br>')
     : '';
@@ -2164,38 +3010,166 @@ const parseLitGrammarHighlight = (t) => t
                 };
                 
                 const triggerImport = () => document.getElementById('importFile').click();
-                const importFromFile = (e) => { 
-                    const f = e.target.files[0]; 
-                    if(!f) return; 
-                    const r = new FileReader(); 
-                    r.onload = (ev) => {
-                        try {
-                            const p = JSON.parse(ev.target.result); 
-                            if(p && p.globalData && p.blocks) {
-                                globalData.value = p.globalData; 
-                                blocks.value = []; 
-                                setTimeout(() => { 
-                                    blocks.value = p.blocks; 
-                                    alert('✅ 完美导入成功！'); 
-                                }, 50);
-                            } else {
-                                alert('❌ 无法识别此备份文件！');
-                            }
-                        } catch(err) {
-                            alert('❌ 导入失败：文件可能已损坏');
-                        }
-                        e.target.value = ''; 
-                    }; 
-                    r.readAsText(f); 
+                const normalizeImportedBlocks = (importedBlocks) => {
+    return (importedBlocks || []).map(block => {
+        if (!block || !block.data) return block;
+
+        if (block.type === 'missing') {
+            block.data.cols = block.data.cols || 4;
+            block.data.bulkInput = block.data.bulkInput || '';
+            block.data.items = (block.data.items || []).map(item => ({
+                isEg: !!item?.isEg,
+                img: item?.img || '',
+                word: item?.word || '',
+                target: item?.target || ''
+            }));
+        }
+
+        if (block.type === 'storyComic') {
+            block.data.comicImgShape = block.data.comicImgShape || 'square';
+            block.data.items = (block.data.items || []).map(item => ({
+                img: item?.img || '',
+                questions: (item?.questions || []).map(q => ({
+                    isEg: !!q?.isEg,
+                    q: q?.q || '',
+                    a: q?.a || ''
+                }))
+            }));
+        }
+
+               if (block.type === 'literature' && block.data.grammar) {
+            block.data.grammar = block.data.grammar.map(gram => ({
+                imgUrl: gram?.imgUrl || '',
+                text: gram?.text || '',
+                imgSize: gram?.imgSize || 'lg'
+            }));
+        }
+
+        if (block.type === 'lookReadNumber1') {
+            block.data.text = block.data.text || '';
+            block.data.bulkInput = block.data.bulkInput || '';
+            block.data.images = (block.data.images || []).map(img => ({
+                src: img?.src || '',
+                circles: (img?.circles || []).map(c => ({
+                    number: c?.number || '',
+                    x: c?.x ?? 50,
+                    y: c?.y ?? 50
+                }))
+            }));
+            block.data.questions = (block.data.questions || []).map(q => ({
+                isEg: !!q?.isEg,
+                q: q?.q || '',
+                a: q?.a || ''
+            }));
+        }
+
+       if (block.type === 'lookReadNumber2') {
+    block.data.text = block.data.text || '';
+    block.data.keywords = block.data.keywords || '';
+    block.data.blankedText = block.data.blankedText || '';
+    block.data.fillAnswers = block.data.fillAnswers || [];
+    block.data.blankWidth = Number(block.data.blankWidth || 110);
+    block.data.questionLayout = block.data.questionLayout || 'blank';
+    block.data.imgLayout = block.data.imgLayout || 'leftText';
+
+    block.data.images = (block.data.images || []).map(img => ({
+        src: img?.src || ''
+    }));
+
+    if (!block.data.images.length) {
+        block.data.images = [{ src: '' }];
+    }
+
+    block.data.qaList = (block.data.qaList || []).map(q => ({
+        isEg: !!q?.isEg,
+        q: q?.q || '',
+        a: q?.a || ''
+    }));
+}
+
+        return block;
+    });
+};
+
+const importFromFile = (e) => { 
+    const f = e.target.files[0]; 
+    if (!f) return; 
+
+    const r = new FileReader(); 
+
+    r.onload = (ev) => {
+        try {
+            const p = JSON.parse(ev.target.result); 
+
+            if (p && p.globalData && p.blocks) {
+                globalData.value = p.globalData; 
+                blocks.value = []; 
+
+                setTimeout(() => { 
+                    blocks.value = normalizeImportedBlocks(p.blocks); 
+                    alert('✅ 完美导入成功！'); 
+                }, 50);
+            } else {
+                alert('❌ 无法识别此备份文件！');
+            }
+        } catch(err) {
+            console.error('导入失败：', err);
+            alert('❌ 导入失败：文件可能已损坏');
+        }
+
+        e.target.value = ''; 
+    }; 
+
+    r.readAsText(f); 
+};
+                const escapeHtml = (str) => String(str || '')
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+
+                const formatLookReadNumber2Text = (block) => {
+                    const data = block?.data || {};
+                    const layout = data.questionLayout || 'blank';
+                    const text = data.text || '';
+
+                    if (layout !== 'blank') {
+                        return escapeHtml(data.blankedText || text).replace(/\n/g, '<br>');
+                    }
+
+                    const keywords = (data.keywords || '')
+                        .split(/[\/／]/)
+                        .map(k => k.trim())
+                        .filter(Boolean);
+
+                    if (!keywords.length) {
+                        return escapeHtml(text).replace(/\n/g, '<br>');
+                    }
+
+                    let html = escapeHtml(text);
+                    const blankWidth = Math.max(60, Math.min(260, Number(data.blankWidth || 110)));
+
+                    keywords.forEach((kw, idx) => {
+                        const safeKw = escapeHtml(kw).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        const reg = new RegExp(safeKw, 'g');
+                        const answer = isAnswerMode.value
+                            ? `<span class="text-rose-600 font-bold px-1">${escapeHtml(kw)}</span>`
+                            : '&nbsp;';
+                        const blank = `<span class="inline-flex items-baseline gap-1 mx-1 whitespace-nowrap"><span class="text-emerald-600 font-bold">(${idx + 1})</span><span class="inline-block border-b border-slate-700 text-center leading-none pb-[2px]" style="min-width:${blankWidth}px;">${answer}</span></span>`;
+                        html = html.replace(reg, blank);
+                    });
+
+                    return html.replace(/\n/g, '<br>');
                 };
-                
+
                 const printPdf = () => { document.title = `${globalData.value.headerText}_${globalData.value.subTitle}_${isAnswerMode.value ? 'AnswerKey' : 'Worksheet'}`; window.print(); };
 
                 return {
                     themes, isAnswerMode, questionTypes, globalData, blocks, addBlock, removeBlock, moveBlock, moveSubItem, addItem, quickTags, insertTransformTag, applyUnderline, generateBulkItems,
                     getSecName, getSecZhName, getSecBg, getSecColor, getOptColor, getCatColor, hasItemImages, getIndexStr, getComicQIndex, parseCorrectMistake,
-                    parsePipe, parseBasicBlank, parseBracketLines, replaceKw, pMc, pTransform, pOdd, parseWordForm, parseCircleWord, parseGrammarColor, parseLitGrammarHighlight,
-getParsedMissing, getShuffledMatch, getMatchAns, pClilPassageA, pClilPassageB, pClilChoice, parseSpeakingBlank, getParsedBranches, generateLiteratureGrammar,
+                    parsePipe, parseBasicBlank, parseBracketLines, replaceKw, pMc, pTransform, pOdd, parseWordForm, parseCircleWord, parseGrammarColor, parseLitGrammarHighlight, getLitGrammarImgStyle,
+getParsedMissing, getShuffledMatch, getMatchAns, pClilPassageA, pClilPassageB, pClilChoice, parseSpeakingBlank, getParsedBranches, generateLiteratureGrammar, formatLookReadNumber2Text,
                     compressAndUpload, handleLogoUpload, saveLocal, restoreLocal, exportToFile, triggerImport, importFromFile, printPdf, onDragStart, onDrop, onDragEnd, dragEnabledIndex
                 };
             }

@@ -2,12 +2,13 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Worksheet 终极区块编辑器 v14.33 英文小标签版 (by BOBOspeak Studio)</title>
+    <title>Worksheet 终极区块编辑器 v14.89 稳定导入多JSON版 (by BOBOspeak Studio)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -790,20 +791,23 @@
 .answer-only-kicker { font-size: 12px; font-weight: 900; letter-spacing: .12em; color: #7c3aed; text-transform: uppercase; }
 .answer-only-title { font-size: 27px; line-height: 1.12; font-weight: 1000; color: #1e293b; margin-top: 3px; }
 .answer-only-subtitle { font-size: 12px; font-weight: 800; color: #64748b; margin-top: 5px; }
-.answer-only-block { break-inside: avoid; page-break-inside: avoid; border: 1.5px solid #e2e8f0; border-radius: 14px; overflow: hidden; margin-bottom: 12px; background: #fff; }
-.answer-only-block-title { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: linear-gradient(90deg, #f8fafc, #eff6ff); border-bottom: 1px solid #e2e8f0; font-size: 14px; font-weight: 1000; color: #0f172a; }
-.answer-only-block-index { min-width: 24px; height: 24px; border-radius: 999px; background: #2563eb; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 1000; }
-.answer-only-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 10px; row-gap: 0; padding: 8px 12px 10px; }
-.answer-only-row { display: grid; grid-template-columns: 34px 1fr; gap: 8px; align-items: baseline; padding: 5px 0; border-bottom: 1px dashed #e2e8f0; min-height: 28px; }
-.answer-only-no { font-size: 12px; font-weight: 1000; color: #2563eb; text-align: right; }
-.answer-only-value { font-size: 13px; font-weight: 800; color: #e11d48; line-height: 1.45; word-break: break-word; }
-.answer-only-empty { padding: 10px 12px; color: #94a3b8; font-size: 12px; font-weight: 800; }
+.answer-only-block { break-inside: avoid; page-break-inside: avoid; border: 1.5px solid #e2e8f0; border-radius: 12px; overflow: hidden; margin-bottom: 8px; background: #fff; }
+.answer-only-block-title { display: flex; align-items: center; gap: 7px; padding: 6px 10px; background: linear-gradient(90deg, #f8fafc, #eff6ff); border-bottom: 1px solid #e2e8f0; font-size: 13px; font-weight: 1000; color: #0f172a; line-height: 1.15; }
+.answer-only-block-index { min-width: 21px; height: 21px; border-radius: 999px; background: #2563eb; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 1000; }
+.answer-only-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 9px; row-gap: 0; padding: 5px 10px 6px; }
+.answer-only-row { display: grid; grid-template-columns: 30px 1fr; gap: 6px; align-items: baseline; padding: 2px 0; border-bottom: 1px dashed #e2e8f0; min-height: 19px; }
+.answer-only-no { font-size: 11px; font-weight: 1000; color: #2563eb; text-align: right; line-height: 1.2; }
+.answer-only-value { font-size: 12px; font-weight: 800; color: #e11d48; line-height: 1.25; word-break: break-word; }
+.answer-only-empty { padding: 8px 10px; color: #94a3b8; font-size: 11.5px; font-weight: 800; }
 @media print {
     .answer-only-page { padding-top: 0 !important; }
-    .answer-only-block { margin-bottom: 9px !important; }
-    .answer-only-grid { padding-top: 6px !important; padding-bottom: 8px !important; }
-    .answer-only-row { padding-top: 4px !important; padding-bottom: 4px !important; min-height: 24px !important; }
-    .answer-only-value { font-size: 12.5px !important; }
+    .answer-only-block { margin-bottom: 7px !important; border-radius: 11px !important; }
+    .answer-only-block-title { padding-top: 5px !important; padding-bottom: 5px !important; font-size: 12.5px !important; }
+    .answer-only-block-index { min-width: 20px !important; height: 20px !important; font-size: 10.5px !important; }
+    .answer-only-grid { padding-top: 4px !important; padding-bottom: 5px !important; }
+    .answer-only-row { padding-top: 1.5px !important; padding-bottom: 1.5px !important; min-height: 18px !important; }
+    .answer-only-no { font-size: 10.8px !important; }
+    .answer-only-value { font-size: 11.8px !important; line-height: 1.2 !important; }
 }
 
 /* 编辑区大题卡片折叠：只影响左侧编辑面板，不影响右侧预览和打印 */
@@ -824,6 +828,8 @@
         </svg>
 
         <input type="file" id="importFile" accept=".json" class="hidden" @change="importFromFile">
+        <input type="file" id="appendImportFiles" accept=".json" multiple class="hidden" @change="appendFromFiles">
+        <input type="file" id="bookletImportFiles" accept=".json" multiple class="hidden" @change="importBookletFromFiles">
 
         <div class="editor-panel w-[55%] h-full overflow-y-auto border-r border-slate-200 bg-slate-100 shadow-xl z-10 flex flex-col relative">
             <div class="p-4 sticky top-0 bg-slate-800/95 backdrop-blur z-30 flex flex-col gap-3 shadow-md text-white">
@@ -845,6 +851,8 @@
                         <button @click="addBlock('unitEvidence')" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 rounded text-xs font-bold text-white border border-amber-400">📌 加证据页</button>
                         <button @click="exportToFile" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 rounded text-xs">📥 导出</button>
                         <button @click="triggerImport" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 rounded text-xs">📂 导入</button>
+                        <button @click="triggerAppendImport" class="px-3 py-1.5 bg-teal-600 hover:bg-teal-500 rounded text-xs font-bold">➕ 追加JSON</button>
+                        <button @click="triggerBookletImport" class="px-3 py-1.5 bg-fuchsia-600 hover:bg-fuchsia-500 rounded text-xs font-bold">📚 单元册</button>
                         <button @click="printPdf" class="px-4 py-1.5 font-bold rounded shadow bg-blue-600 hover:bg-blue-500 text-sm ml-2">🖨️ 打印</button>
                     </div>
                 </div>
@@ -990,7 +998,7 @@
             <span class="text-xs font-bold text-cyan-700">教师附录行距：</span>
             <input type="range" min="1" max="3.2" step="0.1" v-model.number="block.teacherAppendixLineHeight" class="w-32 accent-cyan-500">
             <input type="number" min="1" max="3.2" step="0.1" v-model.number="block.teacherAppendixLineHeight" class="w-16 border border-cyan-200 rounded px-2 py-0.5 text-xs text-center outline-none focus:border-cyan-400">
-            <span class="text-[10px] text-slate-500">只影响 Teacher Appendix 预览行距，不影响题目正文。</span>
+            <span class="text-[10px] text-slate-500">默认 1.5；只影响 Teacher Appendix 预览行距，不影响题目正文。</span>
         </div>
         <div class="text-[10px] text-slate-500 mt-1">学生卷不会显示；切到教师答案卷时显示在该大题内容下方。</div>
     </details>
@@ -1055,7 +1063,7 @@
         <input type="number" min="40" max="900" step="10" v-model.number="block.data.blankLineWidth" class="w-16 border border-sky-200 rounded px-2 py-0.5 text-xs text-center outline-none focus:border-sky-400">
         <span class="text-[10px] text-slate-500">默认 110px；最大 900px，作文脚手架长横线也会真正生效</span>
     </div>
-    <div class="ml-[5.5rem] mt-1 flex flex-wrap items-center gap-2 bg-cyan-50 border border-cyan-100 rounded px-2 py-1 w-[calc(100%-5.5rem)] max-w-full overflow-hidden" v-if="hasAnyImageInBlock(block)">
+    <div class="ml-[5.5rem] mt-1 flex flex-wrap items-center gap-2 bg-cyan-50 border border-cyan-100 rounded px-2 py-1 w-[calc(100%-5.5rem)] max-w-full overflow-hidden" v-if="hasAnyImageInBlock(block) && block.type !== 'grammarFocus'">
         <span class="text-xs font-bold text-cyan-700">本题型图片大小：</span>
         <input type="range" min="30" max="180" step="5" v-model.number="block.data.imgScale" class="w-32 accent-cyan-500">
         <input type="number" min="30" max="180" step="5" v-model.number="block.data.imgScale" class="w-16 border border-cyan-200 rounded px-2 py-0.5 text-xs text-center outline-none focus:border-cyan-400">
@@ -2501,8 +2509,38 @@
 
                     <div v-else-if="block.type === 'grammarFocus'" class="space-y-4">
                         <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-slate-50 p-2 rounded border relative"><label class="text-xs font-bold text-slate-500 mb-1">主语法图谱 (上部)</label><input type="file" accept="image/*" class="w-full text-xs" @change="compressAndUpload($event, block.data, 'ruleImg')"><div v-if="block.data.ruleImg" class="relative inline-block mt-2"><img :src="block.data.ruleImg" class="h-16 bg-white"><div @click.stop="block.data.ruleImg=''" class="btn-del-img btn-del-img-small">×</div></div></div>
-                            <div class="bg-slate-50 p-2 rounded border relative"><label class="text-xs font-bold text-slate-500 mb-1">练习附图 (中部)</label><input type="file" accept="image/*" class="w-full text-xs" @change="compressAndUpload($event, block.data, 'practiceImg')"><div v-if="block.data.practiceImg" class="relative inline-block mt-2"><img :src="block.data.practiceImg" class="h-16 bg-white"><div @click.stop="block.data.practiceImg=''" class="btn-del-img btn-del-img-small">×</div></div></div>
+                            <div class="bg-slate-50 p-2 rounded border relative space-y-2">
+                                <label class="text-xs font-bold text-slate-500 mb-1 block">主语法图谱 (上部)</label>
+                                <input type="file" accept="image/*" class="w-full text-xs" @change="compressAndUpload($event, block.data, 'ruleImg')">
+                                <div v-if="block.data.ruleImg" class="relative inline-block mt-1">
+                                    <img :src="block.data.ruleImg" class="h-16 bg-white">
+                                    <div @click.stop="block.data.ruleImg=''" class="btn-del-img btn-del-img-small">×</div>
+                                </div>
+                                <div v-if="block.data.ruleImg" class="bg-white/80 border border-slate-200 rounded-lg px-2 py-1.5 space-y-1">
+                                    <div class="grid grid-cols-[74px_1fr_54px] gap-2 items-center">
+                                        <span class="text-[10px] font-bold text-slate-500">预览大小</span>
+                                        <input type="range" min="30" max="120" step="2" v-model.number="block.data.ruleImgScale" class="accent-blue-500">
+                                        <input type="number" min="30" max="120" step="2" v-model.number="block.data.ruleImgScale" class="w-full border border-slate-200 rounded px-1 py-0.5 text-[10px] text-center outline-none focus:border-blue-400">
+                                    </div>
+                                    <div class="text-[10px] text-slate-400">只控制主语法图谱预览大小，默认 85%。</div>
+                                </div>
+                            </div>
+                            <div class="bg-slate-50 p-2 rounded border relative space-y-2">
+                                <label class="text-xs font-bold text-slate-500 mb-1 block">练习附图 (中部)</label>
+                                <input type="file" accept="image/*" class="w-full text-xs" @change="compressAndUpload($event, block.data, 'practiceImg')">
+                                <div v-if="block.data.practiceImg" class="relative inline-block mt-1">
+                                    <img :src="block.data.practiceImg" class="h-16 bg-white">
+                                    <div @click.stop="block.data.practiceImg=''" class="btn-del-img btn-del-img-small">×</div>
+                                </div>
+                                <div v-if="block.data.practiceImg" class="bg-white/80 border border-slate-200 rounded-lg px-2 py-1.5 space-y-1">
+                                    <div class="grid grid-cols-[74px_1fr_54px] gap-2 items-center">
+                                        <span class="text-[10px] font-bold text-slate-500">预览大小</span>
+                                        <input type="range" min="30" max="120" step="2" v-model.number="block.data.practiceImgScale" class="accent-blue-500">
+                                        <input type="number" min="30" max="120" step="2" v-model.number="block.data.practiceImgScale" class="w-full border border-slate-200 rounded px-1 py-0.5 text-[10px] text-center outline-none focus:border-blue-400">
+                                    </div>
+                                    <div class="text-[10px] text-slate-400">只控制练习附图预览大小，默认 85%。</div>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="bg-blue-50 p-3 rounded border border-blue-100">
@@ -3358,7 +3396,7 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                                     <div class="leading-snug text-slate-700" :style="{ flex: '0 1 ' + getLRQuestionWidth(block) + '%' }">{{ item.q }}</div>
                                                     <div v-if="block.type === 'readWrite'" class="text-slate-300 font-sans font-medium flex-shrink-0">➔</div>
                                                     <div class="border-b border-slate-700 text-center pb-[2px] min-w-[4rem] align-baseline flex-shrink-0" :style="{ width: getLRAnswerWidth(block) + 'px' }" :class="(item.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium'">
-                                                        <span v-if="isAnswerMode || item.isEg" class="leading-none">{{ item.a }}</span><span v-else class="text-transparent">&nbsp;</span>
+                                                        <span v-if="isAnswerMode || item.isEg" class="leading-none pl-2">{{ item.a }}</span><span v-else class="text-transparent">&nbsp;</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3764,8 +3802,8 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                                                 <span class="font-bold w-6 flex-shrink-0 text-indigo-500 mt-[3px]">{{ getIndexStr(block.data.items, idx, true) }}</span>
                                                                 <span class="text-slate-700 leading-snug">{{ item.q }}</span>
                                                             </div>
-                                                            <div class="border-b border-slate-700 w-full text-center align-baseline pb-[2px] ml-8" style="width: calc(100% - 2rem);" :class="(item.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium'">
-                                                                <span v-if="isAnswerMode||item.isEg" class="leading-none">{{ item.a }}</span><span v-else class="text-transparent">&nbsp;</span>
+                                                            <div class="border-b border-slate-700 w-full text-left align-baseline pb-[2px] ml-8" style="width: calc(100% - 2rem);" :class="(item.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium'">
+                                                                <span v-if="isAnswerMode||item.isEg" class="leading-none pl-2">{{ item.a }}</span><span v-else class="text-transparent">&nbsp;</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -3782,8 +3820,8 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                                                 <span class="font-bold w-6 flex-shrink-0 text-indigo-500 mt-[3px]">{{ getIndexStr(block.data.items, idx, true) }}</span>
                                                                 <span class="text-slate-700 leading-snug">{{ item.q }}</span>
                                                             </div>
-                                                            <div class="border-b border-slate-700 w-full text-center align-baseline pb-[2px] ml-8" style="width: calc(100% - 2rem);" :class="(item.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium'">
-                                                                <span v-if="isAnswerMode||item.isEg" class="leading-none">{{ item.a }}</span><span v-else class="text-transparent">&nbsp;</span>
+                                                            <div class="border-b border-slate-700 w-full text-left align-baseline pb-[2px] ml-8" style="width: calc(100% - 2rem);" :class="(item.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium'">
+                                                                <span v-if="isAnswerMode||item.isEg" class="leading-none pl-2">{{ item.a }}</span><span v-else class="text-transparent">&nbsp;</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -3849,10 +3887,10 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                 </div>
 
                 <div 
-                    class="border-b border-slate-700 w-full text-center align-baseline pb-[2px] mt-4"
+                    class="border-b border-slate-700 w-full text-left align-baseline pb-[2px] mt-4"
                     :class="(qItem.isEg && !isAnswerMode) ? 'text-slate-500' : 'text-rose-600 font-medium'"
                 >
-                    <span v-if="isAnswerMode || qItem.isEg" class="leading-none">
+                    <span v-if="isAnswerMode || qItem.isEg" class="leading-none pl-2">
                         {{ qItem.a }}
                     </span>
                     <span v-else class="text-transparent">&nbsp;</span>
@@ -3869,7 +3907,7 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                                     <div class="flex items-start gap-2 text-slate-600 font-medium"><span class="font-bold w-6 flex-shrink-0 text-indigo-500 mt-[3px]">{{ getIndexStr(block.data.items, idx, true) }}</span><span>{{ item.hint }}</span></div>
                                                     <div class="flex items-start w-full pl-8 mt-1" :style="{ gap: (block.data.lineGap ?? 16) + 'px' }">
                                                         <div class="border-b border-slate-700 align-baseline pb-[2px] text-center flex-shrink-0" :style="{ width: (block.data.qLineWidth ?? 62) + '%' }" :class="(item.isEg&&!isAnswerMode)?'text-slate-500':'text-indigo-600 font-medium'"><span v-if="isAnswerMode||item.isEg" class="leading-none">{{ item.q }}</span><span v-else class="text-transparent">&nbsp;</span></div>
-                                                        <div class="border-b border-slate-700 align-baseline pb-[2px] text-center flex-shrink-0" :style="{ width: (block.data.aLineWidth ?? 30) + '%' }" :class="(item.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium'"><span v-if="isAnswerMode||item.isEg" class="leading-none">{{ item.a }}</span><span v-else class="text-transparent">&nbsp;</span></div>
+                                                        <div class="border-b border-slate-700 align-baseline pb-[2px] text-center flex-shrink-0" :style="{ width: (block.data.aLineWidth ?? 30) + '%' }" :class="(item.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium'"><span v-if="isAnswerMode||item.isEg" class="leading-none pl-2">{{ item.a }}</span><span v-else class="text-transparent">&nbsp;</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3969,13 +4007,13 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
     <div v-if="block.data.ruleImg" class="w-full flex justify-center">
         <img 
             :src="block.data.ruleImg" 
-            class="max-w-[85%] h-auto bg-white" :style="getBlockImgStyle(block)">
+            class="h-auto bg-white" :style="getGrammarFocusImgStyle(block, 'ruleImgScale')">
     </div>
 
     <div v-if="block.data.practiceImg" class="w-full flex justify-center">
         <img 
             :src="block.data.practiceImg" 
-            class="max-w-[85%] h-auto bg-white" :style="getBlockImgStyle(block)">
+            class="h-auto bg-white" :style="getGrammarFocusImgStyle(block, 'practiceImgScale')">
     </div>
     
     <div 
@@ -4079,7 +4117,7 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
             class="border-b border-slate-700 w-full text-left pl-2 pb-[1px] min-h-[1.25rem] mt-0.5" 
             :class="(item.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium'"
         >
-            <span v-if="isAnswerMode||item.isEg" class="leading-none">{{ item.a }}</span>
+            <span v-if="isAnswerMode||item.isEg" class="leading-none pl-2">{{ item.a }}</span>
             <span v-else class="text-transparent">_</span>
         </div>
     </div>
@@ -4528,7 +4566,7 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                                     <span class="font-bold w-6 flex-shrink-0 mt-[3px] text-red-500">{{ getIndexStr(block.data.items, idx, true) }}</span>
                                                     <div class="leading-relaxed text-slate-700" :style="{ flex: '0 1 ' + getLRQuestionWidth(block) + '%' }" v-html="parseCorrectMistake(item.q, item.isEg, isAnswerMode)"></div>
                                                     <div class="border-b border-slate-700 text-center align-baseline pb-[2px] min-h-[1.5rem] flex-shrink-0" :style="{ width: getLRAnswerWidth(block) + 'px' }" :class="(item.isEg&&!isAnswerMode)?'text-slate-500':'text-rose-600 font-medium'">
-                                                        <span v-if="isAnswerMode || item.isEg" class="leading-none">{{ item.a }}</span>
+                                                        <span v-if="isAnswerMode || item.isEg" class="leading-none pl-2">{{ item.a }}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -4817,7 +4855,7 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                                 <div class="font-black text-cyan-700 mb-1">Teacher Appendix</div>
                                                 <div
                                                     class="whitespace-pre-line teacher-appendix-content"
-                                                    :style="{ '--teacher-appendix-line-height': String(Number(block.teacherAppendixLineHeight || 1.8)) }"
+                                                    :style="{ '--teacher-appendix-line-height': String(Number(block.teacherAppendixLineHeight || 1.5)) }"
                                                     v-html="formatTeacherAppendix(block.teacherAppendix)"
                                                 ></div>
                                             </div>
@@ -5008,7 +5046,7 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                     else if (['factFile'].includes(type)) { data = { bulkInput: '# Penguin\nType | [bird]\nHome | Antarctica\nFood | fish\n\n# Camel\nType | [mammal]\nHome | desert\nFood | plants', items: [{img: '', title: 'Penguin', rows: [{isEg: false, key: 'Type', val: '[bird]'}]}] }; }
                     else if (['lifeCycle'].includes(type)) { data = { items: [{isEg: false, img: '', text: 'egg'}, {isEg: false, img: '', text: '[tadpole]'}, {isEg: false, img: '', text: 'frog'}] }; }
                     else if (['listenFill', 'listenComp', 'chooseComplete', 'storyRetell'].includes(type)) { data = { keywords: type==='listenFill'?'mountain':type==='chooseComplete'?'do / eat':'', hasEg: true, img: '', ...(type==='chooseComplete'?{chooseImgLayout:'side', hideQuestionNumbers:false}:{}), ...(type==='listenFill'?{listenLineHeight:2.5, listenImgWidth:35, showKeywordBank:false}:{}), ...(type==='storyRetell'?{retellImgMode:'single', retellImgs:['', '', '', '', '', '']}:{}), text: type==='storyRetell'?'First, they are in the [garden].':type==='chooseComplete'?'I [eat] an apple.':'Narrator: Grandpa is outside.\nJenny: Look at the mountain!' }; }
-                    else if (['grammarFocus'].includes(type)) { data = { ruleImg: '', practiceImg: '', enableExtra: false, textImg: '', practiceText: '1. Where #are# the bag*s*?\nThey\'re @next to@ the desk.' }; }
+                    else if (['grammarFocus'].includes(type)) { data = { ruleImg: '', practiceImg: '', ruleImgScale: 85, practiceImgScale: 85, enableExtra: false, textImg: '', practiceText: '1. Where #are# the bag*s*?\nThey\'re @next to@ the desk.' }; }
                     else if (['literature'].includes(type)) { 
     data = { 
         subTitle: 'The first day', 
@@ -5248,7 +5286,7 @@ else if (type === 'tChart') { data = { titleMain: 'Topic Name', showMainTitle: t
                     block.editorCollapsed = !!block.editorCollapsed;
                     block.practiceTipEnabled = !!block.practiceTipEnabled;
                     const appendixLH = Number(block.teacherAppendixLineHeight);
-                    block.teacherAppendixLineHeight = Number.isFinite(appendixLH) ? Math.min(3.2, Math.max(1, appendixLH)) : 1.8;
+                    block.teacherAppendixLineHeight = Number.isFinite(appendixLH) ? Math.min(3.2, Math.max(1, appendixLH)) : 1.5;
                     if (typeof block.practiceTipText !== 'string' || !block.practiceTipText.trim()) block.practiceTipText = 'Review 3 times before completing this exercise.';
                     block.labels = (block.labels && typeof block.labels === 'object') ? block.labels : {};
                     assessmentLabelOptions.forEach(opt => {
@@ -6418,7 +6456,7 @@ if (block.type === 'wordList') {
                     pt = pt.replace(/\n/g,'<br>');
                     
                     if(k){
-                        const w=k.split(/[\/\,，、]+/).map(x=>x.trim()).filter(x=>x).sort((a,b)=>b.length-a.length);
+                        const w=k.split(/[\/,，、\n]+/).map(x=>x.trim()).filter(x=>x).sort((a,b)=>b.length-a.length);
                         if(w.length>0){
                             const safeWords = w.map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
                             const r = new RegExp(`(^|[^A-Za-zÀ-ÖØ-öø-ÿ0-9_])(${safeWords.join('|')})(?![A-Za-zÀ-ÖØ-öø-ÿ0-9_])(?![^\\[]*\\])`, 'gi');
@@ -6731,6 +6769,113 @@ const getMatchPairs = (block) => {
                 };
 
                 const triggerImport = () => document.getElementById('importFile').click();
+                const triggerAppendImport = () => document.getElementById('appendImportFiles').click();
+                const triggerBookletImport = () => document.getElementById('bookletImportFiles').click();
+
+                const readFileAsText = (file) => new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => resolve(String(ev.target.result || ''));
+                    reader.onerror = () => reject(reader.error || new Error('read failed'));
+                    reader.readAsText(file);
+                });
+
+                const normalizeBookletPartName = (name = '') => {
+                    const raw = String(name || '')
+                        .replace(/\.json$/i, '')
+                        .replace(/[_\-]+/g, ' ')
+                        .replace(/\s+/g, ' ')
+                        .trim();
+                    const lower = raw.toLowerCase();
+                    if (/vocabulary\s*1|vocab\s*1/.test(lower)) return 'Vocabulary 1';
+                    if (/story/.test(lower)) return 'Story';
+                    if (/grammar\s*1|language\s*&?\s*practice\s*1|language\s*practice\s*1/.test(lower)) return 'Language practice 1';
+                    if (/vocabulary\s*2|vocab\s*2/.test(lower)) return 'Vocabulary 2';
+                    if (/grammar\s*2|language\s*&?\s*practice\s*2|language\s*practice\s*2/.test(lower)) return 'Language practice 2';
+                    if (/cross/.test(lower)) return 'Cross-curricular';
+                    if (/reading.*listening|listening.*reading/.test(lower)) return 'Reading & Listening';
+                    if (/speaking.*writing|writing.*speaking/.test(lower)) return 'Speaking & Writing';
+                    if (/a1|exam/.test(lower)) return 'A1 Exam';
+                    if (/evidence/.test(lower)) return 'Unit Evidence';
+                    return raw || 'Imported part';
+                };
+
+                const getBookletSortOrder = (name = '') => {
+                    const part = normalizeBookletPartName(name).toLowerCase();
+                    const order = [
+                        'vocabulary 1', 'story', 'language practice 1', 'vocabulary 2', 'language practice 2',
+                        'cross-curricular', 'reading & listening', 'speaking & writing', 'a1 exam', 'unit evidence'
+                    ];
+                    const idx = order.indexOf(part);
+                    return idx >= 0 ? idx : 999;
+                };
+
+                const parseWorksheetJsonTextStable = (rawText, fileName = '') => {
+                    const text = String(rawText || '').trim();
+                    if (!text) throw new Error(`${fileName || '文件'} 是空的`);
+                    if (/^\s*<!doctype|^\s*<html/i.test(text)) throw new Error(`${fileName || '文件'} 是 HTML，不是 JSON 备份`);
+                    const payload = JSON.parse(text);
+                    const parsed = extractBackupPayload(payload);
+                    if (!parsed.blocks.length) throw new Error(`${fileName || '文件'} 没有找到 blocks 题目数据`);
+                    return parsed;
+                };
+
+                const appendFromFiles = async (e) => {
+                    const files = Array.from(e.target.files || []);
+                    if (!files.length) return;
+                    const added = [];
+                    const errors = [];
+                    for (const file of files) {
+                        try {
+                            const text = await readFileAsText(file);
+                            const parsed = parseWorksheetJsonTextStable(text, file.name);
+                            added.push(...parsed.blocks);
+                        } catch (err) {
+                            console.error('追加导入失败：', file.name, err);
+                            errors.push(`${file.name}: ${err.message || err}`);
+                        }
+                    }
+                    if (added.length) blocks.value = [...blocks.value, ...added];
+                    e.target.value = '';
+                    alert(`✅ 追加完成：新增 ${added.length} 个区块。${errors.length ? '\n\n⚠️ 以下文件未导入：\n' + errors.slice(0, 5).join('\n') : ''}`);
+                };
+
+                const importBookletFromFiles = async (e) => {
+                    const files = Array.from(e.target.files || []);
+                    if (!files.length) return;
+                    const sorted = files.slice().sort((a, b) => {
+                        const oa = getBookletSortOrder(a.name);
+                        const ob = getBookletSortOrder(b.name);
+                        return oa === ob ? a.name.localeCompare(b.name) : oa - ob;
+                    });
+                    const mergedBlocks = [];
+                    let firstGlobalData = null;
+                    const errors = [];
+                    for (const file of sorted) {
+                        try {
+                            const text = await readFileAsText(file);
+                            const parsed = parseWorksheetJsonTextStable(text, file.name);
+                            if (!firstGlobalData && parsed.globalData) firstGlobalData = parsed.globalData;
+                            const partName = normalizeBookletPartName(file.name);
+                            parsed.blocks.forEach(block => {
+                                if (block && typeof block === 'object') {
+                                    block.bookletPart = partName;
+                                    block.bookletPartTitle = partName;
+                                }
+                            });
+                            mergedBlocks.push(...parsed.blocks);
+                        } catch (err) {
+                            console.error('单元册导入失败：', file.name, err);
+                            errors.push(`${file.name}: ${err.message || err}`);
+                        }
+                    }
+                    if (mergedBlocks.length) {
+                        if (firstGlobalData) globalData.value = { ...globalData.value, ...firstGlobalData, subTitle: 'Unit Booklet' };
+                        else globalData.value = { ...globalData.value, subTitle: 'Unit Booklet' };
+                        blocks.value = mergedBlocks;
+                    }
+                    e.target.value = '';
+                    alert(`✅ 单元册导入完成：共 ${mergedBlocks.length} 个区块。${errors.length ? '\n\n⚠️ 以下文件未导入：\n' + errors.slice(0, 5).join('\n') : ''}`);
+                };
 
                 const normalizeImportedBlocks = (importedBlocks) => {
                     if (!Array.isArray(importedBlocks)) return [];
@@ -7280,6 +7425,16 @@ const escapeRegExp = (str) => String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '
                     };
                 };
 
+                const getGrammarFocusImgStyle = (block, scaleKey) => {
+                    const data = block?.data || {};
+                    const scale = Math.max(30, Math.min(120, Number(data[scaleKey] ?? 85)));
+                    return {
+                        width: `${scale}%`,
+                        maxWidth: '100%',
+                        height: 'auto'
+                    };
+                };
+
                 const getLRQuestionWidth = (block) => Math.max(35, Math.min(85, Number(block?.data?.lrQuestionWidth || 62)));
                 const getLRAnswerWidth = (block) => Math.max(70, Math.min(320, Number(block?.data?.lrAnswerWidth || 160)));
                 const getLRGap = (block) => Math.max(0, Math.min(80, Number(block?.data?.lrGap ?? 12)));
@@ -7302,6 +7457,32 @@ const escapeRegExp = (str) => String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '
                         return m;
                     });
                     return res;
+                };
+
+                // 纯答案页补全：兼容两类答案来源
+                // 1）手动 [answer] 挖空；2）按 keywords / wordBank 自动挖空。
+                // 这里复用 replaceKw 的匹配逻辑，确保纯答案页顺序和预览里的题目顺序一致。
+                const collectAutoBlankAnswers = (text, keywords = '') => {
+                    let pt = String(text || '');
+                    if (keywords) {
+                        const words = String(keywords || '')
+                            .split(/[\/,，、\n]+/)
+                            .map(x => x.trim())
+                            .filter(Boolean)
+                            .sort((a, b) => b.length - a.length);
+                        if (words.length > 0) {
+                            const safeWords = words.map(x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+                            const reg = new RegExp(`(^|[^A-Za-zÀ-ÖØ-öø-ÿ0-9_])(${safeWords.join('|')})(?![A-Za-zÀ-ÖØ-öø-ÿ0-9_])(?![^\[]*\])`, 'gi');
+                            const used = new Set();
+                            pt = pt.replace(reg, (m, prefix, word) => {
+                                const key = String(word || '').toLowerCase();
+                                if (used.has(key)) return m;
+                                used.add(key);
+                                return `${prefix || ''}[${word}]`;
+                            });
+                        }
+                    }
+                    return collectBracketAnswers(pt);
                 };
 
                 const answerTextFromItem = (item, fallbackKeys = ['a', 'ans', 'word', 'val']) => {
@@ -7327,7 +7508,13 @@ const escapeRegExp = (str) => String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '
 
                     const fromArray = (arr, getter) => Array.isArray(arr) && arr.forEach((item, idx) => pushAnswer(rows, getter(item, idx)));
 
-                    if (['readWrite','listenYesNo','lookAnswer','lookWriteAnswer','trueFalse','textQnA','correctMistakes','wrongResponses','keywordSentence','sceneHunt','stickerPlacement','pictureDifference'].includes(block.type)) {
+                    if (block.type === 'correctMistakes') {
+                        fromArray(d.items, item => {
+                            const wrongWords = collectBracketAnswers(item.q || '');
+                            const correctWord = answerTextFromItem(item, ['a','ans']);
+                            return wrongWords.length && correctWord ? `${wrongWords.join(' / ')} ➡️ ${correctWord}` : correctWord;
+                        });
+                    } else if (['readWrite','listenYesNo','lookAnswer','lookWriteAnswer','trueFalse','textQnA','wrongResponses','keywordSentence','sceneHunt','stickerPlacement','pictureDifference'].includes(block.type)) {
                         fromArray(d.items || d.questions || d.rows || d.instructions, item => answerTextFromItem(item));
                     } else if (block.type === 'mc') {
                         fromArray(d.items, item => {
@@ -7363,7 +7550,7 @@ const escapeRegExp = (str) => String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '
                     } else if (block.type === 'match') {
                         fromArray(d.items, item => answerTextFromItem(item, ['word','a','ans']));
                     } else if (['listenFill','listenComp','chooseComplete','storyRetell'].includes(block.type)) {
-                        const ans = collectBracketAnswers(d.text || '');
+                        const ans = collectAutoBlankAnswers(d.text || '', d.keywords || '');
                         ans.forEach(a => pushAnswer(rows, a));
                     } else if (block.type === 'storyComic') {
                         Array.isArray(d.items) && d.items.forEach(card => {
@@ -7373,6 +7560,10 @@ const escapeRegExp = (str) => String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '
                         Array.isArray(d.items) && d.items.forEach(card => {
                             Array.isArray(card.rows) && card.rows.forEach(r => pushAnswer(rows, answerTextFromItem(r, ['val','a','ans'])));
                         });
+                    } else if (['wordSorting','phonicsSorting'].includes(block.type)) {
+                        fromArray(d.items, item => [plainText(item.title || ''), plainText(item.words || '')].filter(Boolean).join(': '));
+                    } else if (block.type === 'lifeCycle') {
+                        fromArray(d.items, item => answerTextFromItem(item, ['val','word','a','ans']));
                     } else if (block.type === 'diagram') {
                         fromArray(d.items, item => answerTextFromItem(item, ['val','a','ans']));
                     } else if (block.type === 'lookReadNumber1') {
@@ -7391,12 +7582,16 @@ const escapeRegExp = (str) => String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '
                             return parsed.ans ? `${parsed.ans}${opts[idx] ? '. ' + opts[idx] : ''}` : '';
                         });
                     } else if (block.type === 'clilRead') {
-                        collectBracketAnswers(d.layout === 'A' ? d.passageA : d.passageB).forEach(a => pushAnswer(rows, a));
+                        if ((d.layout || 'A') === 'A') {
+                            collectAutoBlankAnswers(d.passageA || '', d.wordBankA || '').forEach(a => pushAnswer(rows, a));
+                        } else {
+                            collectBracketAnswers(d.passageB || '').forEach(a => pushAnswer(rows, a));
+                        }
                         fromArray(d.itemsChoice, item => answerTextFromItem(item, ['text','a','ans']));
                         fromArray(d.itemsBlank, item => answerTextFromItem(item));
                         fromArray(d.itemsUnscramble, item => answerTextFromItem(item, ['ans','a']));
                     } else if (block.type === 'writingCard') {
-                        collectBracketAnswers(d.outputTitle || '').concat(collectBracketAnswers(d.writingScaffold || '')).forEach(a => pushAnswer(rows, a));
+                        collectBracketAnswers(d.outputTitle || '').concat(collectAutoBlankAnswers(d.writingScaffold || '', d.wordsBank || '')).forEach(a => pushAnswer(rows, a));
                     } else if (block.type === 'speaking') {
                         const chunks = [d.sentence, d.qna, d.branches, d.pointBranches, d.lineBranches];
                         Array.isArray(d.topics) && d.topics.forEach(t => chunks.push(t.points, t.lines));
@@ -7418,6 +7613,22 @@ const escapeRegExp = (str) => String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '
                     } else if (block.type === 'tChart') {
                         [d.listA, d.listB].forEach(x => pushAnswer(rows, x));
                     }
+
+                    // 兜底：新题型或复杂题型如果没有进入上面的专属逻辑，仍尽量把可填写答案提取出来。
+                    if (!rows.length) {
+                        ['text','passage','passageA','passageB','blankedText','writingScaffold','sentence','qna','branches','pointBranches','lineBranches'].forEach(key => {
+                            collectAutoBlankAnswers(d[key] || '', d.keywords || d.wordBank || d.wordBankA || '').forEach(a => pushAnswer(rows, a));
+                        });
+                        ['items','questions','rows','instructions','qaList','tfList','itemsBlank','itemsUnscramble','itemsChoice','itemsTick','itemsNumber','itemsJudge','rules'].forEach(key => {
+                            if (Array.isArray(d[key])) {
+                                d[key].forEach(item => {
+                                    const direct = answerTextFromItem(item, ['a','ans','val','word','why']);
+                                    if (direct) pushAnswer(rows, direct);
+                                    ['text','q','dialogue'].forEach(tKey => collectBracketAnswers(item?.[tKey] || '').forEach(a => pushAnswer(rows, a)));
+                                });
+                            }
+                        });
+                    }
                     return rows;
                 };
 
@@ -7435,8 +7646,8 @@ const escapeRegExp = (str) => String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '
                     themes, isAnswerMode, answerOnlyMode, setPreviewMode, answerOnlyBlocks, questionTypes, questionTypeCategories, filteredQuestionTypes, typeSearch, activeTypeCategory, lastAddedTypeId, typePanelOpen, difficultyOptions, assessmentLabelOptions, globalData, blocks, addBlock, removeBlock, clearAllBlocks, clearBlockContent, moveBlock, fillPU2GuideIntro, generateGuideIntroItems, generateUnitEvidenceSections, moveSubItem, addItem, quickTags, insertTransformTag, applyUnderline, generateBulkItems, getBlockLineHeight, getBlankLineWidth, getWritingBankLineHeight, getWritingScaffoldLineHeight, getBulkGuide, getBulkPlaceholder,
                     getSecName, getSecZhName, getSecBg, getSecColor, getOptColor, getCatColor, getBlockDifficulty, isBlockLabelOn, hasPracticeTip, splitEvidenceItems, splitEvidenceBilingual, hasItemImages, getIndexStr, getComicQIndex, parseCorrectMistake, parseWrongResponseDialogue, formatTeacherAppendix, formatWritingWordsBank, groupFlashcardRows, isFlashcardRowStarter, groupLiteratureCharacters,
                     parsePipe, parseBasicBlank, parseBracketLines, replaceKw, pMc, pTransform, pOdd, parseWordForm, parseCircleWord, parseGrammarColor, parsePhonicsText, parseLitGrammarHighlight, getLitGrammarImgStyle,
-getParsedMissing, getShuffledMatch, getOptionLetter, getMatchAns, getMatchPairs, pClilPassageA, pClilPassageB, pClilChoice, parseSpeakingBlank, getParsedBranches, parseSpeakingPointRows, parseSpeakingLineRows, parseSpeakingLinePairs, getSpeakingTopics, ensureSpeakingTopics, getParsedSpeakingPoints, getParsedSpeakingLines, generateLiteratureGrammar, formatLookReadNumber2Text, formatPhonicsChoiceWord, getBlockImgStyle, getStackedIntroColor, getStackedIntroBorder, getStackedIntroGap, getStackedIntroCardStackGap, getStackedIntroImageBoxWidth, getStackedIntroCardSideGap, ensureStackedIntroCards, getStackedIntroCards, getFirstStackedIntroCard, addStackedIntroCard, removeStackedIntroCard, hasAnyImageInBlock, hasWordBankArea, getWordBankFlexStyle, getWordBankBoxStyle, formatWordBankText, getLRQuestionWidth, getLRAnswerWidth, getLRGap,
-                    compressAndUpload, compressFilesToDataUrls, handleStackedIntroUpload, moveStackedIntroImage, sendStackedIntroImageToFront, sendStackedIntroImageToBack, removeStackedIntroImage, handleLogoUpload, saveLocal, restoreLocal, exportToFile, triggerImport, importFromFile, printPdf, onDragStart, onDrop, onDragEnd, dragEnabledIndex
+getParsedMissing, getShuffledMatch, getOptionLetter, getMatchAns, getMatchPairs, pClilPassageA, pClilPassageB, pClilChoice, parseSpeakingBlank, getParsedBranches, parseSpeakingPointRows, parseSpeakingLineRows, parseSpeakingLinePairs, getSpeakingTopics, ensureSpeakingTopics, getParsedSpeakingPoints, getParsedSpeakingLines, generateLiteratureGrammar, formatLookReadNumber2Text, formatPhonicsChoiceWord, getBlockImgStyle, getGrammarFocusImgStyle, getStackedIntroColor, getStackedIntroBorder, getStackedIntroGap, getStackedIntroCardStackGap, getStackedIntroImageBoxWidth, getStackedIntroCardSideGap, ensureStackedIntroCards, getStackedIntroCards, getFirstStackedIntroCard, addStackedIntroCard, removeStackedIntroCard, hasAnyImageInBlock, hasWordBankArea, getWordBankFlexStyle, getWordBankBoxStyle, formatWordBankText, getLRQuestionWidth, getLRAnswerWidth, getLRGap,
+                    compressAndUpload, compressFilesToDataUrls, handleStackedIntroUpload, moveStackedIntroImage, sendStackedIntroImageToFront, sendStackedIntroImageToBack, removeStackedIntroImage, handleLogoUpload, saveLocal, restoreLocal, exportToFile, triggerImport, triggerAppendImport, triggerBookletImport, appendFromFiles, importBookletFromFiles, importFromFile, printPdf, onDragStart, onDrop, onDragEnd, dragEnabledIndex
                 };
             }
         }).mount('#app');

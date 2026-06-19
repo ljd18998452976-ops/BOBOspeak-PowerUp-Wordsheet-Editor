@@ -1056,11 +1056,17 @@
         <span class="text-[10px] text-slate-500">英文小标签会显示在预览标题旁，比星级更小，方便截图展示。</span>
     </div>
 
-    <div class="ml-[5.5rem] mt-1 flex flex-wrap items-center gap-2 bg-violet-50 border border-violet-100 rounded px-2 py-1 w-max">
-        <span class="text-xs font-bold text-violet-700">本题型行距：</span>
-        <input type="range" min="1" max="4" step="0.1" v-model.number="block.data.lineHeight" class="w-32 accent-violet-500">
-        <input type="number" min="1" max="4" step="0.1" v-model.number="block.data.lineHeight" class="w-16 border border-violet-200 rounded px-2 py-0.5 text-xs text-center outline-none focus:border-violet-400">
-        <span class="text-[10px] text-slate-500">默认 1.8；会影响该区块预览正文</span>
+    <div class="ml-[5.5rem] mt-1 bg-violet-50 border border-violet-100 rounded px-2 py-1 w-[calc(100%-5.5rem)] max-w-full overflow-hidden">
+        <div class="flex flex-wrap items-center gap-2">
+            <span class="text-xs font-bold text-violet-700">学生卷行距：</span>
+            <input type="range" min="1" max="4" step="0.1" v-model.number="block.data.studentLineHeight" class="w-28 accent-violet-500">
+            <input type="number" min="1" max="4" step="0.1" v-model.number="block.data.studentLineHeight" class="w-16 border border-violet-200 rounded px-2 py-0.5 text-xs text-center outline-none focus:border-violet-400">
+            <span class="h-4 border-l border-violet-200 mx-1"></span>
+            <span class="text-xs font-bold text-violet-700">教师卷行距：</span>
+            <input type="range" min="1" max="4" step="0.1" v-model.number="block.data.teacherLineHeight" class="w-28 accent-violet-500">
+            <input type="number" min="1" max="4" step="0.1" v-model.number="block.data.teacherLineHeight" class="w-16 border border-violet-200 rounded px-2 py-0.5 text-xs text-center outline-none focus:border-violet-400">
+            <span class="text-[10px] text-slate-500">学生卷 / 教师卷切换时分别生效；旧文件会自动沿用原行距。</span>
+        </div>
     </div>
 
     <div class="ml-[5.5rem] mt-1 flex flex-wrap items-center gap-2 bg-sky-50 border border-sky-100 rounded px-2 py-1 w-max">
@@ -5293,6 +5299,13 @@ else if (type === 'tChart') { data = { titleMain: 'Topic Name', showMainTitle: t
                     block.practiceTipEnabled = !!block.practiceTipEnabled;
                     const appendixLH = Number(block.teacherAppendixLineHeight);
                     block.teacherAppendixLineHeight = Number.isFinite(appendixLH) ? Math.min(3.2, Math.max(1, appendixLH)) : 1.5;
+                    block.data = (block.data && typeof block.data === 'object') ? block.data : {};
+                    const baseLineHeight = Number(block.data.lineHeight);
+                    const baseLH = Number.isFinite(baseLineHeight) && baseLineHeight > 0 ? Math.min(4, Math.max(1, baseLineHeight)) : 1.8;
+                    const studentLH = Number(block.data.studentLineHeight);
+                    const teacherLH = Number(block.data.teacherLineHeight);
+                    block.data.studentLineHeight = Number.isFinite(studentLH) && studentLH > 0 ? Math.min(4, Math.max(1, studentLH)) : baseLH;
+                    block.data.teacherLineHeight = Number.isFinite(teacherLH) && teacherLH > 0 ? Math.min(4, Math.max(1, teacherLH)) : baseLH;
                     if (typeof block.practiceTipText !== 'string' || !block.practiceTipText.trim()) block.practiceTipText = 'Review 3 times before completing this exercise.';
                     block.labels = (block.labels && typeof block.labels === 'object') ? block.labels : {};
                     assessmentLabelOptions.forEach(opt => {
@@ -6179,9 +6192,13 @@ if (block.type === 'wordList') {
 
 
                 const getBlockLineHeight = (block) => {
-                    const v = Number(block?.data?.lineHeight);
-                    if (!Number.isFinite(v) || v <= 0) return '1.8';
-                    return String(Math.min(4, Math.max(1, v)));
+                    const data = block?.data || {};
+                    const preferred = isAnswerMode.value ? data.teacherLineHeight : data.studentLineHeight;
+                    const fallback = Number(data.lineHeight);
+                    const v = Number(preferred);
+                    if (Number.isFinite(v) && v > 0) return String(Math.min(4, Math.max(1, v)));
+                    if (Number.isFinite(fallback) && fallback > 0) return String(Math.min(4, Math.max(1, fallback)));
+                    return '1.8';
                 };
 
                 const getBlankLineWidth = (block) => {

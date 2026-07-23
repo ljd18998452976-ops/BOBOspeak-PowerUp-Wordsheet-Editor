@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Worksheet 终极区块编辑器 v14.89 稳定导入多JSON版 (by BOBOspeak Studio)</title>
+    <title>Worksheet_v14_113_CircleWord纯颜色版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -26,6 +26,119 @@
         }
         
         .print-frame-overlay { display: none; }
+        .ws-qr-wrap { font-family: 'Nunito', sans-serif; }
+        .ws-qr-box { background: #fff; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 3px; box-shadow: 0 2px 8px rgba(15,23,42,0.08); }
+        .ws-qr-box img { width: 100%; height: 100%; object-fit: contain; display: block; }
+        .ws-qr-placeholder { width: 100%; height: 100%; border: 1px dashed #94a3b8; border-radius: 5px; color: #94a3b8; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; }
+        .ws-qr-label { margin-top: 1px; font-size: 7px; line-height: 0.92; text-align: center; font-weight: 800; color: #64748b; word-break: break-word; }
+
+        .tg-content-only { font-family: 'Nunito', 'Microsoft YaHei', sans-serif; color:#102033; }
+        .tg-content-only .tg-title { font-size:25px; font-weight:1000; color:#0f172a; margin:4px 0 8px; letter-spacing:.02em; }
+        .tg-content-only > .tg-title:first-child { display:none; }
+        .tg-content-only .tg-subtitle { font-size:13px; font-weight:900; color:#334155; margin-bottom:9px; }
+        .tg-content-only .tg-tags { display:flex; flex-wrap:wrap; gap:7px; margin:8px 0 16px; }
+        .tg-content-only .tg-tag { border:1.3px solid #93c5fd; background:#eff6ff; color:#2563eb; border-radius:999px; padding:3px 9px; font-size:11px; font-weight:900; }
+        .tg-content-only .tg-section { margin: 12px 0 15px; break-inside: avoid; }
+        .tg-content-only .tg-section-title { display:flex; align-items:center; gap:8px; color:#0f172a; font-size:17px; font-weight:1000; margin-bottom:9px; }
+        .tg-content-only .tg-section-title::before { content:''; width:5px; height:21px; border-radius:99px; background:#f59e0b; display:inline-block; flex-shrink:0; }
+        .tg-content-only .tg-card-grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+        .tg-content-only .tg-card { border:1.4px solid #bfdbfe; background:#f8fbff; border-radius:13px; padding:10px 12px; break-inside:avoid; }
+        .tg-content-only .tg-card:nth-child(even) { border-color:#fde68a; background:#fffbeb; }
+        .tg-content-only .tg-card:nth-child(5n) { border-color:#86efac; background:#f0fdf4; }
+        .tg-content-only .tg-card h4 { color:#1d4ed8; font-size:14px; font-weight:1000; margin:0 0 5px; }
+        .tg-content-only .tg-card:nth-child(even) h4 { color:#92400e; }
+        .tg-content-only .tg-card:nth-child(5n) h4 { color:#166534; }
+        .tg-content-only .tg-card p { margin:0; font-size:12.2px; line-height:var(--tg-card-global-line-height, 1.55); color:#1f2937; font-weight:650; }
+        .tg-content-only .tg-table { width:100%; border-collapse:separate; border-spacing:0; font-size:9.6px; line-height:var(--tg-table-line-height, 1.35); overflow:hidden; border:1.3px solid #b9df8e; border-radius:12px; table-layout:fixed; }
+        .tg-content-only .tg-table th { background:#eaf8d8; color:#7c2d12; padding:6px 5px; text-align:left; font-size:10px; font-weight:1000; border-right:1px solid #cce8ad; }
+        .tg-content-only .tg-table th:last-child { border-right:none; }
+        .tg-content-only .tg-table td { vertical-align:top; padding:6px 5px; border-top:1px solid #d8edbd; border-right:1px solid #d8edbd; color:#1f2937; font-weight:650; }
+        .tg-content-only .tg-table td:last-child { border-right:none; }
+        .tg-content-only .tg-col-1 { width:15%; }
+        .tg-content-only .tg-col-2 { width:24%; }
+        .tg-content-only .tg-col-3 { width:31%; }
+        .tg-content-only .tg-col-4 { width:30%; }
+        .tg-content-only .tg-route { width:100%; border-collapse:separate; border-spacing:0 7px; font-size:12px; line-height:var(--tg-card-global-line-height, 1.45); }
+        .tg-content-only .tg-route td { vertical-align:top; background:#fbfff7; border-top:1.3px solid #b9df8e; border-bottom:1.3px solid #b9df8e; padding:8px 9px; font-weight:700; }
+        .tg-content-only .tg-route td:first-child { border-left:1.3px solid #b9df8e; border-radius:11px 0 0 11px; width:36%; color:#7c2d12; font-weight:1000; }
+        .tg-content-only .tg-route td:last-child { border-right:1.3px solid #b9df8e; border-radius:0 11px 11px 0; }
+        .tg-content-only .tg-two { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+        .tg-content-only .tg-note-list { display:grid; gap:9px; }
+        .tg-content-only .tg-note { border:1.3px solid #b9df8e; background:#fbfff7; border-radius:13px; padding:9px 11px; font-size:12.2px; line-height:var(--tg-card-global-line-height, 1.55); font-weight:700; }
+        .tg-content-only .tg-note b { color:#92400e; font-weight:1000; display:block; font-size:14px; margin-bottom:4px; }
+        .tg-content-only .tg-template { border:1.3px solid #b9df8e; background:#fbfff7; border-radius:13px; padding:11px 13px; font-size:12.2px; line-height:var(--tg-card-global-line-height, 1.65); font-weight:700; white-space:pre-line; }
+        .tg-content-only .tg-page-break { break-after: page; page-break-after: always; }
+
+
+        /* v14.104 Teacher Guide content: restore previous content color scheme; only inner content changes, not global header. */
+        .tg-content-only .tg-title { color:#0f172a !important; font-size:25px !important; margin:4px 0 9px !important; }
+        .tg-content-only .tg-subtitle { color:#334155 !important; font-weight:900 !important; }
+        .tg-content-only .tg-tags { gap:7px !important; }
+        .tg-content-only .tg-tag { border-color:#93c5fd !important; background:#eff6ff !important; color:#1d4ed8 !important; }
+        .tg-content-only .tg-section-title { color:#0f172a !important; }
+        .tg-content-only .tg-section-title::before { background:#f59e0b !important; }
+        .tg-content-only .tg-card { border-color:#bfdbfe !important; background:#f8fbff !important; }
+        .tg-content-only .tg-card-grid .tg-card:nth-child(even) { border-color:#fcd34d !important; background:#fffdf4 !important; }
+        .tg-content-only .tg-card-grid .tg-card:nth-child(5) { border-color:#86efac !important; background:#f0fdf4 !important; }
+        .tg-content-only .tg-card h4 { color:#1d4ed8 !important; }
+        .tg-content-only .tg-card-grid .tg-card:nth-child(even) h4 { color:#92400e !important; }
+        .tg-content-only .tg-card-grid .tg-card:nth-child(5) h4 { color:#166534 !important; }
+        .tg-content-only .tg-table { border-color:#bfdbfe !important; }
+        .tg-content-only .tg-table th { background:#eff6ff !important; color:#1d4ed8 !important; border-right-color:#bfdbfe !important; }
+        .tg-content-only .tg-table td { border-top-color:#dbeafe !important; border-right-color:#dbeafe !important; }
+        .tg-content-only .tg-route td { border-color:#bfdbfe !important; background:#f8fbff !important; }
+        .tg-content-only .tg-route tr:nth-child(even) td { border-color:#fcd34d !important; background:#fffdf4 !important; }
+        .tg-content-only .tg-note { border-color:#bfdbfe !important; background:#f8fbff !important; }
+        .tg-content-only .tg-note-list:nth-child(even) .tg-note { border-color:#fcd34d !important; background:#fffdf4 !important; }
+        .tg-content-only .tg-note b { color:#1d4ed8 !important; }
+        .tg-content-only .tg-template { border-color:#bfdbfe !important; background:#f8fbff !important; }
+        .tg-edit-preview { border:1.5px solid #bfdbfe; background:#fff; border-radius:12px; padding:14px; max-height:460px; overflow:auto; outline:none; }
+        .tg-edit-preview:focus { box-shadow:0 0 0 3px rgba(59,130,246,.18); border-color:#60a5fa; }
+        .tg-source-textarea { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace; }
+
+
+        .preview-panel .tg-content-only .tg-section { margin-top: calc(12px * var(--tg-card-global-line-height, 1.55) / 1.55); margin-bottom: calc(15px * var(--tg-card-global-line-height, 1.55) / 1.55); }
+        .preview-panel .tg-content-only .tg-card { padding-top: calc(10px * var(--tg-card-global-line-height, 1.55) / 1.55); padding-bottom: calc(10px * var(--tg-card-global-line-height, 1.55) / 1.55); }
+        .preview-panel .tg-content-only .tg-route { border-spacing: 0 calc(7px * var(--tg-card-global-line-height, 1.55) / 1.55); }
+
+
+        .preview-panel .tg-content-only .tg-section {
+            --tg-section-line-height: var(--tg-section-local-line-height, var(--tg-card-global-line-height, 1.55));
+        }
+        .preview-panel .tg-content-only .tg-section .tg-card p,
+        .preview-panel .tg-content-only .tg-section .tg-note,
+        .preview-panel .tg-content-only .tg-section .tg-template {
+            line-height: var(--tg-section-line-height, 1.55) !important;
+        }
+        .preview-panel .tg-content-only .tg-section .tg-card {
+            padding-top: calc(10px * var(--tg-section-line-height, 1.55) / 1.55);
+            padding-bottom: calc(10px * var(--tg-section-line-height, 1.55) / 1.55);
+        }
+        .preview-panel .tg-content-only .tg-section .tg-card-grid,
+        .preview-panel .tg-content-only .tg-section .tg-two,
+        .preview-panel .tg-content-only .tg-section .tg-note-list {
+            gap: calc(10px * var(--tg-section-line-height, 1.55) / 1.55);
+        }
+        .preview-panel .tg-content-only .tg-section {
+            margin-top: calc(12px * var(--tg-section-line-height, 1.55) / 1.55);
+            margin-bottom: calc(15px * var(--tg-section-line-height, 1.55) / 1.55);
+        }
+        .preview-panel .tg-content-only .tg-route {
+            border-spacing: 0 calc(7px * var(--tg-card-global-line-height, 1.55) / 1.55);
+        }
+
+        @media print { .ws-qr-box { box-shadow: none; padding: 2px; border-color: #94a3b8; } .ws-qr-label { line-height: 0.9; } }
+
+
+        .phonics-node-box { min-width: 38px; padding: 4px 10px; border-radius: 10px; font-weight: 700; text-align: center; line-height: 1.15; }
+        .phonics-leaf-box { min-width: 34px; padding: 4px 8px; border-radius: 8px; font-weight: 700; text-align: center; line-height: 1.1; }
+        .phonics-phrase-line { font-weight: 700; font-style: italic; letter-spacing: 0.01em; }
+        .phonics-note-box { border-radius: 12px; padding: 6px 12px; line-height: 1.45; display: inline-block; width: fit-content; max-width: 100%; }
+        .phonics-example-box { border-radius: 12px; padding: 7px 14px; line-height: 1.35; display: inline-flex; flex-direction: column; align-items: center; width: fit-content; min-width: 76px; max-width: 100%; }
+        .phonics-tree-row { position: relative; display: flex; justify-content: center; align-items: flex-start; gap: 10px; width: 100%; }
+        .phonics-tree-row.has-branch::before { content: ''; position: absolute; top: 0; left: 12%; right: 12%; height: 2px; border-radius: 999px; background: var(--phonics-line, #48b8e9); }
+        .phonics-tree-branch { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1 1 0; min-width: 0; padding-top: 12px; }
+        .phonics-tree-branch::before { content: ''; position: absolute; top: 0; width: 2px; height: 12px; border-radius: 999px; background: var(--phonics-line, #48b8e9); }
 
         @media print {
             @page { margin: 0; size: A4; } 
@@ -1056,6 +1169,32 @@
         <span class="text-[10px] text-slate-500">英文小标签会显示在预览标题旁，比星级更小，方便截图展示。</span>
     </div>
 
+    <div v-if="block.type !== 'unitEvidence'" class="ml-[5.5rem] mt-1 bg-indigo-50 border border-indigo-100 rounded px-2 py-1 w-[calc(100%-5.5rem)]">
+        <div class="flex flex-wrap items-center gap-2">
+            <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-indigo-700 bg-white border border-indigo-100 rounded px-2 py-0.5">
+                <input type="checkbox" v-model="block.showQr" class="w-3.5 h-3.5 text-indigo-500 rounded focus:ring-0">
+                显示二维码框
+            </label>
+            <button @click="getBlockQrs(block).push({ img: '', label: '', size: 50 })" class="px-2 py-0.5 bg-indigo-500 text-white rounded text-xs font-bold hover:bg-indigo-600">+ 加二维码</button>
+            <span class="text-[10px] text-slate-500">每道大题可放多个二维码；默认 50px，建议扫码图尽量清晰。</span>
+        </div>
+        <div v-if="block.showQr" class="mt-1.5 flex flex-wrap gap-2">
+            <div v-for="(qr, qIdx) in getBlockQrs(block)" :key="'qr-editor-' + block.id + '-' + qIdx" class="flex items-center gap-1.5 bg-white border border-indigo-100 rounded-lg px-2 py-1">
+                <div class="relative w-9 h-9 border border-dashed border-indigo-200 bg-white rounded flex items-center justify-center overflow-hidden shrink-0">
+                    <input type="file" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-10" @change="compressAndUpload($event, qr, 'img')">
+                    <img v-if="qr.img" :src="qr.img" class="w-full h-full object-contain">
+                    <span v-else class="text-[9px] text-indigo-300 font-black">QR</span>
+                    <button v-if="qr.img" @click.stop="qr.img=''" class="btn-del-img btn-del-img-small z-20">×</button>
+                </div>
+                <span class="text-[10px] font-bold text-indigo-700">{{ qIdx + 1 }}</span>
+                <input type="range" min="50" max="110" step="2" v-model.number="qr.size" class="w-20 accent-indigo-500">
+                <input type="number" min="50" max="110" step="2" v-model.number="qr.size" class="w-14 border border-indigo-200 rounded px-1 py-0.5 text-[10px] text-center outline-none focus:border-indigo-400">
+                <input v-model="qr.label" class="w-24 border border-indigo-200 rounded px-1.5 py-0.5 text-[10px] outline-none focus:border-indigo-400" placeholder="标签，可空">
+                <button @click="getBlockQrs(block).splice(qIdx, 1)" class="text-rose-400 hover:text-rose-600 text-xs font-bold px-1" title="删除这个二维码">×</button>
+            </div>
+        </div>
+    </div>
+
     <div class="ml-[5.5rem] mt-1 bg-violet-50 border border-violet-100 rounded px-2 py-1 w-[calc(100%-5.5rem)] max-w-full overflow-hidden">
         <div class="flex flex-wrap items-center gap-2">
             <span class="text-xs font-bold text-violet-700">学生卷行距：</span>
@@ -1851,7 +1990,7 @@
     <div class="space-y-2"><div v-for="(cl, idx) in block.data.clues" :key="idx" class="flex gap-2 items-center bg-white p-2 rounded border"><input type="checkbox" v-model="cl.isEg" class="w-4 h-4 text-emerald-500 rounded"><input v-model="cl.text" class="flex-1 border-b outline-none text-sm" placeholder="绘画指令"><button @click="block.data.clues.splice(idx,1)" class="text-rose-400 px-2">✕</button></div><button @click="block.data.clues.push({isEg:false,text:''})" class="text-sm text-orange-600 font-bold w-full py-2 border border-dashed border-orange-300 rounded">+ 添加指令</button></div>
 </div>
 
-                    <div v-else-if="'items' in block.data && !['factFile', 'clilRead', 'literature', 'wordMorph', 'picQnA', 'flashcards', 'phonicsFocus', 'keyWords'].includes(block.type)" class="space-y-2">
+                    <div v-else-if="'items' in block.data && !['factFile', 'clilRead', 'literature', 'wordMorph', 'picQnA', 'flashcards', 'phonicsFocus', 'phonicsTree', 'keyWords', 'guideIntro'].includes(block.type)" class="space-y-2">
                         <div v-if="block.type === 'transform'" class="flex flex-wrap gap-1.5 mb-2 bg-rose-50 p-2 rounded border border-rose-100 items-center">
                             <span class="text-xs font-bold text-rose-400">快捷要求后缀：</span>
                             <button v-for="(tag, tIdx) in quickTags" :key="tIdx" @click="insertTransformTag(block, tag)" class="px-2 py-0.5 bg-white text-rose-600 rounded text-[11px] border border-rose-200 hover:bg-rose-500 hover:text-white transition">{{ tag }}</button>
@@ -2567,6 +2706,83 @@
                         </div>
                     </div>
 
+
+                    <div v-else-if="block.type === 'phonicsTree'" class="space-y-4">
+                        <div class="bg-lime-50 border border-lime-200 rounded-xl p-4 space-y-3">
+                            <div class="text-sm font-black text-lime-800">音素拆分一键生成</div>
+                            <div class="text-[11px] text-slate-600 leading-6">
+                                格式：主词 | 拆分结构 | 红色元音 | 粉红弱读 | 完整词组 | 备注 | 同类例词<br>
+                                拆分结构支持两种写法：<span class="font-mono">fr/o/n/t</span> 或 <span class="font-mono">be&gt;b,e; hind&gt;h,i,n,d</span>
+                            </div>
+                            <textarea v-model="block.data.bulkInput" rows="7" class="w-full border border-lime-200 rounded px-3 py-2 text-sm outline-none focus:border-lime-400" :placeholder="getBulkPlaceholder('phonicsTree')"></textarea>
+                            <div class="flex flex-wrap gap-4 items-center">
+                                <div class="flex items-center gap-2 text-xs font-bold text-lime-800">
+                                    <span>每行列数</span>
+                                    <input type="range" min="2" max="4" step="1" v-model.number="block.data.cols" class="w-28 accent-lime-500">
+                                    <input type="number" min="2" max="4" step="1" v-model.number="block.data.cols" class="w-14 border border-lime-200 rounded px-1 py-0.5 text-xs text-center outline-none">
+                                </div>
+                                <div class="flex items-center gap-2 text-xs font-bold text-lime-800">
+                                    <span>图片大小</span>
+                                    <input type="range" min="50" max="120" step="2" v-model.number="block.data.imageSize" class="w-28 accent-lime-500">
+                                    <input type="number" min="50" max="120" step="2" v-model.number="block.data.imageSize" class="w-16 border border-lime-200 rounded px-1 py-0.5 text-xs text-center outline-none">
+                                </div>
+                                <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600"><input type="checkbox" v-model="block.data.showPhrase" class="w-3.5 h-3.5 text-lime-500 rounded"> 显示完整词组</label>
+                                <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600"><input type="checkbox" v-model="block.data.showNote" class="w-3.5 h-3.5 text-lime-500 rounded"> 显示备注</label>
+                                <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600"><input type="checkbox" v-model="block.data.showExamples" class="w-3.5 h-3.5 text-lime-500 rounded"> 显示同类例词</label>
+                            </div>
+                            <div class="flex justify-end">
+                                <button @click="generateBulkItems(block)" class="px-4 py-2 bg-lime-500 text-white text-sm font-bold rounded shadow hover:bg-lime-600 transition">一键生成 / 导入</button>
+                            </div>
+                        </div>
+
+                        <div v-for="(item, idx) in block.data.items" :key="'phonics-item-' + idx" class="bg-white border border-lime-200 rounded-xl p-4 space-y-3 relative">
+                            <button @click="block.data.items.splice(idx, 1)" class="absolute top-2 right-2 text-rose-400 hover:text-rose-600 text-xs font-bold px-2 py-1 bg-rose-50 rounded">删除</button>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="text-[11px] font-bold text-slate-500 block mb-1">主词</label>
+                                    <input v-model="item.word" class="w-full border rounded px-2 py-1.5 text-sm outline-none" placeholder="front / park / woman">
+                                </div>
+                                <div>
+                                    <label class="text-[11px] font-bold text-slate-500 block mb-1">拆分结构</label>
+                                    <input v-model="item.structure" class="w-full border rounded px-2 py-1.5 text-sm outline-none" placeholder="fr/o/n/t 或 be>b,e; hind>h,i,n,d">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div>
+                                    <label class="text-[11px] font-bold text-slate-500 block mb-1">红色元音 / 元音组合</label>
+                                    <input v-model="item.vowelMarks" class="w-full border rounded px-2 py-1.5 text-sm outline-none" placeholder="o / ar / ee">
+                                </div>
+                                <div>
+                                    <label class="text-[11px] font-bold text-slate-500 block mb-1">粉红弱读元素</label>
+                                    <input v-model="item.weakMarks" class="w-full border rounded px-2 py-1.5 text-sm outline-none" placeholder="e / er / al">
+                                </div>
+                                <div>
+                                    <label class="text-[11px] font-bold text-slate-500 block mb-1">完整词组（可空）</label>
+                                    <input v-model="item.phrase" class="w-full border rounded px-2 py-1.5 text-sm outline-none" placeholder="in front of / next to">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-[1fr_1fr_180px] gap-3 items-start">
+                                <div>
+                                    <label class="text-[11px] font-bold text-slate-500 block mb-1">备注</label>
+                                    <input v-model="item.note" class="w-full border rounded px-2 py-1.5 text-sm outline-none" placeholder="字母 o 发 /ʌ/ / str → sdr">
+                                </div>
+                                <div>
+                                    <label class="text-[11px] font-bold text-slate-500 block mb-1">同类例词</label>
+                                    <input v-model="item.examples" class="w-full border rounded px-2 py-1.5 text-sm outline-none" placeholder="car / star / three / sheep">
+                                </div>
+                                <div>
+                                    <label class="text-[11px] font-bold text-slate-500 block mb-1">配图</label>
+                                    <input type="file" accept="image/*" class="w-full text-[11px]" @change="compressAndUpload($event, item, 'img')">
+                                    <div v-if="item.img" class="relative inline-block mt-2">
+                                        <img :src="item.img" class="h-16 bg-white border rounded">
+                                        <div @click.stop="item.img=''" class="btn-del-img btn-del-img-small">×</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button @click="block.data.items.push({ isEg: false, img: '', word: '', structure: '', vowelMarks: '', weakMarks: '', phrase: '', note: '', examples: '' })" class="w-full py-2 border border-dashed border-lime-300 rounded-xl text-sm font-bold text-lime-700 hover:bg-lime-50">+ 添加音素拆分词条</button>
+                    </div>
+
                     <div v-else-if="block.type === 'factFile'" class="space-y-4 bg-slate-50 p-4 rounded-lg border border-slate-200">
                         <div class="bg-blue-50/70 p-3 rounded-lg border border-blue-200">
                             <div class="text-sm font-black text-blue-700 mb-2">懒人操作：一键生成科普卡片</div>
@@ -2830,7 +3046,63 @@
                         </details>
                     </div>
 
-<div v-else-if="block.type === 'guideIntro'" class="bg-lime-50 p-4 rounded-lg border border-lime-200 space-y-3">
+<div v-else-if="block.type === 'guideIntro' && block.data && (block.data.guideStyle === 'teacherGuideContentV1' || (block.data.htmlPages && block.data.htmlPages.length))" class="bg-blue-50 p-4 rounded-lg border border-blue-200 space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <div class="text-sm font-black text-blue-700">Teacher Guide 内容编辑</div>
+                                <div class="text-[11px] text-slate-500 font-bold mt-1">这里编辑的是正文内容，不会改动外面的 Power Up 2 Handout 抬头、logo 和右上角副标题。</div>
+                            </div>
+                            <button @click="resetTeacherGuideContent(block)" class="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-xs font-bold shadow-sm">恢复默认内容</button>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-bold text-blue-700 mb-1">内容标题</label>
+                                <input v-model="block.data.guideTitle" class="w-full border border-blue-200 rounded px-2 py-1.5 text-sm outline-none focus:border-blue-400" placeholder="《教师使用指南》">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-blue-700 mb-1">内容副标题</label>
+                                <input v-model="block.data.guideSubtitle" class="w-full border border-blue-200 rounded px-2 py-1.5 text-sm outline-none focus:border-blue-400" placeholder="Power Up 2 Handout · Teacher Guide">
+                            </div>
+                        </div>
+                                                <div class="bg-white/80 border border-blue-100 rounded-lg p-3 grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-[110px_1fr_70px] gap-2 items-center">
+                                <label class="text-[11px] font-bold text-blue-700">预览区整体正文行距</label>
+                                <input type="range" min="1.15" max="2.4" step="0.05" v-model.number="block.data.tgCardLineHeight" class="accent-blue-500">
+                                <input type="number" min="1.15" max="2.4" step="0.05" v-model.number="block.data.tgCardLineHeight" class="border border-blue-200 rounded px-2 py-1 text-xs text-center outline-none">
+                            </div>
+                            <div class="grid grid-cols-[110px_1fr_70px] gap-2 items-center">
+                                <label class="text-[11px] font-bold text-blue-700">预览区表格行距</label>
+                                <input type="range" min="1.05" max="2.2" step="0.05" v-model.number="block.data.tgTableLineHeight" class="accent-blue-500">
+                                <input type="number" min="1.05" max="2.2" step="0.05" v-model.number="block.data.tgTableLineHeight" class="border border-blue-200 rounded px-2 py-1 text-xs text-center outline-none">
+                            </div>
+                            <div class="col-span-2 text-[10px] text-slate-500 font-bold">
+                                上方是整体行距；每页下面有 3.3.x 小节单独拉杆。只控制右侧预览区 / 打印区。
+                            </div>
+                        </div>
+<div v-for="(pageHtml, pageIdx) in (block.data.htmlPages || [])" :key="'tg-edit-page-' + pageIdx" class="bg-white border border-blue-100 rounded-xl p-3 space-y-2">
+                            <details :open="pageIdx === 0">
+                                <summary class="cursor-pointer text-sm font-black text-blue-700 select-none">第 {{ pageIdx + 1 }} 页内容</summary>
+                                <div class="mt-3 text-[11px] text-slate-500 font-bold">可视化编辑：可以直接在下面改字。右侧预览会同步。</div>
+                                <div v-if="getTeacherGuideSectionControls(block, pageIdx).length" class="mt-3 bg-blue-50/80 border border-blue-100 rounded-lg p-3 space-y-2">
+                                    <div class="text-[11px] font-black text-blue-700">本页 3.3.x 小节单独拉杆</div>
+                                    <div v-for="sec in getTeacherGuideSectionControls(block, pageIdx)" :key="'tg-section-slider-' + pageIdx + '-' + sec.index" class="grid grid-cols-[230px_1fr_58px_58px] gap-2 items-center bg-white border border-blue-100 rounded px-2 py-1.5">
+                                        <div class="text-[11px] font-bold text-slate-700 truncate" :title="sec.title">{{ sec.title || ('小节 ' + (sec.index + 1)) }}</div>
+                                        <input type="range" min="1.1" max="2.6" step="0.05" :value="sec.lineHeight" @input="setTeacherGuideSectionLineHeight(block, pageIdx, sec.index, $event.target.value)" class="accent-blue-500">
+                                        <input type="number" min="1.1" max="2.6" step="0.05" :value="sec.lineHeight" @input="setTeacherGuideSectionLineHeight(block, pageIdx, sec.index, $event.target.value)" class="border border-blue-200 rounded px-1 py-0.5 text-[11px] text-center outline-none">
+                                        <button @click="setTeacherGuideSectionLineHeight(block, pageIdx, sec.index, '')" class="text-[10px] font-bold text-slate-500 hover:text-rose-500 bg-slate-50 rounded px-1.5 py-1">重置</button>
+                                    </div>
+                                    <div class="text-[10px] text-slate-500 font-bold">这里控制的是 3.3.1 / 3.3.2 这种整块小节，不是每一张小卡片。只影响右侧预览/打印。</div>
+                                </div>
+                                <div class="tg-content-only tg-edit-preview mt-2 text-[12px] bg-slate-50 border border-slate-200 rounded-lg p-3 min-h-[160px]" contenteditable="true" v-html="block.data.htmlPages[pageIdx]" @input="block.data.htmlPages[pageIdx] = $event.target.innerHTML"></div>
+                                <details class="mt-3">
+                                    <summary class="cursor-pointer text-[11px] font-bold text-slate-500">高级：HTML 源码编辑</summary>
+                                    <textarea v-model="block.data.htmlPages[pageIdx]" rows="8" class="tg-source-textarea mt-2 w-full border border-blue-100 rounded px-3 py-2 text-[11px] leading-relaxed outline-none focus:border-blue-400"></textarea>
+                                </details>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div v-else-if="block.type === 'guideIntro'" class="bg-lime-50 p-4 rounded-lg border border-lime-200 space-y-3">
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <div class="text-sm font-black text-lime-700">PU2 板块介绍 / 使用指南</div>
                             <button @click="fillPU2GuideIntro(block)" class="px-3 py-1.5 bg-lime-500 hover:bg-lime-600 text-white rounded-lg text-xs font-bold shadow-sm">一键填入PU2板块介绍</button>
@@ -3050,6 +3322,56 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                             </div>
                         </div>
                     </div>
+
+<div v-else-if="block.type === 'guideIntro' && block.data && (block.data.guideStyle === 'teacherGuideContentV1' || (block.data.htmlPages && block.data.htmlPages.length))" class="bg-blue-50 p-4 rounded-lg border border-blue-200 space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <div class="text-sm font-black text-blue-700">Teacher Guide 正文内容编辑</div>
+                                <div class="text-[11px] text-slate-500 font-bold mt-1">这里编辑的是正文内容。外面的 Power Up 2 Handout 抬头、logo 和右上角副标题不会被覆盖。</div>
+                            </div>
+                            <button @click="resetTeacherGuideContent(block)" class="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-xs font-bold shadow-sm">恢复默认内容</button>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-bold text-blue-700 mb-1">内容标题（用于记录，不会重复显示在预览里）</label>
+                                <input v-model="block.data.guideTitle" class="w-full border border-blue-200 rounded px-2 py-1.5 text-sm outline-none focus:border-blue-400" placeholder="《教师使用指南》">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-blue-700 mb-1">内容副标题</label>
+                                <input v-model="block.data.guideSubtitle" class="w-full border border-blue-200 rounded px-2 py-1.5 text-sm outline-none focus:border-blue-400" placeholder="Power Up 2 Handout · Teacher Guide">
+                            </div>
+                        </div>
+                        <div class="bg-white/80 border border-blue-100 rounded-lg p-3 grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-[110px_1fr_70px] gap-2 items-center">
+                                <label class="text-[11px] font-bold text-blue-700">预览区整体正文行距</label>
+                                <input type="range" min="1.15" max="2.4" step="0.05" v-model.number="block.data.tgCardLineHeight" class="accent-blue-500">
+                                <input type="number" min="1.15" max="2.4" step="0.05" v-model.number="block.data.tgCardLineHeight" class="border border-blue-200 rounded px-2 py-1 text-xs text-center outline-none">
+                            </div>
+                            <div class="grid grid-cols-[110px_1fr_70px] gap-2 items-center">
+                                <label class="text-[11px] font-bold text-blue-700">预览区表格行距</label>
+                                <input type="range" min="1.05" max="2.2" step="0.05" v-model.number="block.data.tgTableLineHeight" class="accent-blue-500">
+                                <input type="number" min="1.05" max="2.2" step="0.05" v-model.number="block.data.tgTableLineHeight" class="border border-blue-200 rounded px-2 py-1 text-xs text-center outline-none">
+                            </div>
+                            <div class="col-span-2 text-[10px] text-slate-500 font-bold">
+                                上方是整体行距；每页下面有 3.3.x 小节单独拉杆。只控制右侧预览区 / 打印区。
+                            </div>
+                        </div>
+                        <div v-if="!block.data.htmlPages || !block.data.htmlPages.length" class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm font-bold text-amber-700">
+                            当前 Teacher Guide 没有正文页，请点击“恢复默认内容”。
+                        </div>
+                        <div v-for="(pageHtml, pageIdx) in (block.data.htmlPages || [])" :key="'tg-edit-page-fixed-' + pageIdx" class="bg-white border border-blue-100 rounded-xl p-3 space-y-2">
+                            <details :open="pageIdx === 0">
+                                <summary class="cursor-pointer text-sm font-black text-blue-700 select-none">第 {{ pageIdx + 1 }} 页内容</summary>
+                                <div class="mt-3 text-[11px] text-slate-500 font-bold">可视化编辑：可以直接在下面改字。右侧预览会同步。</div>
+                                <div class="tg-content-only tg-edit-preview mt-2 text-[12px] bg-slate-50 border border-slate-200 rounded-lg p-3 min-h-[160px]" contenteditable="true" v-html="block.data.htmlPages[pageIdx]" @input="block.data.htmlPages[pageIdx] = $event.target.innerHTML"></div>
+                                <details class="mt-3">
+                                    <summary class="cursor-pointer text-[11px] font-bold text-slate-500">高级：HTML 源码编辑</summary>
+                                    <textarea v-model="block.data.htmlPages[pageIdx]" rows="10" class="tg-source-textarea mt-2 w-full border border-blue-100 rounded px-3 py-2 text-[11px] leading-relaxed outline-none focus:border-blue-400"></textarea>
+                                </details>
+                            </details>
+                        </div>
+                    </div>
+
 <div v-else-if="block.type === 'wordMorph'" class="bg-orange-50 p-4 rounded-lg border border-orange-200 space-y-3">
                         <div class="flex items-center gap-4 bg-white p-2 rounded border border-orange-100 mb-2">
                             <span class="text-xs font-bold text-orange-700">后面横线数量:</span>
@@ -3367,14 +3689,23 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                 <div v-else class="hengshui-font space-y-10">
     <template v-for="(block, bIdx) in blocks" :key="block.id">
         <div
-            class="worksheet-block-lineheight"
+            class="worksheet-block-lineheight relative"
             :style="[
                 block.keepTitleWithContent ? {'break-inside': 'avoid', 'page-break-inside': 'avoid'} : {},
                 {'--block-line-height': getBlockLineHeight(block), '--blank-line-width': getBlankLineWidth(block) + 'px'}
             ]"
         >
+            <div v-if="block.showQr && block.type !== 'unitEvidence'" class="ws-qr-wrap absolute top-0 right-0 z-10 flex flex-row items-start justify-end gap-1.5">
+                <div v-for="(qr, qIdx) in getBlockQrs(block)" :key="'qr-preview-' + block.id + '-' + qIdx" class="flex flex-col items-center">
+                    <div class="ws-qr-box" :style="{ width: getQrSize(qr) + 'px', height: getQrSize(qr) + 'px' }">
+                        <img v-if="qr.img" :src="qr.img" alt="QR code">
+                        <div v-else class="ws-qr-placeholder">QR</div>
+                    </div>
+                    <div v-if="qr.label" class="ws-qr-label" :style="{ maxWidth: Math.max(48, getQrSize(qr) - 2) + 'px' }">{{ qr.label }}</div>
+                </div>
+            </div>
                                             
-                                            <h3 v-if="!['literature', 'phonicsFocus', 'tipBox', 'unitEvidence'].includes(block.type)" class="text-[20px] font-bold flex flex-wrap items-center gap-y-1 font-sans text-slate-800" :class="(block.subInstruction || hasPracticeTip(block)) ? 'mb-1.5' : 'mb-5'">
+                                            <h3 v-if="!['literature', 'phonicsFocus', 'tipBox', 'unitEvidence'].includes(block.type)" class="text-[20px] font-bold flex flex-wrap items-center gap-y-1 font-sans text-slate-800" :class="(block.subInstruction || hasPracticeTip(block)) ? 'mb-1.5' : 'mb-5'" :style="block.showQr ? { paddingRight: getQrTitlePadding(block) + 'px' } : {}">
                                                 <span class="w-1.5 h-5 mr-3 block rounded-sm shadow-sm" :class="getSecBg(block.type)"></span><span class="mr-2">{{ block.instruction || getSecName(block.type) }}</span><span v-if="block.showPoints" class="mr-2 font-black text-slate-800">({{ block.points || '___' }} points)</span>
                                                 <span v-if="block.showDifficulty !== false" class="ws-meta-star mr-1">{{ getBlockDifficulty(block) }}</span>
                                                 <template v-for="tag in assessmentLabelOptions" :key="'preview-tag-'+block.id+'-'+tag.key"><span v-if="isBlockLabelOn(block, tag.key)" class="ws-meta-tag mr-1" :class="tag.cls">{{ tag.label }}</span></template>
@@ -3386,7 +3717,8 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
 
                                             <div v-if="block.data.wordBank && !['clilRead', 'speaking'].includes(block.type) && !block.data.hideWordBank" class="border-[1.5px] border-yellow-300 bg-yellow-50 px-8 rounded-2xl mb-6 text-[18px] font-bold mx-auto text-yellow-900 shadow-sm flex flex-wrap justify-center" :style="{...getWordBankBoxStyle(block), ...getWordBankFlexStyle(block, (['wordSorting','phonicsSorting'].includes(block.type) ? (block.data.sortWordGap || 32) : 32))}" v-html="formatWordBankText(block.data.wordBank)"></div>
                                             
-                                            <div v-if="block.data.img && !hasItemImages(block.type) && !['clilRead', 'literature', 'storyRetell', 'diagram', 'lookAnswer', 'speaking', 'listenFill', 'listenComp', 'chooseComplete', 'tipBox'].includes(block.type)" class="w-full flex justify-center mb-6">
+                                            <!-- v14.114 主图防重复：凡题型已有专属图片渲染区，禁止再进入通用主图渲染 -->
+                                            <div v-if="block.data.img && !hasItemImages(block.type) && !['clilRead', 'literature', 'storyRetell', 'diagram', 'lookAnswer', 'speaking', 'listenFill', 'listenComp', 'chooseComplete', 'tipBox', 'sceneHunt', 'pictureJudgeWhy', 'pictureDialogue'].includes(block.type)" class="w-full flex justify-center mb-6">
                                                 <img :src="block.data.img" class="max-w-[70%] h-auto rounded-xl shadow-sm border border-slate-200" :style="getBlockImgStyle(block)">
                                             </div>
 
@@ -3931,6 +4263,41 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                                 </div>
                                             </div>
 
+
+                                            <div v-else-if="block.type === 'phonicsTree'" class="px-2 break-inside-avoid">
+                                                <div class="grid gap-x-5 gap-y-8" :style="{ gridTemplateColumns: `repeat(${Math.max(2, Math.min(4, block.data.cols || 3))}, minmax(0, 1fr))` }">
+                                                    <div v-for="(item, idx) in block.data.items" :key="'phonics-preview-' + idx" class="flex flex-col items-center text-center break-inside-avoid" :style="{ '--phonics-line': getPhonicsThemeColors().line }">
+                                                        <div v-if="item.img" class="mb-3 overflow-hidden flex items-center justify-center" :style="{ width: (block.data.imageSize || 82) + 'px', height: (block.data.imageSize || 82) + 'px' }">
+                                                            <img :src="item.img" class="max-w-full max-h-full object-contain" :style="getBlockImgStyle(block)">
+                                                        </div>
+                                                        <div class="phonics-node-box text-[20px]" :style="{ backgroundColor: getPhonicsThemeColors().wordBg, border: '2px solid ' + getPhonicsThemeColors().lineSoft, color: getPhonicsThemeColors().text }">{{ item.word }}</div>
+                                                        <div class="w-[2px] h-4 mt-1 rounded-full" :style="{ backgroundColor: getPhonicsThemeColors().line }"></div>
+                                                        <div class="phonics-tree-row mt-1" :class="parsePhonicsTreeNodes(item.structure, item.word).length > 1 ? 'has-branch' : ''">
+                                                            <div v-for="(node, nIdx) in parsePhonicsTreeNodes(item.structure, item.word)" :key="'node-' + idx + '-' + nIdx" class="phonics-tree-branch">
+                                                                <div class="phonics-node-box text-[16px]" :style="{ backgroundColor: getPhonicsThemeColors().boxBg, border: '1.5px solid ' + getPhonicsThemeColors().lineSoft, color: getPhonicsThemeColors().text }">
+                                                                    <span :style="getPhonicsTokenStyle(item, node.label)">{{ node.label }}</span>
+                                                                </div>
+                                                                <template v-if="node.children && node.children.length">
+                                                                    <div class="w-[2px] h-3 rounded-full" :style="{ backgroundColor: getPhonicsThemeColors().line }"></div>
+                                                                    <div class="phonics-tree-row" :class="node.children.length > 1 ? 'has-branch' : ''">
+                                                                        <div v-for="(child, cIdx) in node.children" :key="'child-' + idx + '-' + nIdx + '-' + cIdx" class="phonics-tree-branch" style="padding-top: 10px; gap: 0;">
+                                                                            <div class="phonics-leaf-box text-[15px]" :style="{ backgroundColor: getPhonicsThemeColors().leafBg, border: '1.5px solid ' + getPhonicsThemeColors().lineSoft, color: getPhonicsThemeColors().text }">
+                                                                                <span :style="getPhonicsTokenStyle(item, child)">{{ child }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </template>
+                                                            </div>
+                                                        </div>
+                                                        <div v-if="block.data.showPhrase && item.phrase" class="phonics-phrase-line mt-3 text-[18px]" :style="{ color: getPhonicsThemeColors().text }">{{ item.phrase }}</div>
+                                                        <div v-if="block.data.showNote && item.note" class="phonics-note-box mt-3 self-center text-left text-[12px] font-bold" :style="{ backgroundColor: getPhonicsThemeColors().noteBg, border: '1px solid ' + getPhonicsThemeColors().lineSoft, color: '#8b5e00' }">{{ item.note }}</div>
+                                                        <div v-if="block.data.showExamples && item.examples" class="phonics-example-box mt-2 self-center text-center text-[13px] font-bold" :style="{ backgroundColor: getPhonicsThemeColors().exampleBg, border: '1px dashed ' + getPhonicsThemeColors().lineSoft, color: getPhonicsThemeColors().text }">
+                                                            <div v-for="(ex, exIdx) in splitPhonicsExamples(item.examples)" :key="'ex-' + idx + '-' + exIdx" v-html="formatPhonicsExampleWord(ex, item)"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div v-else-if="block.type === 'textQnA'" class="pl-2">
                                                 <div 
                                                     v-for="(item, idx) in block.data.items" 
@@ -4370,7 +4737,14 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                                 </div>
                                             </div>
 
-<div v-else-if="block.type === 'guideIntro'" class="px-2 w-full">
+<div v-else-if="block.type === 'guideIntro' && block.data && (block.data.guideStyle === 'teacherGuideContentV1' || (block.data.htmlPages && block.data.htmlPages.length))" class="tg-content-only px-2 w-full" :style="{ '--tg-card-global-line-height': (block.data.tgCardLineHeight || 1.55), '--tg-table-line-height': (block.data.tgTableLineHeight || 1.35) }">
+                                                <template v-for="(pageHtml, pageIdx) in (block.data.htmlPages || [])" :key="'tg-content-page-' + pageIdx">
+                                                    <div v-html="normalizeTeacherGuideSectionStyles(pageHtml)"></div>
+                                                    <div v-if="pageIdx < (block.data.htmlPages || []).length - 1" class="tg-page-break"></div>
+                                                </template>
+                                            </div>
+
+                                            <div v-else-if="block.type === 'guideIntro'" class="px-2 w-full">
                                                 <div class="break-inside-avoid mb-6">
                                                     <div class="flex items-center gap-3 mb-2">
                                                         <div class="w-2 h-8 rounded bg-lime-500"></div>
@@ -4956,6 +5330,7 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
 { id: 'listenQuiz', name: 'Listen Tasks', zhName: '听力闯关', color: 'text-indigo-600', bg: 'bg-indigo-500' },
 { id: 'picQnA', name: 'Picture Q&A', zhName: '看图问答', color: 'text-cyan-600', bg: 'bg-cyan-500' },
 { id: 'flashcards', name: 'Flashcards', zhName: '知识卡片', color: 'text-sky-600', bg: 'bg-sky-500' },
+{ id: 'phonicsTree', name: 'Phonics Split', zhName: '音素拆分', color: 'text-lime-700', bg: 'bg-lime-500' },
 { id: 'phonicsFocus', name: 'Phonics Focus', zhName: '拼读聚焦', color: 'text-amber-600', bg: 'bg-amber-500' },
 { id: 'textQnA', name: 'Short Answer', zhName: '简答题', color: 'text-indigo-600', bg: 'bg-indigo-500' },
 { id: 'tipBox', name: 'Cute Tip', zhName: '可爱提示框', color: 'text-yellow-600', bg: 'bg-yellow-400' },
@@ -4975,10 +5350,10 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                 ];
 
                 const questionTypeCategories = [
-                    { key: '常用', label: '⭐ 常用', ids: ['mc','listenFill','wordForm','textQnA','match','oddOneOut','phonicsChoice','lookReadNumber1','lookReadNumber2','writingCard','wrongResponses','stackedIntro','unitEvidence'] },
+                    { key: '常用', label: '⭐ 常用', ids: ['mc','listenFill','wordForm','textQnA','match','oddOneOut','phonicsTree','phonicsChoice','lookReadNumber1','lookReadNumber2','writingCard','wrongResponses','stackedIntro','unitEvidence'] },
                     { key: '听力', label: '🎧 听力', ids: ['listenFill','listenYesNo','listenComp','listenQuiz'] },
                     { key: '看图', label: '🖼️ 看图/图片', ids: ['lookAnswer','lookReadNumber1','lookReadNumber2','lookWriteAnswer','picQnA','pictureDifference','sceneHunt','stickerPlacement','pictureStoryMap','pictureJudgeWhy','pictureDialogue','drawClues'] },
-                    { key: '词汇拼读', label: '🔤 词汇/拼读', ids: ['wordList','keyWords','wordSorting','phonicsSorting','phonicsFocus','phonicsChoice','oddOneOut','scramble','missing','wordMorph'] },
+                    { key: '词汇拼读', label: '🔤 词汇/拼读', ids: ['wordList','keyWords','wordSorting','phonicsSorting','phonicsFocus','phonicsTree','phonicsChoice','oddOneOut','scramble','missing','wordMorph'] },
                     { key: '语法句型', label: '🧩 语法/句型', ids: ['grammarFocus','wordForm','transform','circle','correctMistakes','wrongResponses','reorder','chooseComplete','match','trueFalse'] },
                     { key: '阅读写作', label: '✍️ 阅读/写作', ids: ['clilRead','literature','textQnA','writingCard','altEnding','storyRetell','storyComic','keywordSentence','speaking','wrongResponses'] },
                     { key: '综合', label: '🌈 综合', ids: ['factFile','lifeCycle','diagram','flashcards','tipBox','orderStory','pictureStoryMap','drawClues','guideIntro','stackedIntro','unitEvidence'] },
@@ -5002,7 +5377,7 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                     return list;
                 });
 
-                const defaultInstructions = { picQnA: 'Look, ask and answer.', wordList: 'Vocabulary', readWrite: 'Read and write.', listenFill: 'Listen and fill in the blanks.', listenYesNo: 'Listen and write "Yes" or "No".', listenComp: 'After-listening comprehension.', lookAnswer: 'Answer the questions.', storyComic: 'Read the story and answer.', lookWriteAnswer: 'Look, write and answer.', reorder: 'Reorder the words to make sentences.', chooseComplete: 'Choose and complete.', grammarFocus: 'Grammar Focus', storyRetell: 'Retell.', mc: 'Choose the best answer.', wordForm: 'Write the correct form of the words.', transform: 'Rewrite the sentences as required.', circle: 'Circle the correct words.', literature: 'Literature', clilRead: 'Read and complete the text.', wordSorting: 'Sort the words.', phonicsSorting: 'Sort the words by sounds.', oddOneOut: 'Choose the odd one out.', scramble: 'Unscramble the letters.', missing: 'Complete the words.', match: 'Match the words.', factFile: 'Read and complete the fact file.', lifeCycle: 'Complete the life cycle.', diagram: 'Label the picture.', trueFalse: 'Circle True (T) or False (F).', writingCard: 'Writing Output', stackedIntro: 'Block Introduction', orderStory: 'Number the sentences in order.', correctMistakes: 'Read and correct the mistakes.', wrongResponses: 'Find the wrong responses.', altEnding: 'What happens next? Draw and write.', speaking: '🎤 Let\'s Talk!', textQnA: 'Answer the questions.', keywordSentence: 'Make Sentences', tipBox: '', keyWords: 'Key Words', venn: 'Classify the words into the Venn diagram.', tChart: 'Classify the items.', pictureDifference: 'Look, read and write a or b.', sceneHunt: 'Look carefully and write.', stickerPlacement: 'Read and place the stickers.', pictureStoryMap: 'Complete the story map.', pictureJudgeWhy: 'Look, tick or cross. Then write why.', pictureDialogue: 'Look and complete the dialogue.', drawClues: 'Read and draw.', phonicsChoice: 'Choose the word with a different sound in the underlined part.', unitEvidence: 'Unit Learning Evidence',};
+                const defaultInstructions = { picQnA: 'Look, ask and answer.', wordList: 'Vocabulary', readWrite: 'Read and write.', listenFill: 'Listen and fill in the blanks.', listenYesNo: 'Listen and write "Yes" or "No".', listenComp: 'After-listening comprehension.', lookAnswer: 'Answer the questions.', storyComic: 'Read the story and answer.', lookWriteAnswer: 'Look, write and answer.', reorder: 'Reorder the words to make sentences.', chooseComplete: 'Choose and complete.', grammarFocus: 'Grammar Focus', storyRetell: 'Retell.', mc: 'Choose the best answer.', wordForm: 'Write the correct form of the words.', transform: 'Rewrite the sentences as required.', circle: 'Circle the correct words.', literature: 'Literature', clilRead: 'Read and complete the text.', wordSorting: 'Sort the words.', phonicsSorting: 'Sort the words by sounds.', oddOneOut: 'Choose the odd one out.', scramble: 'Unscramble the letters.', missing: 'Complete the words.', match: 'Match the words.', factFile: 'Read and complete the fact file.', lifeCycle: 'Complete the life cycle.', diagram: 'Label the picture.', trueFalse: 'Circle True (T) or False (F).', writingCard: 'Writing Output', stackedIntro: 'Block Introduction', orderStory: 'Number the sentences in order.', correctMistakes: 'Read and correct the mistakes.', wrongResponses: 'Find the wrong responses.', altEnding: 'What happens next? Draw and write.', speaking: '🎤 Let\'s Talk!', textQnA: 'Answer the questions.', keywordSentence: 'Make Sentences', tipBox: '', keyWords: 'Key Words', venn: 'Classify the words into the Venn diagram.', tChart: 'Classify the items.', pictureDifference: 'Look, read and write a or b.', sceneHunt: 'Look carefully and write.', stickerPlacement: 'Read and place the stickers.', pictureStoryMap: 'Complete the story map.', pictureJudgeWhy: 'Look, tick or cross. Then write why.', pictureDialogue: 'Look and complete the dialogue.', drawClues: 'Read and draw.', phonicsChoice: 'Choose the word with a different sound in the underlined part.', unitEvidence: 'Unit Learning Evidence', phonicsTree: 'Phonics Split Chart'};
                 const globalData = ref({ headerText: 'Unit 1 Ultimate Test', subTitle: 'All-in-One Worksheet', logo: '', theme: 'blue', showInfoRow: false });
                 const themes = {
                     blue: { border1: '#48b8e9', border2: '#2563eb', title: 'text-blue-700', badge: 'from-blue-600 to-indigo-600', btn: 'bg-blue-500' },
@@ -5012,7 +5387,9 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                     orange: { border1: '#fb923c', border2: '#ea580c', title: 'text-orange-700', badge: 'from-orange-500 to-red-600', btn: 'bg-orange-500' }
                 };
                 
-                const getDefData = (type) => {
+const TEACHER_GUIDE_CONTENT_DEFAULT_PAGES = ["\n<div class=\"tg-title\">《教师使用指南》</div>\n<div class=\"tg-subtitle\">整本通用版 · 课上带起 + 课后巩固 + 单元检测 + 反馈跟进</div>\n<div class=\"tg-tags\"><span class=\"tg-tag\">课上带起</span><span class=\"tg-tag\">课后巩固</span><span class=\"tg-tag\">分层练习</span><span class=\"tg-tag\">表达输出</span><span class=\"tg-tag\">A1 任务</span><span class=\"tg-tag\">Unit Test</span><span class=\"tg-tag\">反馈</span></div>\n<div class=\"tg-section\"><div class=\"tg-section-title\">3.3.1 这套资料适合谁</div>\n<div class=\"tg-card-grid\">\n<div class=\"tg-card\"><h4>适合老师</h4><p>适合正在使用 Power Up 2 的机构老师、工作室老师和独立教师。</p></div>\n<div class=\"tg-card\"><h4>适合教学场景</h4><p>同步教授 PU2；需要系统课后练习；希望兼顾基础巩固、表达输出、A1 能力培养和单元检测。</p></div>\n<div class=\"tg-card\"><h4>适合基础型学生</h4><p>需要先巩固核心词汇、基础句子和听力关键词。</p></div>\n<div class=\"tg-card\"><h4>适合标准 / 进阶学生</h4><p>标准型完成理解、操练和基本输出；进阶型加强 Retell、Let’s Talk、Writing output 和 A1 表达任务。</p></div>\n</div></div>\n<div class=\"tg-section\"><div class=\"tg-section-title\">3.3.2 这套资料解决什么问题</div>\n<div class=\"tg-card-grid\">\n<div class=\"tg-card\"><h4>课后练习布置更系统</h4><p>每个 Unit 按教材板块设计对应练习，老师可以顺着教学进度分次布置。</p></div>\n<div class=\"tg-card\"><h4>分层练习更清楚</h4><p>题目按基础、标准、进阶区分，老师可根据学生能力选择任务量。</p></div>\n<div class=\"tg-card\"><h4>表达输出更具体</h4><p>加入 Retell、Let’s Talk、Speaking & Writing 和 A1 完整回答，帮助孩子说出来、写下来。</p></div>\n<div class=\"tg-card\"><h4>A1 备考更自然</h4><p>A1 Exam 将考试能力拆成日常练习任务，训练完整回答、看图表达和任务理解。</p></div>\n<div class=\"tg-card\"><h4>单元检测更方便</h4><p>Unit Test 用于单元结束后的查漏补缺，帮助老师定位词汇、语法、听力、阅读或输出问题。</p></div>\n</div></div>\n", "\n<div class=\"tg-section\"><div class=\"tg-section-title\">3.3.3 每个板块怎么用</div>\n<p style=\"font-size:12px;font-weight:800;margin:0 0 8px;color:#475569;\">以下为整本 PU2 Handout 的通用使用建议。不同 Unit 的主题和语法会变化，但使用逻辑一致。</p>\n<table class=\"tg-table\">\n<thead><tr><th class=\"tg-col-1\">板块</th><th class=\"tg-col-2\">主要用途</th><th class=\"tg-col-3\">课上老师怎么带</th><th class=\"tg-col-4\">课后怎么布置 / 能力培养</th></tr></thead>\n<tbody>\n<tr><td><b>Vocabulary 1</b></td><td>建立单元第一组核心词汇，完成词义理解、听力定位和基础句子使用。</td><td>结合本单元主题图、教材图片或 Handout 图片做 Picture Talk，先带孩子认读词汇、理解词义，再引导孩子听词、找词、用词说简单句。听力题可先看词库或选项，圈出关键词，听后先口头确认，再落笔完成。</td><td>布置词义理解、听力填空、词汇拼写、句子使用类练习。<br>能力培养：主题词汇理解、图片观察、听力关键词定位、基础句子表达。</td></tr>\n<tr><td><b>Story</b></td><td>理解故事内容，抓取图片和文本细节，完成问答、排序和复述。</td><td>边播放故事录音，边结合图片停顿提问，围绕人物、地点、动作、问题和结果让孩子先口头回答。老师补充完整句后，再让孩子落笔完成。排序和 Retell 建议先在课上带孩子梳理故事顺序。</td><td>布置书面问答、改错、排序、Retell 填空。<br>能力培养：听读理解、图片信息对应、细节抓取、完整句回答、故事顺序梳理、复述能力。</td></tr>\n<tr><td><b>Language practice 1</b></td><td>理解单元第一组核心语言点，完成结构识别、形式变化、句型转换和情境输出。</td><td>先带孩子观察例句，圈出核心结构，再通过图片、动作、词卡、人物替换或情境问答进行口头操练。改错、变形和句型转换题可以先口头判断原因，再落笔完成。</td><td>布置填空、结构变形、句型转换、句子重组、看图输出。<br>能力培养：规则理解、结构判断、句型迁移、情境表达。</td></tr>\n<tr><td><b>Vocabulary 2</b></td><td>拓展单元第二组词汇，结合拼读规律、主题表达和语境运用进行巩固。</td><td>用图片、动作、实物、情境问答或小任务带出第二组词汇，再结合拼读规律进行朗读、辨音和记忆。听力或 chant 类内容建议先整体听，再抓关键词，最后落笔完成。</td><td>布置词义匹配、听力填空、字母重组、拼写练习、短文填空。<br>能力培养：拼读意识、词义理解、听力定位、词汇记忆、语境运用。</td></tr>\n<tr><td><b>Language practice 2</b></td><td>巩固单元第二组功能句型，完成语言点迁移、问答输出和表达应用。</td><td>围绕本单元功能句型进行替换操练，可用图片、人物卡、情境卡或问答链条带孩子先口头输出。Let’s Talk 类任务建议课上完成，先老师示范，再学生两两练习，最后过渡到书面表达。</td><td>布置变形、听力填空、句型转换、问答书写、看图输出。<br>能力培养：功能句型使用、问答输出、语言点迁移、口语表达。</td></tr>\n<tr><td><b>Cross-curricular</b></td><td>围绕跨学科主题进行阅读理解、信息整理和主题复述。</td><td>先带孩子看标题、图片和关键词预测主题，再引导孩子阅读时圈关键词、找信息。读后可用简单框架整理内容，例如“主题是什么—我们知道什么—我们可以怎么说”。Retell 建议先口头带，再落笔。</td><td>布置主题填空、判断题、关键词整理、主题复述。<br>能力培养：主题阅读、信息提取、跨学科理解、关键词复述、主题表达。</td></tr>\n<tr><td><b>Reading & Listening</b></td><td>通过完整文本训练听读结合、情节理解、细节定位和故事复述。</td><td>先带孩子观察人物、图片和标题，预测文本内容。听读过程中按情节节点停顿提问，引导孩子回答 Who / Where / What happens / How does he or she feel / What happens next。读后再梳理故事结构。</td><td>布置阅读问答、填空、改错、情节排序、Retell 填空。<br>能力培养：完整文本理解、情节梳理、细节定位、人物情绪理解、故事复述。</td></tr>\n<tr><td><b>Speaking & Writing</b></td><td>拆解 A1 常见任务，训练完整回答、看图表达、审题意识和考试任务适应。</td><td>先模拟考试问答，提醒孩子尽量使用完整句，而不是只回答一个单词。听力、选择或看图类任务可先带孩子审题，圈出 question words 和关键词。Speaking 类任务建议先示范，再两两练习。</td><td>布置完整回答、选择题、看图表达、Writing Output。<br>能力培养：A1 问答能力、审题能力、完整句表达、看图表达、考试任务适应。</td></tr>\n</tbody></table></div>\n", "\n<div class=\"tg-section\"><div class=\"tg-section-title\">3.3.3 每个板块怎么用（续）</div>\n<table class=\"tg-table\">\n<thead><tr><th class=\"tg-col-1\">板块</th><th class=\"tg-col-2\">主要用途</th><th class=\"tg-col-3\">课上老师怎么带</th><th class=\"tg-col-4\">课后怎么布置 / 能力培养</th></tr></thead>\n<tbody>\n<tr><td><b>A1 Exam</b></td><td>完整回答、看图表达、考试任务拆解。</td><td>先模拟考试问答，提醒孩子尽量用完整句；听力或选择题先审题并圈 question words 和关键词。</td><td>布置完整回答、选择题、看图表达、Writing Output。培养 A1 问答、审题和考试任务适应。</td></tr>\n<tr><td><b>Unit Test</b></td><td>完成单元综合检测，检查词汇、语言点、听力、阅读和输出任务的掌握情况。</td><td>单元结束后限时完成。测试前不建议逐题讲解，只提醒考试流程和答题要求。测试后，老师可带孩子按错题类型分类，如词汇、听力、语言点、阅读、输出。</td><td>可整套完成，也可根据班级情况拆成听力、语言点、阅读等部分分次完成。<br>能力培养：综合检测、考试习惯、错题归因、阶段复习能力。</td></tr>\n</tbody></table></div>\n<div class=\"tg-section\"><div class=\"tg-section-title\">3.3.4 一个 Unit 建议怎么分次布置</div>\n<p style=\"font-size:12px;font-weight:800;margin:0 0 6px;color:#475569;\">以下路线不是硬性规定。基础班可以拆得更细，进阶班可以适当合并布置。</p>\n<table class=\"tg-route\">\n<tr><td>1 第一次课后：Vocabulary 1 基础题 + 听力填空</td><td>巩固第一组主题词汇，训练听力关键词定位。听力题可先在课上带孩子看词库、听关键词，再作为课后巩固。</td></tr>\n<tr><td>2 第二次课后：Story 理解巩固 + Language practice 1 核心操练</td><td>Story 图片问答 / 句子排序 + Language practice 1 核心题 / 看图输出。先巩固故事理解和情节顺序，再完成语言点核心操练。</td></tr>\n<tr><td>3 第三次课后：Vocabulary 2 + Language practice 2</td><td>巩固第二组主题词汇，训练生活表达、句型问答和语言点迁移。Language practice 2 建议先课上口头问答，再课后落笔。</td></tr>\n<tr><td>4 第四次课后：Cross-curricular 阅读 + 主题复述</td><td>读懂跨学科主题内容，完成信息提取，并尝试用关键词复述主题信息。</td></tr>\n<tr><td>5 第五次课后：Reading & Listening + Speaking & Writing</td><td>先完成完整文本理解，抓住人物、事件、顺序和关键信息，再借助口语脚手架迁移到口语和小段写作。</td></tr>\n<tr><td>6 第六次课后：A1 Exam 任务练习</td><td>训练完整回答、看图表达和考试任务理解。A1 Speaking 类任务建议课上先模拟，再两两练习。</td></tr>\n<tr><td>7 单元结束：Unit Test</td><td>完成单元综合检测，帮助老师查漏补缺。测试后按词汇、听力、语言点、阅读、输出进行反馈。</td></tr>\n</table>\n<p style=\"font-size:12px;font-weight:800;color:#64748b;margin-top:8px;\">老师可根据班级情况、课时进度和学生完成情况灵活调整。</p>\n</div>\n", "\n<div class=\"tg-section\"><div class=\"tg-section-title\">3.3.5 哪些题适合课上做，哪些适合课后做</div>\n<div class=\"tg-two\">\n<div class=\"tg-note-list\">\n<div class=\"tg-note\"><b>课上适合</b>听力填空、口语问答、Story 图片问答、Retell 示范、Let’s Talk、A1 Speaking 类任务、需要老师先示范方法的综合输出题。</div>\n<div class=\"tg-note\"><b>课上使用建议</b>听力题课上完成第一遍；Story 图片问答边放录音边停顿提问；Retell 先带关键词；Let’s Talk 先一问一答，再过渡到完整句输出。</div>\n</div>\n<div class=\"tg-note-list\">\n<div class=\"tg-note\"><b>课后适合</b>词汇拼写、词义匹配、句子重组、变形练习、阅读问答、短文填空、基础选择题、Unit Test 部分。</div>\n<div class=\"tg-note\"><b>课后使用建议</b>不要一次性把整个 Unit 全部布置完；建议根据当天上课内容分板块布置；客观题可由家长先核对，输出类题目老师重点批改。</div>\n</div>\n</div></div>\n<div class=\"tg-section\"><div class=\"tg-section-title\">3.3.6 哪些题需要老师重点批改</div>\n<div class=\"tg-card-grid\">\n<div class=\"tg-card\"><h4>建议重点批改</h4><p>句子重组、变形练习、句型转换、阅读问答、Story retell、Cross-curricular retell、Reading & Listening retell、Writing output、A1 完整回答、Unit Test。</p></div>\n<div class=\"tg-card\"><h4>老师重点看</h4><p>句子是否完整；语言结构是否正确；关键词是否准确；回答是否对应题目；复述是否有顺序；写作是否围绕主题展开；Unit Test 错题集中在哪类能力。</p></div>\n<div class=\"tg-card\"><h4>可以快速核对</h4><p>简单词汇拼写、词义匹配、选择题、True or False、基础听力选择、简单分类题。</p></div>\n<div class=\"tg-card\"><h4>家长可协助检查</h4><p>简单词汇拼写、匹配、选择，可以作为家长检查或课堂快速核对，不需要老师逐题精批。</p></div>\n</div></div>\n<div class=\"tg-section\"><div class=\"tg-section-title\">3.3.7 不同程度孩子怎么用</div>\n<div class=\"tg-card-grid\">\n<div class=\"tg-card\"><h4>基础型孩子：★ 基础必做</h4><p>先保证词汇、句子、听力核心内容过关。不建议一开始要求大量 Retell 和 Writing output，可先做词汇理解、基础句型、听力关键词和简单问答。</p></div>\n<div class=\"tg-card\"><h4>标准型孩子：★ + ★★</h4><p>覆盖理解、操练和基本输出。适合完成大多数常规题目，并逐步加入阅读问答、语言点变形和小段表达。</p></div>\n<div class=\"tg-card\"><h4>进阶型孩子：★ + ★★ + ★★★</h4><p>重点做 Retell、Let’s Talk、Writing output、A1 表达任务。不只做对题，还要训练表达完整性、准确性和流利度。</p></div>\n</div></div>\n", "\n<div class=\"tg-section\"><div class=\"tg-section-title\">3.3.8 如何和家长沟通</div>\n<p style=\"font-size:13px;font-weight:800;margin:0 0 8px;color:#475569;\">老师可以直接复制以下模板，并根据学生实际表现微调。</p>\n<div class=\"tg-template\"><b style=\"color:#92400e;\">家长沟通模板</b>\n本单元我们不是只让孩子多做题，而是围绕 PU2 Unit ___ 的词汇、故事、语言点和主题内容，完成了从理解到输出的练习。请重点关注孩子是否能听懂关键词、看图说句子、复述故事，并完成单元检测。\n如果孩子目前处于基础巩固阶段，我们会先重点抓词汇、基础句型和听力关键词，保证孩子能跟上教材内容。\n如果孩子已经能完成基础练习，我们会进一步加入阅读问答、语言点变形和小段表达，让孩子从“会做题”慢慢过渡到“会表达”。\n如果孩子能力较强，我们会重点训练 Retell、Let’s Talk、Writing output 和 A1 表达任务，帮助孩子提升完整表达能力和考试应对能力。</div>\n</div>\n<div class=\"tg-section\"><div class=\"tg-section-title\">Unit Test 后反馈建议</div>\n<div class=\"tg-template\">本次 Unit Test 主要用于检查孩子对本单元词汇、语言点、听力、阅读和输出任务的掌握情况。老师会根据错题判断孩子接下来需要重点复习的部分。\n\n如果孩子在词义、拼写或听力关键词上失分较多，建议回到 Vocabulary 1 和 Vocabulary 2 进行复习。\n如果孩子在语言点变形、句型转换或选择题中失分较多，建议重点复习 Language practice 1 和 Language practice 2。\n如果孩子在阅读问答、判断或短文选择中失分较多，建议重新梳理 Story、Cross-curricular 和 Reading & Listening。\n如果孩子能做选择题，但问答、复述或写作较弱，说明需要加强 Let’s Talk、Retell 和 Writing output。</div>\n</div>\n"];
+
+                                const getDefData = (type) => {
                    const base = { 
     id: 'B_' + Date.now() + Math.random().toString(36).substr(2, 5), 
     type, 
@@ -5025,6 +5402,11 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
     points: '',
     practiceTipEnabled: false,
     practiceTipText: 'Review 3 times before completing this exercise.',
+    showQr: false,
+    qrs: [{ img: '', label: '', size: 50 }],
+    qrImg: '',
+    qrSize: 50,
+    qrLabel: '',
     showDifficulty: true,
     difficultyLevel: '★',
     labels: { school: true, a1: false, output: false, teacherFocus: false }
@@ -5059,6 +5441,7 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                     else if (['lifeCycle'].includes(type)) { data = { items: [{isEg: false, img: '', text: 'egg'}, {isEg: false, img: '', text: '[tadpole]'}, {isEg: false, img: '', text: 'frog'}] }; }
                     else if (['listenFill', 'listenComp', 'chooseComplete', 'storyRetell'].includes(type)) { data = { keywords: type==='listenFill'?'mountain':type==='chooseComplete'?'do / eat':'', hasEg: true, img: '', ...(type==='chooseComplete'?{chooseImgLayout:'side', hideQuestionNumbers:false}:{}), ...(type==='listenFill'?{listenLineHeight:2.5, listenImgWidth:35, showKeywordBank:false}:{}), ...(type==='storyRetell'?{retellImgMode:'single', retellImgs:['', '', '', '', '', '']}:{}), text: type==='storyRetell'?'First, they are in the [garden].':type==='chooseComplete'?'I [eat] an apple.':'Narrator: Grandpa is outside.\nJenny: Look at the mountain!' }; }
                     else if (['grammarFocus'].includes(type)) { data = { ruleImg: '', practiceImg: '', ruleImgScale: 85, practiceImgScale: 85, enableExtra: false, textImg: '', practiceText: '1. Where #are# the bag*s*?\nThey\'re @next to@ the desk.' }; }
+                    else if (['phonicsTree'].includes(type)) { data = { cols: 3, imageSize: 82, showPhrase: true, showNote: true, showExamples: true, bulkInput: 'front | fr/o/n/t | o |  | in front of |  | \nnext | n/e/x/t | e |  | next to |  | \nbehind | be>b,e; hind>h,i,n,d | i | e |  |  | \npark | p/ar/k | ar |  |  | ar 发 /ɑː/ | car / star\nstreet | str/ee/t | ee |  |  | str → sdr | three / green / sheep', items: [{ isEg: false, img: '', word: 'front', structure: 'fr/o/n/t', vowelMarks: 'o', weakMarks: '', phrase: 'in front of', note: '', examples: '' }, { isEg: false, img: '', word: 'next', structure: 'n/e/x/t', vowelMarks: 'e', weakMarks: '', phrase: 'next to', note: '', examples: '' }, { isEg: false, img: '', word: 'behind', structure: 'be>b,e; hind>h,i,n,d', vowelMarks: 'i', weakMarks: 'e', phrase: '', note: '', examples: '' }, { isEg: false, img: '', word: 'park', structure: 'p/ar/k', vowelMarks: 'ar', weakMarks: '', phrase: '', note: 'ar 发 /ɑː/', examples: 'car / star' }, { isEg: false, img: '', word: 'street', structure: 'str/ee/t', vowelMarks: 'ee', weakMarks: '', phrase: '', note: 'str → sdr', examples: 'three / green / sheep' }] }; }
                     else if (['literature'].includes(type)) { 
     data = { 
         subTitle: 'The first day', 
@@ -5292,11 +5675,30 @@ else if (type === 'tChart') { data = { titleMain: 'Topic Name', showMainTitle: t
 
                 const normalizeBlockMeta = (block) => {
                     if (!block || typeof block !== 'object') return block;
+                    if (isLegacyTeacherGuideType(block.type)) block.type = 'guideIntro';
                     const allowed = new Set(difficultyOptions.map(o => o.value));
                     if (!allowed.has(block.difficultyLevel)) block.difficultyLevel = '★';
                     if (typeof block.showDifficulty !== 'boolean') block.showDifficulty = true;
                     block.editorCollapsed = !!block.editorCollapsed;
                     block.practiceTipEnabled = !!block.practiceTipEnabled;
+                    block.showQr = !!block.showQr;
+                    const legacyQrImg = typeof block.qrImg === 'string' ? block.qrImg : '';
+                    const legacyQrLabel = typeof block.qrLabel === 'string' ? block.qrLabel : '';
+                    const legacyQrSize = Number(block.qrSize);
+                    if (!Array.isArray(block.qrs) || !block.qrs.length) {
+                        block.qrs = [{ img: legacyQrImg, label: legacyQrLabel, size: Number.isFinite(legacyQrSize) ? legacyQrSize : 50 }];
+                    }
+                    block.qrs = block.qrs.map(qr => {
+                        const size = Number(qr?.size);
+                        return {
+                            img: typeof qr?.img === 'string' ? qr.img : '',
+                            label: typeof qr?.label === 'string' ? qr.label : '',
+                            size: Number.isFinite(size) ? Math.min(110, Math.max(50, size)) : 50
+                        };
+                    });
+                    block.qrImg = legacyQrImg;
+                    block.qrLabel = legacyQrLabel;
+                    block.qrSize = Number.isFinite(legacyQrSize) ? Math.min(110, Math.max(50, legacyQrSize)) : 50;
                     const appendixLH = Number(block.teacherAppendixLineHeight);
                     block.teacherAppendixLineHeight = Number.isFinite(appendixLH) ? Math.min(3.2, Math.max(1, appendixLH)) : 1.5;
                     block.data = (block.data && typeof block.data === 'object') ? block.data : {};
@@ -5306,6 +5708,10 @@ else if (type === 'tChart') { data = { titleMain: 'Topic Name', showMainTitle: t
                     const teacherLH = Number(block.data.teacherLineHeight);
                     block.data.studentLineHeight = Number.isFinite(studentLH) && studentLH > 0 ? Math.min(4, Math.max(1, studentLH)) : baseLH;
                     block.data.teacherLineHeight = Number.isFinite(teacherLH) && teacherLH > 0 ? Math.min(4, Math.max(1, teacherLH)) : baseLH;
+                    const tgCardLH = Number(block.data.tgCardLineHeight);
+                    const tgTableLH = Number(block.data.tgTableLineHeight);
+                    block.data.tgCardLineHeight = Number.isFinite(tgCardLH) && tgCardLH > 0 ? Math.min(2.4, Math.max(1.15, tgCardLH)) : 1.55;
+                    block.data.tgTableLineHeight = Number.isFinite(tgTableLH) && tgTableLH > 0 ? Math.min(2.2, Math.max(1.05, tgTableLH)) : 1.35;
                     if (typeof block.practiceTipText !== 'string' || !block.practiceTipText.trim()) block.practiceTipText = 'Review 3 times before completing this exercise.';
                     block.labels = (block.labels && typeof block.labels === 'object') ? block.labels : {};
                     assessmentLabelOptions.forEach(opt => {
@@ -5315,6 +5721,35 @@ else if (type === 'tChart') { data = { titleMain: 'Topic Name', showMainTitle: t
                 };
                 const getBlockDifficulty = (block) => (['★','★★','★★★'].includes(block?.difficultyLevel) ? block.difficultyLevel : '★');
                 const isBlockLabelOn = (block, key) => !!(block && block.labels && block.labels[key]);
+                const getQrSize = (qr) => {
+                    const v = Number(qr?.size ?? qr?.qrSize);
+                    return Number.isFinite(v) ? Math.min(110, Math.max(50, v)) : 50;
+                };
+                const getBlockQrs = (block) => {
+                    if (!block) return [];
+                    if (!Array.isArray(block.qrs) || !block.qrs.length) {
+                        const oldSize = Number(block.qrSize);
+                        block.qrs = [{
+                            img: typeof block.qrImg === 'string' ? block.qrImg : '',
+                            label: typeof block.qrLabel === 'string' ? block.qrLabel : '',
+                            size: Number.isFinite(oldSize) ? Math.min(110, Math.max(50, oldSize)) : 50
+                        }];
+                    }
+                    block.qrs.forEach(qr => {
+                        if (typeof qr.img !== 'string') qr.img = '';
+                        if (typeof qr.label !== 'string') qr.label = '';
+                        const size = Number(qr.size);
+                        qr.size = Number.isFinite(size) ? Math.min(110, Math.max(50, size)) : 50;
+                    });
+                    return block.qrs;
+                };
+                const getQrTitlePadding = (block) => {
+                    if (!block?.showQr) return 0;
+                    const qrs = getBlockQrs(block);
+                    if (!qrs.length) return 0;
+                    const total = qrs.reduce((sum, qr) => sum + getQrSize(qr), 0) + Math.max(0, qrs.length - 1) * 6;
+                    return Math.min(340, total + 14);
+                };
                 const hasPracticeTip = (block) => !!(block && block.type !== 'unitEvidence' && block.practiceTipEnabled && String(block.practiceTipText || '').trim());
                 const splitEvidenceItems = (items) => String(items || '').split('\n').map(s => s.trim()).filter(Boolean);
                 const splitEvidenceBilingual = (text) => {
@@ -5343,7 +5778,18 @@ else if (type === 'tChart') { data = { titleMain: 'Topic Name', showMainTitle: t
                     });
                 };
 
-                const fillPU2GuideIntro = (block) => {
+const resetTeacherGuideContent = (block) => {
+                    if (!block || !block.data) return;
+                    if (!confirm('确定恢复 Teacher Guide 默认内容吗？当前修改会被覆盖。')) return;
+                    block.data.guideStyle = 'teacherGuideContentV1';
+                    block.data.guideTitle = '《教师使用指南》';
+                    block.data.guideSubtitle = 'Power Up 2 Handout · Teacher Guide';
+                    block.data.htmlPages = TEACHER_GUIDE_CONTENT_DEFAULT_PAGES.map(x => String(x || ''));
+                    block.data.tgCardLineHeight = block.data.tgCardLineHeight || 1.55;
+                    block.data.tgTableLineHeight = block.data.tgTableLineHeight || 1.35;
+                    block.data.items = [];
+                };
+                                const fillPU2GuideIntro = (block) => {
                     block.data.guideTitle = block.data.guideTitle || 'Power Up 2 使用指南';
                     block.data.guideSubtitle = block.data.guideSubtitle || 'Worksheet Block Guide';
                     block.data.items = getPU2GuideItems();
@@ -5371,6 +5817,33 @@ else if (type === 'tChart') { data = { titleMain: 'Topic Name', showMainTitle: t
                 };
 
                 const clearBlockContent = (block) => {
+
+
+                    if (block.type === 'phonicsTree') {
+                        const oldItems = Array.isArray(block.data.items) ? block.data.items : [];
+                        block.data.items = (block.data.bulkInput || '')
+                            .split('\n')
+                            .map(l => l.trim())
+                            .filter(Boolean)
+                            .map((line, idx) => {
+                                const p = line.split('|').map(s => s.trim());
+                                return {
+                                    isEg: false,
+                                    img: oldItems[idx]?.img || '',
+                                    word: p[0] || '',
+                                    structure: p[1] || '',
+                                    vowelMarks: p[2] || '',
+                                    weakMarks: p[3] || '',
+                                    phrase: p[4] || '',
+                                    note: p[5] || '',
+                                    examples: p[6] || ''
+                                };
+                            });
+                        if (!block.data.items.length) {
+                            block.data.items = [{ isEg: false, img: '', word: 'front', structure: 'fr/o/n/t', vowelMarks: 'o', weakMarks: '', phrase: 'in front of', note: '', examples: '' }];
+                        }
+                        return;
+                    }
 
                     if (block.type === 'pictureDifference') {
                         block.data.rows = (block.data.bulkInput || '')
@@ -5513,6 +5986,7 @@ else if(t==='listenQuiz') { if(block.data.plan === '1') block.data.itemsTick.pus
 else if(t==='picQnA') arr.push({...b, img:'', q:'', a:'', hint:''});
 else if(t==='flashcards') arr.push({...b, img:'', core:'', desc:'', breakBefore:false, rowGapX:32, rowCoreWidth:145, rowDescWidth:155});
 else if(t==='phonicsFocus') arr.push({sound:'', words:'', tip:''});
+else if(t==='phonicsTree') arr.push({isEg:false, img:'', word:'', structure:'', vowelMarks:'', weakMarks:'', phrase:'', note:'', examples:''});
 else if(t==='phonicsChoice') block.data.items.push({isEg:false, opts:['', '', '', ''], ans:''});
 else if(t==='keyWords') arr.push({isEg: false, img:'', word:''});
                     else arr.push({...b, img:'', text:''});
@@ -6222,7 +6696,7 @@ if (block.type === 'wordList') {
                         wordForm: '每行一题，格式：句子中用 [正确形式](原词) 标注答案与提示词。例：Yesterday, I [played](play) football.',
                         missing: '每行一题，格式：完整单词 | 挖空部分。例：tractor | a / or；也支持直接在单词里用 [ ] 标注挖空。',
                         oddOneOut: '每行一题，推荐格式：选项A / 选项B / 选项C / 选项D | 答案字母。例：cat / dog / apple / pig | C。也兼容：[C] | cat / dog / apple / pig。',
-                        circle: '每行一题，把正确项用 [ ] 包住。例：I like [apples] / apple.',
+                        circle: '每行一题，把正确项用 [ ] 包住。例：I like [apples] / apple。系统会自动把斜杠两侧的待圈单词统一加粗并加浅蓝底色；多词干扰项可用 { } 包住，例如：[in front of] / {next to} / {behind}。',
                         transform: '每行一题，格式：原句 | 改写要求 | 参考答案。例：She likes apples. | Change into negative. | She doesn\'t like apples.',
                         mc: '每行一题，推荐格式：题目 / 选项A / 选项B / 选项C / 选项D | 答案字母。例：Lily wants to ____ now. / swimming / swim / swims / is swimming | B。勾选“显示题目句子”可保留题目；取消勾选则只显示选项并与序号齐平。',
                         orderStory: '左侧每行输入一个句子，右侧每行输入对应排序号。例：The kittens are awake. 右侧填：2。',
@@ -6257,7 +6731,8 @@ if (block.type === 'wordList') {
                         pictureDialogue: '每行一个气泡，格式：角色 | 句子。答案用 [ ] 挖空。例：B | I can see a [dog].',
                         drawClues: '每行一条绘画指令。例：Draw a small cat under the table.',
                         lookReadNumber1: '每行一题，格式：题目 | 答案数字；也支持：数字 | 题目。例：The boy is eating an apple. | 1。输入“图片数量: 6”可自动生成图片位。',
-                        lookReadNumber2: '附带题目区：QA用 问题 | 答案；TF用 判断句 | T/F；MC用 题目 | 选项A / 选项B / 选项C / 选项D | 答案。也支持“文本：...”和“关键词：...”。'
+                        lookReadNumber2: '附带题目区：QA用 问题 | 答案；TF用 判断句 | T/F；MC用 题目 | 选项A / 选项B / 选项C / 选项D | 答案。也支持“文本：...”和“关键词：...”。',
+                        phonicsTree: '每行一条，格式：主词 | 拆分结构 | 红色元音 | 粉红弱读 | 完整词组 | 备注 | 同类例词。拆分结构支持 fr/o/n/t 或 be>b,e; hind>h,i,n,d。'
                     };
                     return guide[type] || '每行一题；同一题内部通常用 | 分隔栏目，用 / 分隔同栏多个选项。';
                 };
@@ -6268,7 +6743,8 @@ if (block.type === 'wordList') {
                         circle: 'I like [apples] / apple.\nHe [is] / are running.',
                         transform: 'She likes apples. | Change into negative. | She doesn\'t like apples.\nTom is happy. | Change into general question. | Is Tom happy?',
                         factFile: '# Penguin\nType | [bird]\nHome | Antarctica\nFood | fish\n\n# Camel\nType | [mammal]\nHome | desert\nFood | plants',
-                        wrongResponses: 'Lily: Giraffes are beautiful. I like them.\nBen: [Do you like giraffes?]\n\nLily: Can you see the baby seal?\nBen: No, I [don\'t].'
+                        wrongResponses: 'Lily: Giraffes are beautiful. I like them.\nBen: [Do you like giraffes?]\n\nLily: Can you see the baby seal?\nBen: No, I [don\'t].',
+                        phonicsTree: 'front | fr/o/n/t | o |  | in front of |  | \nnext | n/e/x/t | e |  | next to |  | \nbehind | be>b,e; hind>h,i,n,d | i | e |  |  | \npark | p/ar/k | ar |  |  | ar 发 /ɑː/ | car / star'
                     };
                     return ph[type] || '每行一题，按上方格式输入';
                 };
@@ -6532,12 +7008,96 @@ if (block.type === 'wordList') {
                     });
                 };
 
-                const parseCircleWord = (text, isAns, isEg) => text.replace(/\[(.*?)\]/g, (m, p) => {
-                    if (isAns) return `<span class="border-[1.5px] border-rose-500 text-rose-600 rounded-full px-3 py-0.5 font-bold mx-1">${p}</span>`;
-                    if (isEg) return `<span class="border-[1.5px] border-slate-400 text-slate-500 rounded-full px-3 py-0.5 font-bold mx-1">${p}</span>`;
-                    return `<span class="px-1 font-medium text-slate-700">${p}</span>`;
-                });
-                
+                const parseCircleWord = (text, isAns, isEg) => {
+                    const source = String(text || '');
+                    const correctOptions = [];
+                    const normalOptions = [];
+                    const correctMarkerPrefix = '__WS_CIRCLE_CORRECT_';
+                    const normalMarkerPrefix = '__WS_CIRCLE_OPTION_';
+
+                    let marked = source.replace(/\[([^\]]+)\]/g, (m, p) => {
+                        const idx = correctOptions.length;
+                        correctOptions.push(p);
+                        return `${correctMarkerPrefix}${idx}__`;
+                    });
+                    // 可选增强：多词干扰项可用 { } 包住，保证整组高亮。
+                    marked = marked.replace(/\{([^{}]+)\}/g, (m, p) => {
+                        const idx = normalOptions.length;
+                        normalOptions.push(p);
+                        return `${normalMarkerPrefix}${idx}__`;
+                    });
+
+                    const normalOptionClass = 'inline-block text-blue-600 font-black mx-1';
+                    const correctAnswerClass = 'inline-block text-rose-600 font-black mx-1';
+                    const exampleAnswerClass = 'inline-block text-slate-600 font-black mx-1';
+                    const slashHtml = '<span class="inline-block text-slate-400 font-black mx-1">/</span>';
+
+                    const renderOption = (value, isCorrect = false) => {
+                        let cls = normalOptionClass;
+                        if (isCorrect && isAns) cls = correctAnswerClass;
+                        else if (isCorrect && isEg) cls = exampleAnswerClass;
+                        return `<span class="${cls}">${escapeHtml(String(value || '').trim())}</span>`;
+                    };
+
+                    const renderMarkedSegment = (segment) => {
+                        const markerRe = /__WS_CIRCLE_(CORRECT|OPTION)_(\d+)__/g;
+                        let html = '';
+                        let cursor = 0;
+                        let match;
+                        while ((match = markerRe.exec(segment)) !== null) {
+                            html += escapeHtml(segment.slice(cursor, match.index));
+                            const isCorrect = match[1] === 'CORRECT';
+                            const list = isCorrect ? correctOptions : normalOptions;
+                            html += renderOption(list[Number(match[2])] || '', isCorrect);
+                            cursor = match.index + match[0].length;
+                        }
+                        html += escapeHtml(segment.slice(cursor));
+                        return html;
+                    };
+
+                    const parts = marked.split(/([\/／])/);
+                    if (parts.length === 1) return renderMarkedSegment(marked);
+
+                    // 自动模式优先保证安全：斜杠两端默认只抓最近的一个单词，避免把后面的句子一起着色。
+                    const token = `[A-Za-z][A-Za-z'’\-]*`;
+                    const firstOptionRe = new RegExp(`^(\\s*)(${token})`);
+                    const lastOptionRe = new RegExp(`(${token})(\\s*)$`);
+
+                    return parts.map((part, idx) => {
+                        if (part === '/' || part === '／') return slashHtml;
+                        if (part.includes(correctMarkerPrefix) || part.includes(normalMarkerPrefix)) return renderMarkedSegment(part);
+
+                        const hasSlashBefore = idx > 0 && (parts[idx - 1] === '/' || parts[idx - 1] === '／');
+                        const hasSlashAfter = idx < parts.length - 1 && (parts[idx + 1] === '/' || parts[idx + 1] === '／');
+
+                        // 两个斜杠中间的内容就是一个完整待圈选项。
+                        if (hasSlashBefore && hasSlashAfter) {
+                            const leading = (part.match(/^\s*/) || [''])[0];
+                            const trailing = (part.match(/\s*$/) || [''])[0];
+                            const core = part.slice(leading.length, part.length - trailing.length);
+                            return escapeHtml(leading) + renderOption(core) + escapeHtml(trailing);
+                        }
+
+                        // 第一项：高亮第一个斜杠前最靠近斜杠的单词。
+                        if (hasSlashAfter) {
+                            const match = part.match(lastOptionRe);
+                            if (match) {
+                                const start = match.index || 0;
+                                return escapeHtml(part.slice(0, start)) + renderOption(match[1]) + escapeHtml(match[2] || '');
+                            }
+                        }
+
+                        // 最后一项：高亮最后一个斜杠后最靠近斜杠的单词。
+                        if (hasSlashBefore) {
+                            const match = part.match(firstOptionRe);
+                            if (match) {
+                                return escapeHtml(match[1] || '') + renderOption(match[2]) + escapeHtml(part.slice(match[0].length));
+                            }
+                        }
+
+                        return escapeHtml(part);
+                    }).join('');
+                };
                 const parseGrammarColor = (t) => t?t.replace(/#(.*?)#/g,'<span class="text-emerald-600 font-black">$1</span>').replace(/\*(.*?)\*/g,'<span class="text-rose-600 font-black">$1</span>').replace(/@(.*?)@/g,'<span class="text-blue-600 font-black">$1</span>').replace(/\^(.*?)\^/g,'<span class="text-orange-500 font-black">$1</span>').replace(/~(.*?)~/g,'<span class="text-purple-500 font-black">$1</span>').replace(/\n/g,'<br>'):'';
 
                 const parsePhonicsText = (t) => t ? String(t).replace(/\{\{(.*?)\}\}/g, '<span class="text-purple-500 italic font-medium">$1</span>').replace(/\*(.*?)\*/g, '<span class="text-rose-500">$1</span>').replace(/@(.*?)@/g, '<span class="text-blue-500">$1</span>').replace(/\^(.*?)\^/g, '<span class="text-orange-500 font-bold">$1</span>') : '';
@@ -6900,6 +7460,55 @@ const getMatchPairs = (block) => {
                     alert(`✅ 单元册导入完成：共 ${mergedBlocks.length} 个区块。${errors.length ? '\n\n⚠️ 以下文件未导入：\n' + errors.slice(0, 5).join('\n') : ''}`);
                 };
 
+
+                const isLegacyTeacherGuideType = (type) => ['teacherGuide','teacher-guide','teacher_guide','guide','guideBlock','teacherIntro'].includes(String(type || '').trim());
+
+                const normalizeGuideLikeBlock = (block, originalType = '') => {
+                    if (!block || !block.data) return block;
+                    const d = block.data;
+                    if (!isLegacyTeacherGuideType(originalType) && block.type !== 'guideIntro') return block;
+                    block.type = 'guideIntro';
+                    if (!block.instruction || isLegacyTeacherGuideType(originalType)) block.instruction = block.instruction || '教师使用指南';
+                    d.guideTitle = d.guideTitle || d.title || d.heading || block.instruction || '教师使用指南';
+                    d.guideSubtitle = d.guideSubtitle || d.subtitle || d.subTitle || '';
+
+                    const normalizeGuideItem = (item) => {
+                        if (typeof item === 'string') return { title: '', desc: item, img: '' };
+                        const it = item && typeof item === 'object' ? item : {};
+                        const desc = it.desc || it.description || it.text || it.content || it.body || it.detail || (Array.isArray(it.items) ? it.items.join('\n') : '');
+                        return {
+                            title: it.title || it.name || it.heading || it.label || '',
+                            desc: desc || '',
+                            img: it.img || it.imgUrl || it.image || it.src || it.logo || (Array.isArray(it.images) ? (it.images[0]?.src || it.images[0]?.img || it.images[0] || '') : '')
+                        };
+                    };
+
+                    let sourceItems = [];
+                    if (Array.isArray(d.items) && d.items.length) sourceItems = d.items;
+                    else if (Array.isArray(d.guideItems) && d.guideItems.length) sourceItems = d.guideItems;
+                    else if (Array.isArray(d.sections) && d.sections.length) sourceItems = d.sections;
+                    else if (Array.isArray(d.cards) && d.cards.length) sourceItems = d.cards;
+                    else if (Array.isArray(block.items) && block.items.length) sourceItems = block.items;
+
+                    let items = sourceItems.map(normalizeGuideItem).filter(x => x.title || x.desc || x.img);
+
+                    if (!items.length && d.bulkInput) {
+                        items = String(d.bulkInput).split('\n').map(s => s.trim()).filter(Boolean).map(line => {
+                            const p = line.split('|').map(x => x.trim());
+                            return { title: p[0] || '', desc: p.slice(1).join(' | ') || '', img: '' };
+                        });
+                    }
+
+                    if (!items.length) {
+                        const textFields = [d.desc, d.description, d.text, d.content, d.body, d.guideText].filter(x => String(x || '').trim());
+                        if (textFields.length) items = [{ title: d.sectionTitle || d.title || block.instruction || 'Teacher Guide', desc: textFields.join('\n'), img: d.img || d.imgUrl || '' }];
+                    }
+
+                    d.items = items;
+                    d.bulkInput = d.bulkInput || items.map(it => `${it.title || ''}${it.desc ? ' | ' + it.desc : ''}`).join('\n');
+                    return block;
+                };
+
                 const normalizeImportedBlocks = (importedBlocks) => {
                     if (!Array.isArray(importedBlocks)) return [];
 
@@ -6908,12 +7517,14 @@ const getMatchPairs = (block) => {
                         .map(block => {
                             // 关键修复：先用当前版本默认数据补齐旧备份缺失字段。
                             // 旧备份少了 items/images/qaList 等字段时，Vue 预览会中断，表现为“导入成功但不显示”。
-                            const def = getDefData(block.type || 'textQnA');
+                            const originalType = block.type || '';
+                            const mappedType = isLegacyTeacherGuideType(originalType) ? 'guideIntro' : (block.type || 'textQnA');
+                            const def = getDefData(mappedType);
                             block = {
                                 ...def,
                                 ...block,
                                 id: block.id || def.id,
-                                type: block.type || def.type,
+                                type: mappedType,
                                 instruction: block.instruction || def.instruction,
                                 subInstruction: block.subInstruction || '',
                                 bulkInput: block.bulkInput || '',
@@ -6928,6 +7539,7 @@ const getMatchPairs = (block) => {
                             block.points = block.points ?? '';
                             block.practiceTipEnabled = !!block.practiceTipEnabled;
                             block.practiceTipText = block.practiceTipText || 'Review 3 times before completing this exercise.';
+                            normalizeGuideLikeBlock(block, originalType);
                             normalizeBlockMeta(block);
 
                             if (block.type === 'match') {
@@ -7412,7 +8024,151 @@ const escapeRegExp = (str) => String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '
                         .join('');
                 };
 
-                const hasAnyImageInBlock = (block) => {
+
+                const hexToRgba = (hex, alpha = 0.12) => {
+                    const raw = String(hex || '').replace('#', '').trim();
+                    if (!raw) return `rgba(72,184,233,${alpha})`;
+                    const full = raw.length === 3 ? raw.split('').map(ch => ch + ch).join('') : raw;
+                    const num = parseInt(full, 16);
+                    const r = (num >> 16) & 255;
+                    const g = (num >> 8) & 255;
+                    const b = num & 255;
+                    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+                };
+
+                const parsePhonicsTokenList = (value) => String(value || '')
+                    .split(/[\/／,，;；、\s]+/)
+                    .map(t => t.trim())
+                    .filter(Boolean);
+
+                const parsePhonicsTreeNodes = (structure, fallbackWord = '') => {
+                    const raw = String(structure || fallbackWord || '').trim();
+                    if (!raw) return [];
+                    const splitLeafs = (txt) => String(txt || '').split(/[\/／,，、]+/).map(s => s.trim()).filter(Boolean);
+                    const groups = raw.split(/\s*;\s*/).map(s => s.trim()).filter(Boolean);
+                    if (groups.some(g => g.includes('>'))) {
+                        return groups.map(group => {
+                            const parts = group.split('>');
+                            const label = String(parts[0] || '').trim();
+                            const children = splitLeafs(parts.slice(1).join('>'));
+                            return { label, children };
+                        }).filter(node => node.label || (node.children && node.children.length));
+                    }
+                    return splitLeafs(raw).map(label => ({ label, children: [] }));
+                };
+
+                const getPhonicsThemeColors = () => {
+                    const theme = themes[globalData.value?.theme || 'blue'] || themes.blue;
+                    return {
+                        line: theme.border2,
+                        lineSoft: theme.border1,
+                        text: theme.border2,
+                        wordBg: hexToRgba(theme.border2, 0.12),
+                        boxBg: hexToRgba(theme.border1, 0.18),
+                        leafBg: hexToRgba(theme.border1, 0.10),
+                        noteBg: hexToRgba(theme.border1, 0.08),
+                        exampleBg: hexToRgba(theme.border2, 0.08)
+                    };
+                };
+
+                const isPhonicsMarked = (markText, token) => parsePhonicsTokenList(markText).some(x => x.toLowerCase() === String(token || '').trim().toLowerCase());
+                const getPhonicsTokenStyle = (item, token) => {
+                    if (isPhonicsMarked(item?.weakMarks, token)) return { color: '#f2a7c6', fontWeight: '700' };
+                    if (isPhonicsMarked(item?.vowelMarks, token)) return { color: '#ff4d4f', fontWeight: '700' };
+                    return { color: '#1f2937', fontWeight: '700' };
+                };
+
+                const splitPhonicsExamples = (value) => String(value || '')
+                    .split(/\n+/)
+                    .flatMap(line => line.split(/[\/／]/))
+                    .map(s => s.trim())
+                    .filter(Boolean);
+
+                const formatPhonicsExampleWord = (example, item) => {
+                    const raw = String(example || '');
+                    if (!raw) return '';
+                    const redTokens = parsePhonicsTokenList(item?.vowelMarks)
+                        .sort((a, b) => b.length - a.length);
+                    const pinkTokens = parsePhonicsTokenList(item?.weakMarks)
+                        .sort((a, b) => b.length - a.length);
+                    const findToken = (tokens, pos) => tokens.find(t => raw.slice(pos, pos + t.length).toLowerCase() === t.toLowerCase());
+                    let html = '';
+                    let i = 0;
+                    while (i < raw.length) {
+                        const red = findToken(redTokens, i);
+                        if (red) {
+                            html += `<span style="color:#ff4d4f;font-weight:800;">${escapeHtml(raw.slice(i, i + red.length))}</span>`;
+                            i += red.length;
+                            continue;
+                        }
+                        const pink = findToken(pinkTokens, i);
+                        if (pink) {
+                            html += `<span style="color:#f2a7c6;font-weight:800;">${escapeHtml(raw.slice(i, i + pink.length))}</span>`;
+                            i += pink.length;
+                            continue;
+                        }
+                        html += escapeHtml(raw[i]);
+                        i += 1;
+                    }
+                    return html;
+                };
+
+                
+                const normalizeTeacherGuideSectionStyles = (html = '') => {
+                    try {
+                        const wrap = document.createElement('div');
+                        wrap.innerHTML = String(html || '');
+                        wrap.querySelectorAll('.tg-section').forEach((el) => {
+                            const lh = el.getAttribute('data-tg-section-line-height') || '';
+                            if (lh) el.style.setProperty('--tg-section-local-line-height', String(lh));
+                        });
+                        return wrap.innerHTML;
+                    } catch (e) {
+                        return html;
+                    }
+                };
+
+                const getTeacherGuideSectionControls = (block, pageIdx) => {
+                    try {
+                        const html = String(block?.data?.htmlPages?.[pageIdx] || '');
+                        const wrap = document.createElement('div');
+                        wrap.innerHTML = html;
+                        const sections = Array.from(wrap.querySelectorAll('.tg-section'));
+                        return sections.map((el, idx) => {
+                            const titleEl = el.querySelector('.tg-section-title') || el;
+                            const rawTitle = (titleEl.textContent || '').trim().replace(/\s+/g, ' ');
+                            const lineHeight = el.getAttribute('data-tg-section-line-height') || (block?.data?.tgCardLineHeight || 1.55);
+                            return { index: idx, title: rawTitle.slice(0, 60), lineHeight: Number(lineHeight) || 1.55 };
+                        });
+                    } catch (e) {
+                        return [];
+                    }
+                };
+
+                const setTeacherGuideSectionLineHeight = (block, pageIdx, sectionIdx, value) => {
+                    try {
+                        if (!block?.data?.htmlPages) return;
+                        const wrap = document.createElement('div');
+                        wrap.innerHTML = String(block.data.htmlPages[pageIdx] || '');
+                        const sections = Array.from(wrap.querySelectorAll('.tg-section'));
+                        const el = sections[sectionIdx];
+                        if (!el) return;
+                        const n = Number(value);
+                        if (value === '' || !Number.isFinite(n)) {
+                            el.removeAttribute('data-tg-section-line-height');
+                            el.style.removeProperty('--tg-section-local-line-height');
+                        } else {
+                            const clamped = Math.min(2.6, Math.max(1.1, n));
+                            el.setAttribute('data-tg-section-line-height', String(clamped));
+                            el.style.setProperty('--tg-section-local-line-height', String(clamped));
+                        }
+                        block.data.htmlPages[pageIdx] = wrap.innerHTML;
+                    } catch (e) {
+                        console.warn('setTeacherGuideSectionLineHeight failed', e);
+                    }
+                };
+
+const hasAnyImageInBlock = (block) => {
                     const d = block?.data || {};
                     const directKeys = ['img','imgA','imgB','bgImg','referenceImg','ruleImg','practiceImg','textImg','drawImg'];
                     if (directKeys.some(k => !!d[k])) return true;
@@ -7552,7 +8308,7 @@ const escapeRegExp = (str) => String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '
                 const getPureAnswersForBlock = (block) => {
                     const d = block?.data || {};
                     const rows = [];
-                    if (!block || ['unitEvidence','guideIntro','stackedIntro','tipBox','keyWords','wordList','flashcards','phonicsFocus','grammarFocus','literature'].includes(block.type)) return rows;
+                    if (!block || ['unitEvidence','guideIntro','stackedIntro','tipBox','keyWords','wordList','flashcards','phonicsFocus','phonicsTree','grammarFocus','literature'].includes(block.type)) return rows;
 
                     const fromArray = (arr, getter) => Array.isArray(arr) && arr.forEach((item, idx) => pushAnswer(rows, getter(item, idx)));
 
@@ -7697,10 +8453,11 @@ const escapeRegExp = (str) => String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '
                 };
 
                 return {
-                    themes, isAnswerMode, answerOnlyMode, setPreviewMode, answerOnlyBlocks, questionTypes, questionTypeCategories, filteredQuestionTypes, typeSearch, activeTypeCategory, lastAddedTypeId, typePanelOpen, difficultyOptions, assessmentLabelOptions, globalData, blocks, addBlock, removeBlock, clearAllBlocks, clearBlockContent, moveBlock, fillPU2GuideIntro, generateGuideIntroItems, generateUnitEvidenceSections, moveSubItem, addItem, quickTags, insertTransformTag, applyUnderline, generateBulkItems, getBlockLineHeight, getBlankLineWidth, getWritingBankLineHeight, getWritingScaffoldLineHeight, getBulkGuide, getBulkPlaceholder,
-                    getSecName, getSecZhName, getSecBg, getSecColor, getOptColor, getCatColor, getBlockDifficulty, isBlockLabelOn, hasPracticeTip, splitEvidenceItems, splitEvidenceBilingual, hasItemImages, getIndexStr, getComicQIndex, parseCorrectMistake, parseWrongResponseDialogue, formatTeacherAppendix, formatWritingWordsBank, groupFlashcardRows, isFlashcardRowStarter, groupLiteratureCharacters,
-                    parsePipe, parseBasicBlank, parseBracketLines, replaceKw, pMc, pTransform, pOdd, parseWordForm, parseCircleWord, parseGrammarColor, parsePhonicsText, parseLitGrammarHighlight, getLitGrammarImgStyle,
-getParsedMissing, getShuffledMatch, getOptionLetter, getMatchAns, getMatchPairs, pClilPassageA, pClilPassageB, pClilChoice, parseSpeakingBlank, getParsedBranches, parseSpeakingPointRows, parseSpeakingLineRows, parseSpeakingLinePairs, getSpeakingTopics, ensureSpeakingTopics, getParsedSpeakingPoints, getParsedSpeakingLines, generateLiteratureGrammar, formatLookReadNumber2Text, formatPhonicsChoiceWord, getBlockImgStyle, getGrammarFocusImgStyle, getStackedIntroColor, getStackedIntroBorder, getStackedIntroGap, getStackedIntroCardStackGap, getStackedIntroImageBoxWidth, getStackedIntroCardSideGap, ensureStackedIntroCards, getStackedIntroCards, getFirstStackedIntroCard, addStackedIntroCard, removeStackedIntroCard, hasAnyImageInBlock, hasWordBankArea, getWordBankFlexStyle, getWordBankBoxStyle, formatWordBankText, getLRQuestionWidth, getLRAnswerWidth, getLRGap,
+                    themes, isAnswerMode, answerOnlyMode, setPreviewMode, answerOnlyBlocks, questionTypes, questionTypeCategories, filteredQuestionTypes, typeSearch, activeTypeCategory, lastAddedTypeId, typePanelOpen, difficultyOptions, assessmentLabelOptions, globalData, blocks, addBlock, removeBlock, clearAllBlocks, clearBlockContent, moveBlock, fillPU2GuideIntro, resetTeacherGuideContent, generateGuideIntroItems, generateUnitEvidenceSections, moveSubItem, addItem, quickTags, insertTransformTag, applyUnderline, generateBulkItems, getBlockLineHeight, getBlankLineWidth, getWritingBankLineHeight, getWritingScaffoldLineHeight, getBulkGuide, getBulkPlaceholder,
+                    getSecName, getSecZhName, getSecBg, getSecColor, getOptColor, getCatColor, getBlockDifficulty, isBlockLabelOn, getQrSize, hasPracticeTip, splitEvidenceItems, splitEvidenceBilingual, hasItemImages, getIndexStr, getComicQIndex, parseCorrectMistake, parseWrongResponseDialogue, formatTeacherAppendix, formatWritingWordsBank, groupFlashcardRows, isFlashcardRowStarter, groupLiteratureCharacters,
+                    parsePipe, parseBasicBlank, parseBracketLines, replaceKw, pMc, pTransform, pOdd, parseWordForm, parseCircleWord, parseGrammarColor, parsePhonicsText, parseLitGrammarHighlight, getLitGrammarImgStyle, parsePhonicsTreeNodes, getPhonicsThemeColors, getPhonicsTokenStyle, splitPhonicsExamples, formatPhonicsExampleWord,
+getTeacherGuideSectionControls, setTeacherGuideSectionLineHeight, normalizeTeacherGuideSectionStyles,
+getParsedMissing, getShuffledMatch, getOptionLetter, getMatchAns, getMatchPairs, pClilPassageA, pClilPassageB, pClilChoice, getQrSize, getBlockQrs, getQrTitlePadding, parseSpeakingBlank, getParsedBranches, parseSpeakingPointRows, parseSpeakingLineRows, parseSpeakingLinePairs, getSpeakingTopics, ensureSpeakingTopics, getParsedSpeakingPoints, getParsedSpeakingLines, generateLiteratureGrammar, formatLookReadNumber2Text, formatPhonicsChoiceWord, getBlockImgStyle, getGrammarFocusImgStyle, getStackedIntroColor, getStackedIntroBorder, getStackedIntroGap, getStackedIntroCardStackGap, getStackedIntroImageBoxWidth, getStackedIntroCardSideGap, ensureStackedIntroCards, getStackedIntroCards, getFirstStackedIntroCard, addStackedIntroCard, removeStackedIntroCard, hasAnyImageInBlock, hasWordBankArea, getWordBankFlexStyle, getWordBankBoxStyle, formatWordBankText, getLRQuestionWidth, getLRAnswerWidth, getLRGap,
                     compressAndUpload, compressFilesToDataUrls, handleStackedIntroUpload, moveStackedIntroImage, sendStackedIntroImageToFront, sendStackedIntroImageToBack, removeStackedIntroImage, handleLogoUpload, saveLocal, restoreLocal, exportToFile, triggerImport, triggerAppendImport, triggerBookletImport, appendFromFiles, importBookletFromFiles, importFromFile, printPdf, onDragStart, onDrop, onDragEnd, dragEnabledIndex
                 };
             }

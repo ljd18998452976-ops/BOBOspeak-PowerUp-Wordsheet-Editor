@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Worksheet_v14_113_CircleWord纯颜色版</title>
+    <title>Worksheet_v14_118_综合能力全题型扩展版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -929,6 +929,355 @@
     .answer-only-value { font-size: 11.8px !important; line-height: 1.2 !important; }
 }
 
+/* v14.115 自然拼读四句框架：配图 + 句子，不含描红与书写横线 */
+.phonics-sentence-frame-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--phonics-sentence-gap, 12px);
+}
+.phonics-sentence-frame {
+    display: grid;
+    grid-template-columns: 30px 104px minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    min-height: 112px;
+    padding: 10px 14px 10px 10px;
+    border: 1.5px solid #bae6fd;
+    border-radius: 16px;
+    background: linear-gradient(100deg, #f0f9ff 0%, #ffffff 46%, #fdf4ff 100%);
+    box-shadow: 0 2px 7px rgba(14, 116, 144, 0.08);
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+.phonics-sentence-frame-no {
+    width: 27px;
+    height: 27px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: #0ea5e9;
+    font: 900 13px/1 'Nunito', sans-serif;
+}
+.phonics-sentence-frame-img {
+    width: 104px;
+    height: 88px;
+    border: 1.5px solid #dbeafe;
+    border-radius: 13px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.phonics-sentence-frame-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+.phonics-sentence-frame-placeholder {
+    color: #cbd5e1;
+    font: 800 11px/1.2 'Nunito', sans-serif;
+}
+.phonics-sentence-frame-copy {
+    min-height: 64px;
+    padding: 12px 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.94);
+    color: #1e293b;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: var(--phonics-sentence-line-height, 1.42);
+    display: flex;
+    align-items: center;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+@media print {
+    .phonics-sentence-frame-list { gap: var(--phonics-sentence-gap, 10px) !important; }
+    .phonics-sentence-frame {
+        min-height: 104px !important;
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+        box-shadow: none !important;
+    }
+    .phonics-sentence-frame-img { height: 82px !important; }
+    .phonics-sentence-frame-copy { font-size: 20px !important; }
+}
+
+/* v14.116 每题块独立字体：覆盖题块内原有 font-sans / hengshui-font */
+.ws-block-font-scope,
+.ws-block-font-scope * {
+    font-family: var(--ws-block-font-family, 'Hengshui', 'Comic Neue', 'Comic Sans MS', sans-serif) !important;
+}
+
+/* v14.116 自然拼读词族图片表 + Magic e 规则说明 */
+.phonics-family-board {
+    border: 1.5px solid #a7d96b;
+    border-radius: 18px;
+    padding: 12px 14px 14px;
+    background: #fff;
+    box-shadow: 0 3px 9px rgba(84, 166, 42, 0.10);
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+.phonics-family-header {
+    min-height: 48px;
+    margin-bottom: 12px;
+    padding: 8px 18px;
+    border-radius: 12px;
+    color: #15370d;
+    background: linear-gradient(90deg, #91d04c, #65bd36);
+    box-shadow: 0 3px 6px rgba(59, 130, 30, 0.24);
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+.phonics-family-row {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    padding: 7px 0;
+}
+.phonics-family-label {
+    min-height: 54px;
+    padding: 7px 10px;
+    border-radius: 11px;
+    color: #fff;
+    background: linear-gradient(135deg, #83cb43, #5fb82f);
+    box-shadow: 0 3px 6px rgba(69, 139, 32, 0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+.phonics-family-items {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+}
+.phonics-family-item {
+    min-width: 0;
+    text-align: center;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+.phonics-family-picture {
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.phonics-family-picture img {
+    max-width: 100%;
+    max-height: 68px;
+    object-fit: contain;
+    display: block;
+}
+.phonics-family-picture-placeholder {
+    width: 58px;
+    height: 52px;
+    border-radius: 14px;
+    color: #a3c991;
+    background: #f3faef;
+    border: 1px dashed #8fca6b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 900;
+}
+.phonics-family-word {
+    min-height: 37px;
+    margin-top: 3px;
+    padding: 4px 2px;
+    border: 1.5px dashed #65bd36;
+    border-radius: 9px;
+    color: #ef4444;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.1;
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+}
+.phonics-rule-note {
+    padding: 10px 14px;
+    border: 1.5px solid #7fbe43;
+    border-left-color: #f3b241;
+    border-radius: 16px;
+    color: #334155;
+    background: linear-gradient(90deg, #fffdf6, #fbfff8);
+    font-size: 15px;
+    font-weight: 650;
+    line-height: 1.65;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+.phonics-sentence-section-title {
+    margin: 2px 0 8px 4px;
+    color: #0ea5e9;
+    font-size: 17px;
+    font-weight: 900;
+}
+@media print {
+    .phonics-family-board { padding: 10px 12px 12px !important; box-shadow: none !important; }
+    .phonics-family-header { min-height: 44px !important; margin-bottom: 9px !important; font-size: 20px !important; box-shadow: none !important; }
+    .phonics-family-row { padding: 5px 0 !important; }
+    .phonics-family-label { min-height: 50px !important; box-shadow: none !important; }
+    .phonics-family-picture { height: 62px !important; }
+    .phonics-family-picture img { max-height: 62px !important; }
+    .phonics-family-word { min-height: 34px !important; font-size: 17px !important; }
+    .phonics-rule-note { padding: 8px 12px !important; font-size: 14px !important; }
+}
+
+/* v14.118 综合能力扩展题型 */
+.ws-suite-source {
+    border: 1.5px solid #cbd5e1;
+    border-radius: 16px;
+    padding: 16px 18px;
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    color: #334155;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    line-height: 1.8;
+}
+.ws-suite-source-title {
+    margin-bottom: 8px;
+    color: #0f172a;
+    font: 900 18px/1.2 'Nunito', sans-serif;
+}
+.ws-suite-audio {
+    margin: 8px 0 12px;
+    padding: 8px 12px;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font: 800 12px/1.4 'Nunito', sans-serif;
+}
+.ws-suite-audio audio { width: 100%; height: 32px; }
+.ws-suite-question-list { display: flex; flex-direction: column; gap: 14px; }
+.ws-suite-question {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    color: #334155;
+    font-size: 17px;
+}
+.ws-suite-question-head { display: flex; align-items: flex-start; gap: 9px; }
+.ws-suite-number {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #0ea5e9;
+    color: white;
+    font: 900 12px/1 'Nunito', sans-serif;
+}
+.ws-suite-options {
+    margin: 7px 0 0 33px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 14px;
+    font-size: 15px;
+}
+.ws-suite-option {
+    padding: 5px 9px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #fff;
+}
+.ws-suite-option.answer { border-color: #fb7185; color: #e11d48; font-weight: 800; background: #fff1f2; }
+.ws-suite-answer-line {
+    min-height: 28px;
+    margin: 7px 0 0 33px;
+    border-bottom: 1.5px solid #475569;
+    color: #e11d48;
+    font-weight: 700;
+}
+.ws-suite-writing-lines { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.ws-suite-writing-line { min-height: 28px; border-bottom: 1.4px solid #64748b; }
+.ws-suite-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+.ws-suite-table th { background: #eef2ff; color: #3730a3; font-weight: 900; }
+.ws-suite-table th, .ws-suite-table td { border: 1px solid #cbd5e1; padding: 8px 9px; text-align: left; }
+.ws-suite-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 22px;
+}
+.ws-suite-form-row { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 8px; align-items: end; }
+.ws-suite-form-label { font: 900 14px/1.3 'Nunito', sans-serif; color: #475569; }
+.ws-suite-form-value { min-height: 28px; border-bottom: 1.5px solid #475569; color: #e11d48; font-weight: 800; padding: 0 5px 2px; }
+.ws-suite-grid-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.ws-suite-sheet, .ws-suite-role-card {
+    padding: 14px;
+    border: 1.5px solid #c4b5fd;
+    border-radius: 14px;
+    background: #faf5ff;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+.ws-suite-sheet-title, .ws-suite-role-title {
+    margin-bottom: 9px;
+    color: #6d28d9;
+    font: 900 16px/1.2 'Nunito', sans-serif;
+}
+.ws-suite-checklist { display: flex; flex-direction: column; gap: 8px; }
+.ws-suite-check { display: flex; align-items: flex-start; gap: 8px; }
+.ws-suite-checkbox { width: 16px; height: 16px; flex: 0 0 16px; border: 1.5px solid #64748b; border-radius: 3px; margin-top: 2px; }
+.ws-suite-game-grid { display: grid; gap: 3px; width: min(100%, 520px); margin: 0 auto; }
+.ws-suite-game-cell {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #94a3b8;
+    background: #fff;
+    font: 800 15px/1 'Nunito', sans-serif;
+    text-align: center;
+    padding: 4px;
+}
+.ws-suite-cut-card {
+    min-height: 74px;
+    padding: 10px;
+    border: 1.5px dashed #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    break-inside: avoid;
+}
+@media print {
+    .ws-suite-audio audio { display: none !important; }
+    .ws-suite-audio { padding: 5px 10px !important; margin: 5px 0 8px !important; }
+    .ws-suite-source { padding: 12px 14px !important; }
+    .ws-suite-question-list { gap: 11px !important; }
+    .ws-suite-writing-lines { gap: 10px !important; }
+}
+
 /* 编辑区大题卡片折叠：只影响左侧编辑面板，不影响右侧预览和打印 */
 .editor-block-body { margin-top: 0; }
 .editor-panel .group button { user-select: none; }
@@ -1195,6 +1544,14 @@
         </div>
     </div>
 
+    <div class="ml-[5.5rem] mt-1 flex flex-wrap items-center gap-2 bg-emerald-50 border border-emerald-100 rounded px-2 py-1 w-[calc(100%-5.5rem)]">
+        <span class="text-xs font-bold text-emerald-700">本题块字体：</span>
+        <select v-model="block.fontKey" :data-testid="'block-font-select-' + bIdx" class="min-w-40 rounded border border-emerald-200 bg-white px-2 py-1 text-xs font-bold text-slate-700 outline-none focus:border-emerald-400">
+            <option v-for="font in blockFontOptions" :key="font.value" :value="font.value">{{ font.label }}</option>
+        </select>
+        <span class="text-[10px] text-slate-500">仅影响当前题块的预览和打印；其他题块可以选择不同字体。</span>
+    </div>
+
     <div class="ml-[5.5rem] mt-1 bg-violet-50 border border-violet-100 rounded px-2 py-1 w-[calc(100%-5.5rem)] max-w-full overflow-hidden">
         <div class="flex flex-wrap items-center gap-2">
             <span class="text-xs font-bold text-violet-700">学生卷行距：</span>
@@ -1300,6 +1657,19 @@
                         <label class="flex items-center gap-1.5 cursor-pointer w-max p-1.5 bg-emerald-50 rounded border border-emerald-100">
                             <input type="checkbox" v-model="block.data.hasEg" class="w-4 h-4 text-emerald-500 rounded"><span class="text-xs text-emerald-700 font-bold">设首空/题为 e.g. 例题</span>
                         </label>
+                    </div>
+
+                    <div v-if="['listenFill','listenYesNo','listenComp','listenQuiz','sharedStimulus','noteCompletion'].includes(block.type)" class="mb-3 rounded-xl border border-blue-200 bg-blue-50/70 p-3">
+                        <div class="mb-2 flex items-center justify-between gap-3">
+                            <div>
+                                <div class="text-xs font-black text-blue-800">题块音频（可选）</div>
+                                <div class="text-[10px] font-bold text-slate-500">支持常见音频格式，单文件不超过 12MB；会随 JSON/HTML 数据保存。</div>
+                            </div>
+                            <button v-if="block.data.audio" @click="block.data.audio=''; block.data.audioName=''" type="button" class="rounded bg-rose-50 px-2 py-1 text-[10px] font-bold text-rose-600 hover:bg-rose-500 hover:text-white">删除音频</button>
+                        </div>
+                        <input type="file" accept="audio/*" :data-testid="'suite-audio-' + bIdx" class="w-full text-xs" @change="uploadAudio($event, block.data)">
+                        <audio v-if="block.data.audio" :src="block.data.audio" controls class="mt-2 h-8 w-full"></audio>
+                        <div v-if="block.data.audioName" class="mt-1 truncate text-[10px] font-bold text-blue-600">{{ block.data.audioName }}</div>
                     </div>
 
                     <div v-if="['readWrite', 'listenYesNo', 'trueFalse', 'reorder', 'scramble', 'correctMistakes', 'wrongResponses', 'lookAnswer', 'match', 'lookWriteAnswer', 'listenQuiz', 'textQnA'].includes(block.type)" class="flex gap-4 mb-4 bg-indigo-50/60 p-4 rounded-lg border border-indigo-100">
@@ -1719,7 +2089,153 @@
                         <button @click="generateBulkItems(block)" class="bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-1.5 rounded text-sm font-bold shadow-sm transition self-end">一键生成分类与词汇</button>
                     </div>
 
-                    <div v-if="block.type === 'storyComic'" class="space-y-4">
+                    <div v-if="comprehensiveTypeIds.includes(block.type)" class="space-y-4 rounded-xl border border-blue-200 bg-gradient-to-br from-blue-50/60 to-violet-50/40 p-4" :data-testid="'suite-editor-' + block.type">
+                        <div class="rounded-lg border border-blue-100 bg-white/80 px-3 py-2 text-[11px] font-bold leading-relaxed text-blue-800">
+                            综合能力扩展题型：支持学生卷、教师卷、纯答案卷、打印、独立字体及旧 JSON 默认值补齐。
+                        </div>
+
+                        <template v-if="block.type === 'sharedStimulus'">
+                            <div class="grid gap-3 md:grid-cols-2">
+                                <input v-model="block.data.stimulusTitle" class="rounded-lg border border-blue-200 bg-white px-3 py-2 text-sm font-black outline-none focus:border-blue-400" placeholder="公共材料标题">
+                                <label class="flex items-center gap-2 rounded-lg border border-blue-100 bg-white px-3 py-2 text-xs font-bold text-blue-700"><input type="checkbox" v-model="block.data.showTextToStudents">学生卷显示材料文字</label>
+                            </div>
+                            <textarea v-model="block.data.stimulusText" rows="6" class="w-full rounded-lg border border-blue-200 bg-white px-3 py-2 text-sm leading-relaxed outline-none focus:border-blue-400" placeholder="输入公共文章、听力文本或图片说明"></textarea>
+                            <div v-for="(item, idx) in block.data.items" :key="'mixed-edit-'+idx" class="relative grid gap-2 rounded-xl border border-blue-100 bg-white p-3 md:grid-cols-[110px_1fr]">
+                                <select v-model="item.kind" class="rounded border border-blue-200 px-2 py-1 text-xs font-bold text-blue-700"><option value="mc">单项选择</option><option value="tf">判断</option><option value="short">简答</option><option value="fill">句中填空</option></select>
+                                <input v-model="item.q" class="rounded border border-slate-200 px-2 py-1 text-sm outline-none focus:border-blue-400" placeholder="题目；填空可使用 [答案]">
+                                <div></div>
+                                <textarea v-if="item.kind === 'mc'" v-model="item.options" rows="3" class="rounded border border-slate-200 px-2 py-1 text-xs outline-none" placeholder="每行一个选项，例如 A. ..."></textarea>
+                                <div v-else></div>
+                                <div></div>
+                                <input v-model="item.a" class="rounded border border-rose-200 bg-rose-50/60 px-2 py-1 text-sm text-rose-600 outline-none" placeholder="答案">
+                                <button @click="block.data.items.splice(idx,1)" type="button" class="absolute -right-2 -top-2 h-6 w-6 rounded-full bg-rose-100 text-xs font-black text-rose-500 hover:bg-rose-500 hover:text-white">✕</button>
+                            </div>
+                            <button @click="addSuiteItem(block)" type="button" class="w-full rounded-lg border border-dashed border-blue-300 bg-white py-2 text-sm font-bold text-blue-600 hover:bg-blue-50">+ 添加子题</button>
+                        </template>
+
+                        <template v-else-if="block.type === 'passageCloze'">
+                            <div class="grid gap-3 md:grid-cols-[1fr_180px]">
+                                <input v-model="block.data.passageTitle" class="rounded-lg border border-indigo-200 bg-white px-3 py-2 text-sm font-black outline-none" placeholder="篇章标题">
+                                <select v-model="block.data.mode" class="rounded-lg border border-indigo-200 bg-white px-3 py-2 text-sm font-bold text-indigo-700"><option value="bank">词库选词</option><option value="choice">每空三选一</option></select>
+                            </div>
+                            <textarea v-model="block.data.passage" rows="7" class="w-full rounded-lg border border-indigo-200 bg-white px-3 py-2 text-sm leading-[1.8] outline-none" placeholder="用 [答案] 标记每个空"></textarea>
+                            <div v-if="block.data.mode === 'choice'" class="space-y-2">
+                                <div v-for="(gap, idx) in block.data.gaps" :key="'cloze-gap-'+idx" class="flex gap-2 rounded-lg border border-indigo-100 bg-white p-2"><span class="w-6 font-black text-indigo-500">{{ idx+1 }}</span><input v-model="gap.options" class="flex-1 rounded border px-2 py-1 text-sm" placeholder="选项，用 / 分隔"><input v-model="gap.answer" class="w-32 rounded border border-rose-200 bg-rose-50 px-2 py-1 text-sm text-rose-600" placeholder="答案"><button @click="block.data.gaps.splice(idx,1)" class="text-rose-500">✕</button></div>
+                                <button @click="addSuiteItem(block)" class="w-full rounded border border-dashed border-indigo-300 py-2 text-sm font-bold text-indigo-600">+ 添加一空的选项</button>
+                            </div>
+                            <label class="flex items-center gap-2 text-xs font-bold text-indigo-700"><input type="checkbox" v-model="block.data.bestTitleEnabled">加入“最佳标题”题</label>
+                            <div v-if="block.data.bestTitleEnabled" class="grid gap-2 md:grid-cols-[1fr_120px]"><textarea v-model="block.data.titleOptions" rows="3" class="rounded border border-indigo-200 bg-white px-2 py-1 text-sm" placeholder="每行一个标题选项"></textarea><input v-model="block.data.titleAnswer" class="rounded border border-rose-200 bg-rose-50 px-2 py-1 text-sm text-rose-600" placeholder="答案"></div>
+                        </template>
+
+                        <template v-else-if="block.type === 'noteCompletion'">
+                            <div class="grid gap-3 md:grid-cols-2"><input v-model="block.data.sourceTitle" class="rounded border border-cyan-200 bg-white px-3 py-2 text-sm font-black" placeholder="表格标题"><select v-model="block.data.sourceMode" class="rounded border border-cyan-200 bg-white px-3 py-2 text-sm font-bold text-cyan-700"><option value="listening">听力信息</option><option value="reading">阅读信息</option></select></div>
+                            <label class="flex items-center gap-2 text-xs font-bold text-cyan-700"><input type="checkbox" v-model="block.data.showSourceToStudents">学生卷显示信息源文字</label>
+                            <textarea v-model="block.data.sourceText" rows="5" class="w-full rounded border border-cyan-200 bg-white px-3 py-2 text-sm leading-relaxed" placeholder="阅读材料或教师听力文本"></textarea>
+                            <div class="grid gap-2 md:grid-cols-2"><div v-for="(field, idx) in block.data.fields" :key="'note-field-'+idx" class="relative flex gap-2 rounded border border-cyan-100 bg-white p-2"><input v-model="field.label" class="w-28 rounded border px-2 py-1 text-sm font-bold" placeholder="字段"><input v-model="field.answer" class="min-w-0 flex-1 rounded border border-rose-200 bg-rose-50 px-2 py-1 text-sm text-rose-600" placeholder="答案"><button @click="block.data.fields.splice(idx,1)" class="text-rose-500">✕</button></div></div>
+                            <button @click="addSuiteItem(block)" class="w-full rounded border border-dashed border-cyan-300 py-2 text-sm font-bold text-cyan-700">+ 添加信息字段</button>
+                        </template>
+
+                        <template v-else-if="block.type === 'dialogueCompletion'">
+                            <textarea v-model="block.data.responseBank" rows="2" class="w-full rounded border border-emerald-200 bg-white px-3 py-2 text-sm" placeholder="回应词库，用 / 分隔"></textarea>
+                            <div v-for="(line, idx) in block.data.lines" :key="'dialogue-line-'+idx" class="relative grid grid-cols-[70px_1fr] gap-2 rounded-lg border border-emerald-100 bg-white p-2"><input v-model="line.speaker" class="rounded border px-2 py-1 text-center text-sm font-black text-emerald-700" placeholder="A"><textarea v-model="line.text" rows="2" class="rounded border px-2 py-1 text-sm" placeholder="台词；用 [答案] 标记空缺"></textarea><button @click="block.data.lines.splice(idx,1)" class="absolute -right-2 -top-2 h-6 w-6 rounded-full bg-rose-100 text-xs text-rose-500">✕</button></div>
+                            <button @click="addSuiteItem(block)" class="w-full rounded border border-dashed border-emerald-300 py-2 text-sm font-bold text-emerald-700">+ 添加一轮对话</button>
+                        </template>
+
+                        <template v-else-if="block.type === 'dataInterpretation'">
+                            <input v-model="block.data.chartTitle" class="w-full rounded border border-violet-200 bg-white px-3 py-2 text-sm font-black" placeholder="图表标题">
+                            <input v-model="block.data.headers" class="w-full rounded border border-violet-200 bg-white px-3 py-2 text-sm" placeholder="表头，用 | 分隔">
+                            <div v-for="(row, idx) in block.data.rows" :key="'chart-row-'+idx" class="flex gap-2"><input v-model="row.cells" class="flex-1 rounded border border-violet-100 bg-white px-3 py-2 text-sm" placeholder="一行数据，用 | 分隔"><button @click="block.data.rows.splice(idx,1)" class="text-rose-500">✕</button></div>
+                            <button @click="block.data.rows.push({cells:''})" class="w-full rounded border border-dashed border-violet-300 py-2 text-sm font-bold text-violet-700">+ 添加数据行</button>
+                            <div v-for="(item, idx) in block.data.items" :key="'chart-q-'+idx" class="relative grid gap-2 rounded border border-violet-100 bg-white p-2 md:grid-cols-2"><input v-model="item.q" class="rounded border px-2 py-1 text-sm" placeholder="问题"><input v-model="item.a" class="rounded border border-rose-200 bg-rose-50 px-2 py-1 text-sm text-rose-600" placeholder="答案"><button @click="block.data.items.splice(idx,1)" class="absolute -right-2 -top-2 text-rose-500">✕</button></div>
+                            <button @click="addSuiteItem(block)" class="w-full rounded border border-dashed border-violet-300 py-2 text-sm font-bold text-violet-700">+ 添加问题</button>
+                        </template>
+
+                        <template v-else-if="block.type === 'functionalText'">
+                            <div class="grid gap-3 md:grid-cols-[180px_1fr]"><select v-model="block.data.format" class="rounded border border-orange-200 bg-white px-3 py-2 text-sm font-bold text-orange-700"><option value="poster">海报</option><option value="message">聊天消息</option><option value="notice">通知</option><option value="menu">菜单</option><option value="invitation">邀请函</option></select><input v-model="block.data.textTitle" class="rounded border border-orange-200 bg-white px-3 py-2 text-sm font-black" placeholder="短文本标题"></div>
+                            <textarea v-model="block.data.textBody" rows="6" class="w-full rounded border border-orange-200 bg-white px-3 py-2 text-sm leading-relaxed" placeholder="输入海报、便条、菜单、消息等内容"></textarea>
+                            <div v-for="(item, idx) in block.data.items" :key="'functional-q-'+idx" class="relative grid gap-2 rounded border border-orange-100 bg-white p-2 md:grid-cols-2"><input v-model="item.q" class="rounded border px-2 py-1 text-sm" placeholder="问题"><input v-model="item.a" class="rounded border border-rose-200 bg-rose-50 px-2 py-1 text-sm text-rose-600" placeholder="答案"><button @click="block.data.items.splice(idx,1)" class="absolute -right-2 -top-2 text-rose-500">✕</button></div>
+                            <button @click="addSuiteItem(block)" class="w-full rounded border border-dashed border-orange-300 py-2 text-sm font-bold text-orange-700">+ 添加理解题</button>
+                        </template>
+
+                        <template v-else-if="block.type === 'practicalWriting'">
+                            <div class="grid gap-3 md:grid-cols-3"><select v-model="block.data.genre" class="rounded border border-rose-200 bg-white px-3 py-2 text-sm font-bold text-rose-700"><option value="email">Email</option><option value="message">Message</option><option value="postcard">Postcard</option><option value="invitation">Invitation</option><option value="notice">Notice</option><option value="profile">Profile</option></select><input v-model="block.data.recipient" class="rounded border border-rose-200 bg-white px-3 py-2 text-sm" placeholder="收件人/对象"><input v-model="block.data.subject" class="rounded border border-rose-200 bg-white px-3 py-2 text-sm" placeholder="主题"></div>
+                            <textarea v-model="block.data.prompt" rows="4" class="w-full rounded border border-rose-200 bg-white px-3 py-2 text-sm leading-relaxed" placeholder="写作任务"></textarea>
+                            <textarea v-model="block.data.checklist" rows="2" class="w-full rounded border border-rose-100 bg-white px-3 py-2 text-sm" placeholder="检查项，用 / 分隔"></textarea>
+                            <textarea v-model="block.data.sentenceStarters" rows="3" class="w-full rounded border border-rose-100 bg-white px-3 py-2 text-sm" placeholder="句子开头，每行一个"></textarea>
+                            <div class="flex items-center gap-3 text-xs font-bold text-rose-700">书写行数 <input v-model.number="block.data.lineCount" type="range" min="3" max="15" class="flex-1 accent-rose-500"><input v-model.number="block.data.lineCount" type="number" min="3" max="15" class="w-16 rounded border px-2 py-1 text-center"></div>
+                            <textarea v-model="block.data.modelAnswer" rows="5" class="w-full rounded border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700" placeholder="教师卷范文"></textarea>
+                        </template>
+
+                        <template v-else-if="block.type === 'pictureSequenceWriting'">
+                            <input v-model="block.data.storyTitle" class="w-full rounded border border-pink-200 bg-white px-3 py-2 text-sm font-black" placeholder="故事标题">
+                            <div class="grid gap-3 md:grid-cols-2"><input v-model="block.data.keywords" class="rounded border border-pink-200 bg-white px-3 py-2 text-sm" placeholder="关键词/连接词"><input v-model="block.data.starter" class="rounded border border-pink-200 bg-white px-3 py-2 text-sm" placeholder="开头句"></div>
+                            <div class="grid gap-3 md:grid-cols-3"><div v-for="(frame, idx) in block.data.frames" :key="'seq-edit-'+idx" class="relative rounded-lg border border-pink-100 bg-white p-2"><div class="relative mb-2 h-28 rounded border border-dashed border-pink-200"><input type="file" accept="image/*" class="absolute inset-0 z-10 opacity-0" @change="compressAndUpload($event, frame, 'img')"><img v-if="frame.img" :src="frame.img" class="h-full w-full object-contain"><span v-else class="flex h-full items-center justify-center text-xs font-bold text-pink-300">Picture {{ idx+1 }}</span><button v-if="frame.img" @click.stop="frame.img=''" type="button" class="btn-del-img btn-del-img-small z-20">×</button></div><input v-model="frame.caption" class="w-full rounded border px-2 py-1 text-xs" placeholder="图片提示"><button @click="block.data.frames.splice(idx,1)" class="absolute -right-2 -top-2 h-6 w-6 rounded-full bg-rose-100 text-rose-500">✕</button></div></div>
+                            <button @click="addSuiteItem(block)" class="w-full rounded border border-dashed border-pink-300 py-2 text-sm font-bold text-pink-700">+ 添加图片</button>
+                            <div class="flex items-center gap-3 text-xs font-bold text-pink-700">书写行数 <input v-model.number="block.data.lineCount" type="range" min="3" max="15" class="flex-1 accent-pink-500"><input v-model.number="block.data.lineCount" type="number" class="w-16 rounded border px-2 py-1"></div>
+                            <textarea v-model="block.data.modelAnswer" rows="4" class="w-full rounded border border-pink-200 bg-rose-50 px-3 py-2 text-sm text-rose-700" placeholder="教师卷范文"></textarea>
+                        </template>
+
+                        <template v-else-if="block.type === 'compareDescribe'">
+                            <div class="grid gap-3 md:grid-cols-2"><div v-for="key in ['A','B']" :key="'compare-'+key" class="rounded-lg border border-fuchsia-100 bg-white p-2"><div class="relative h-36 rounded border border-dashed border-fuchsia-200"><input type="file" accept="image/*" class="absolute inset-0 z-10 opacity-0" @change="compressAndUpload($event, block.data, key === 'A' ? 'imgA' : 'imgB')"><img v-if="key === 'A' ? block.data.imgA : block.data.imgB" :src="key === 'A' ? block.data.imgA : block.data.imgB" class="h-full w-full object-contain"><span v-else class="flex h-full items-center justify-center text-xs font-bold text-fuchsia-300">Picture {{ key }}</span><button v-if="key === 'A' ? block.data.imgA : block.data.imgB" @click.stop="key === 'A' ? block.data.imgA='' : block.data.imgB=''" type="button" class="btn-del-img btn-del-img-small z-20">×</button></div><input :value="key === 'A' ? block.data.labelA : block.data.labelB" class="mt-2 w-full rounded border px-2 py-1 text-center text-xs" disabled></div></div>
+                            <div class="grid gap-3 md:grid-cols-2"><input v-model="block.data.labelA" class="rounded border border-fuchsia-200 bg-white px-3 py-2 text-sm" placeholder="图A标签"><input v-model="block.data.labelB" class="rounded border border-fuchsia-200 bg-white px-3 py-2 text-sm" placeholder="图B标签"></div>
+                            <textarea v-model="block.data.prompt" rows="2" class="w-full rounded border border-fuchsia-200 bg-white px-3 py-2 text-sm" placeholder="比较任务"></textarea>
+                            <div class="flex items-center gap-3 text-xs font-bold text-fuchsia-700">书写行数 <input v-model.number="block.data.lineCount" type="range" min="2" max="12" class="flex-1 accent-fuchsia-500"><input v-model.number="block.data.lineCount" type="number" class="w-16 rounded border px-2 py-1"></div>
+                            <textarea v-model="block.data.modelAnswer" rows="3" class="w-full rounded border border-fuchsia-200 bg-rose-50 px-3 py-2 text-sm text-rose-700" placeholder="教师卷示例"></textarea>
+                        </template>
+
+                        <template v-else-if="block.type === 'infoGapAB'">
+                            <input v-model="block.data.taskTitle" class="w-full rounded border border-purple-200 bg-white px-3 py-2 text-sm font-black" placeholder="活动标题">
+                            <textarea v-model="block.data.instructions" rows="2" class="w-full rounded border border-purple-200 bg-white px-3 py-2 text-sm" placeholder="活动说明"></textarea>
+                            <input v-model="block.data.headers" class="w-full rounded border border-purple-200 bg-white px-3 py-2 text-sm" placeholder="表头，用 | 分隔">
+                            <div v-for="(row, idx) in block.data.rows" :key="'gap-row-'+idx" class="flex gap-2"><input v-model="row.cells" class="flex-1 rounded border border-purple-100 bg-white px-3 py-2 text-sm" placeholder="一行完整信息，用 | 分隔"><button @click="block.data.rows.splice(idx,1)" class="text-rose-500">✕</button></div>
+                            <button @click="block.data.rows.push({cells:''})" class="w-full rounded border border-dashed border-purple-300 py-2 text-sm font-bold text-purple-700">+ 添加信息行</button>
+                        </template>
+
+                        <template v-else-if="block.type === 'rolePlayCards'">
+                            <input v-model="block.data.scenario" class="w-full rounded border border-teal-200 bg-white px-3 py-2 text-sm font-black" placeholder="情境">
+                            <div v-for="(card, idx) in block.data.cards" :key="'role-card-'+idx" class="relative grid gap-2 rounded-xl border border-teal-100 bg-white p-3 md:grid-cols-2"><input v-model="card.role" class="rounded border px-2 py-1 text-sm font-black text-teal-700" placeholder="角色"><input v-model="card.goal" class="rounded border px-2 py-1 text-sm" placeholder="任务目标"><textarea v-model="card.information" rows="3" class="rounded border px-2 py-1 text-sm" placeholder="私有信息"></textarea><textarea v-model="card.prompts" rows="3" class="rounded border px-2 py-1 text-sm" placeholder="句型提示"></textarea><button @click="block.data.cards.splice(idx,1)" class="absolute -right-2 -top-2 h-6 w-6 rounded-full bg-rose-100 text-rose-500">✕</button></div>
+                            <button @click="addSuiteItem(block)" class="w-full rounded border border-dashed border-teal-300 py-2 text-sm font-bold text-teal-700">+ 添加角色卡</button>
+                        </template>
+
+                        <template v-else-if="block.type === 'assessmentRubric'">
+                            <div class="grid gap-3 md:grid-cols-2"><input v-model="block.data.taskName" class="rounded border border-amber-200 bg-white px-3 py-2 text-sm font-black" placeholder="评价任务"><input v-model="block.data.scaleLabels" class="rounded border border-amber-200 bg-white px-3 py-2 text-sm" placeholder="等级，用 | 分隔"></div>
+                            <div v-for="(criterion, idx) in block.data.criteria" :key="'rubric-'+idx" class="relative grid gap-2 rounded border border-amber-100 bg-white p-2 md:grid-cols-[150px_1fr]"><input v-model="criterion.name" class="rounded border px-2 py-1 text-sm font-bold" placeholder="评价维度"><textarea v-model="criterion.descriptors" rows="2" class="rounded border px-2 py-1 text-sm" placeholder="各等级描述，用 | 分隔"></textarea><button @click="block.data.criteria.splice(idx,1)" class="absolute -right-2 -top-2 text-rose-500">✕</button></div>
+                            <button @click="addSuiteItem(block)" class="w-full rounded border border-dashed border-amber-300 py-2 text-sm font-bold text-amber-700">+ 添加评价维度</button>
+                            <label class="flex items-center gap-2 text-xs font-bold text-amber-700"><input type="checkbox" v-model="block.data.showTotal">显示总分栏</label>
+                        </template>
+
+                        <template v-else-if="block.type === 'errorAnalysis'">
+                            <textarea v-model="block.data.reviewPrompt" rows="2" class="w-full rounded border border-red-200 bg-white px-3 py-2 text-sm" placeholder="错因分析说明"></textarea>
+                            <textarea v-model="block.data.categories" rows="5" class="w-full rounded border border-red-200 bg-white px-3 py-2 text-sm" placeholder="错因选项，用 / 或换行分隔"></textarea>
+                            <input v-model="block.data.reflectionPrompt" class="w-full rounded border border-red-200 bg-white px-3 py-2 text-sm font-bold" placeholder="反思提示">
+                            <div class="flex items-center gap-3 text-xs font-bold text-red-700">反思行数 <input v-model.number="block.data.lineCount" type="range" min="1" max="8" class="flex-1 accent-red-500"><input v-model.number="block.data.lineCount" type="number" class="w-16 rounded border px-2 py-1"></div>
+                        </template>
+
+                        <template v-else-if="block.type === 'exitTicket'">
+                            <input v-model="block.data.learnedPrompt" class="w-full rounded border border-sky-200 bg-white px-3 py-2 text-sm font-bold" placeholder="我学会了">
+                            <input v-model="block.data.unsurePrompt" class="w-full rounded border border-sky-200 bg-white px-3 py-2 text-sm font-bold" placeholder="我还需要帮助">
+                            <textarea v-model="block.data.miniQuestion" rows="2" class="w-full rounded border border-sky-200 bg-white px-3 py-2 text-sm" placeholder="离堂小题"></textarea>
+                            <input v-model="block.data.miniAnswer" class="w-full rounded border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-600" placeholder="教师卷答案">
+                            <input v-model="block.data.confidenceLabels" class="w-full rounded border border-sky-200 bg-white px-3 py-2 text-sm" placeholder="信心等级，用 / 分隔">
+                        </template>
+
+                        <template v-else-if="block.type === 'peerAssessment'">
+                            <input v-model="block.data.taskName" class="w-full rounded border border-lime-200 bg-white px-3 py-2 text-sm font-black" placeholder="互评任务">
+                            <textarea v-model="block.data.checklist" rows="5" class="w-full rounded border border-lime-200 bg-white px-3 py-2 text-sm" placeholder="检查项，用 / 或换行分隔"></textarea>
+                            <div class="grid gap-3 md:grid-cols-2"><input v-model="block.data.praisePrompt" class="rounded border border-lime-200 bg-white px-3 py-2 text-sm" placeholder="表扬提示"><input v-model="block.data.suggestionPrompt" class="rounded border border-lime-200 bg-white px-3 py-2 text-sm" placeholder="建议提示"></div>
+                            <input v-model="block.data.ratingLabels" class="w-full rounded border border-lime-200 bg-white px-3 py-2 text-sm" placeholder="评价等级，用 / 分隔">
+                        </template>
+
+                        <template v-else-if="block.type === 'wordGame'">
+                            <div class="grid gap-3 md:grid-cols-[190px_1fr]"><select v-model="block.data.mode" class="rounded border border-yellow-200 bg-white px-3 py-2 text-sm font-bold text-yellow-700"><option value="wordSearch">Word Search 找词</option><option value="bingo">Bingo</option><option value="crossword">Crossword 填字</option><option value="memory">Memory Match 配对卡</option></select><input v-model="block.data.gameTitle" class="rounded border border-yellow-200 bg-white px-3 py-2 text-sm font-black" placeholder="游戏标题"></div>
+                            <textarea v-model="block.data.words" rows="4" class="w-full rounded border border-yellow-200 bg-white px-3 py-2 text-sm" placeholder="单词，用 /、逗号或换行分隔"></textarea>
+                            <textarea v-if="['crossword','memory'].includes(block.data.mode)" v-model="block.data.pairs" rows="5" class="w-full rounded border border-yellow-200 bg-white px-3 py-2 text-sm" placeholder="每行：单词 | 线索/释义"></textarea>
+                            <div v-if="block.data.mode === 'wordSearch'" class="flex items-center gap-3 text-xs font-bold text-yellow-700">网格大小 <input v-model.number="block.data.gridSize" type="range" min="6" max="14" class="flex-1 accent-yellow-500"><input v-model.number="block.data.gridSize" type="number" class="w-16 rounded border px-2 py-1"></div>
+                            <input v-model="block.data.instructions" class="w-full rounded border border-yellow-200 bg-white px-3 py-2 text-sm" placeholder="游戏说明">
+                        </template>
+                    </div>
+
+                    <div v-else-if="block.type === 'storyComic'" class="space-y-4">
 <div class="flex items-center gap-4 bg-amber-50/70 p-2.5 rounded-lg border border-amber-100">
     <span class="text-xs font-bold text-amber-700">图片版式:</span>
     <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600">
@@ -1765,6 +2281,96 @@
                             <button @click="block.data.items.splice(idx, 1)" class="absolute -top-2 -right-2 text-rose-500 bg-rose-100 rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-rose-500 hover:text-white transition shadow-sm font-bold">✕</button>
                         </div>
                         <button @click="block.data.items.push({img:'', questions:[{isEg:false, q:'', a:''}]})" class="text-sm text-amber-600 font-bold w-full py-2 border border-dashed border-amber-300 bg-amber-50 rounded hover:bg-amber-100 transition shadow-sm">+ 添加一格新漫画与题目</button>
+                    </div>
+
+                    <div v-else-if="block.type === 'phonicsSentenceWrite'" class="space-y-3">
+                        <div class="rounded-lg border border-sky-200 bg-sky-50/70 px-3 py-2 text-[11px] font-bold leading-relaxed text-sky-800">
+                            本板块依次显示：词族图片表、四句句子框架、Magic e 规则说明。所有图片均可单独上传和删除；不显示单词描红，也不生成英文书写横线。
+                        </div>
+
+                        <div class="space-y-3 rounded-xl border border-lime-200 bg-lime-50/50 p-3">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <label class="flex items-center gap-2 text-xs font-black text-lime-800">
+                                    <input type="checkbox" v-model="block.data.showWordFamilies" class="h-4 w-4 rounded text-lime-500">
+                                    显示词族图片表
+                                </label>
+                                <input v-model="block.data.phonicsTitle" class="min-w-64 flex-1 rounded-lg border border-lime-200 bg-white px-3 py-1.5 text-sm font-bold text-slate-700 outline-none focus:border-lime-400" placeholder="词族表标题，例如：Unit 1  a e  ame ake  ate ave">
+                            </div>
+                            <div v-if="block.data.showWordFamilies" class="space-y-3">
+                                <div v-for="(family, fIdx) in block.data.wordFamilies" :key="'family-editor-'+fIdx" class="relative rounded-xl border border-lime-200 bg-white p-3">
+                                    <div class="mb-2 flex items-center gap-2">
+                                        <span class="flex h-6 w-6 items-center justify-center rounded-full bg-lime-500 text-[10px] font-black text-white">{{ fIdx + 1 }}</span>
+                                        <input v-model="family.label" class="w-36 rounded border border-lime-200 px-2 py-1 text-sm font-black text-lime-700 outline-none focus:border-lime-400" placeholder="词族标签">
+                                        <span class="text-[10px] font-bold text-slate-400">每个词可独立上传配图并修改单词</span>
+                                        <button @click="block.data.wordFamilies.splice(fIdx,1)" class="ml-auto rounded bg-rose-50 px-2 py-1 text-[10px] font-bold text-rose-500 hover:bg-rose-500 hover:text-white" type="button">删除本行</button>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2 xl:grid-cols-4">
+                                        <div v-for="(wordItem, wIdx) in family.items" :key="'family-word-'+fIdx+'-'+wIdx" class="relative rounded-lg border border-lime-100 bg-lime-50/30 p-2">
+                                            <div class="relative mx-auto mb-1.5 h-16 w-full overflow-hidden rounded-lg border border-dashed border-lime-300 bg-white">
+                                                <input type="file" accept="image/*" :data-testid="'phonics-family-image-' + fIdx + '-' + wIdx" class="absolute inset-0 z-10 cursor-pointer opacity-0" @change="compressAndUpload($event, wordItem, 'img')">
+                                                <img v-if="wordItem.img" :src="wordItem.img" class="h-full w-full object-contain">
+                                                <span v-else class="pointer-events-none flex h-full items-center justify-center text-[10px] font-bold text-lime-500">上传配图</span>
+                                                <button v-if="wordItem.img" @click.stop="wordItem.img=''" class="btn-del-img btn-del-img-small z-20" type="button">×</button>
+                                            </div>
+                                            <input v-model="wordItem.word" class="w-full rounded border border-lime-200 bg-white px-2 py-1 text-center text-sm font-black text-rose-500 outline-none focus:border-lime-400" placeholder="单词">
+                                            <button @click="family.items.splice(wIdx,1)" class="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-rose-100 text-[9px] font-black text-rose-500 hover:bg-rose-500 hover:text-white" type="button">✕</button>
+                                        </div>
+                                    </div>
+                                    <button @click="family.items.push({img:'', word:''})" class="mt-2 w-full rounded border border-dashed border-lime-300 py-1.5 text-xs font-bold text-lime-600 hover:bg-lime-50" type="button">+ 本行添加一个单词</button>
+                                </div>
+                                <button @click="block.data.wordFamilies.push({label:'', items:[{img:'',word:''},{img:'',word:''},{img:'',word:''},{img:'',word:''}]})" class="w-full rounded-lg border border-dashed border-lime-400 bg-white py-2 text-sm font-bold text-lime-700 hover:bg-lime-50" type="button">+ 添加一行词族</button>
+                            </div>
+                        </div>
+
+                        <div class="pt-1 text-sm font-black text-sky-700">四句句子框架</div>
+                        <div class="grid gap-3 rounded-xl border border-sky-200 bg-sky-50/60 p-3 sm:grid-cols-2">
+                            <label class="space-y-1.5 text-xs font-black text-sky-800">
+                                <span class="flex items-center justify-between gap-2">
+                                    句子卡片间距
+                                    <span class="font-bold text-sky-600">{{ block.data.sentenceFrameGap }} px</span>
+                                </span>
+                                <div class="flex items-center gap-2">
+                                    <input v-model.number="block.data.sentenceFrameGap" :data-testid="'phonics-sentence-gap-' + bIdx" type="range" min="0" max="40" step="1" class="min-w-0 flex-1 accent-sky-500">
+                                    <input v-model.number="block.data.sentenceFrameGap" :data-testid="'phonics-sentence-gap-number-' + bIdx" type="number" min="0" max="40" step="1" class="w-16 rounded border border-sky-200 bg-white px-2 py-1 text-center text-xs font-bold text-slate-700 outline-none focus:border-sky-400">
+                                </div>
+                            </label>
+                            <label class="space-y-1.5 text-xs font-black text-sky-800">
+                                <span class="flex items-center justify-between gap-2">
+                                    框内文字行高
+                                    <span class="font-bold text-sky-600">{{ block.data.sentenceFrameTextLineHeight }}</span>
+                                </span>
+                                <div class="flex items-center gap-2">
+                                    <input v-model.number="block.data.sentenceFrameTextLineHeight" :data-testid="'phonics-sentence-line-height-' + bIdx" type="range" min="1" max="3" step="0.05" class="min-w-0 flex-1 accent-sky-500">
+                                    <input v-model.number="block.data.sentenceFrameTextLineHeight" :data-testid="'phonics-sentence-line-height-number-' + bIdx" type="number" min="1" max="3" step="0.05" class="w-16 rounded border border-sky-200 bg-white px-2 py-1 text-center text-xs font-bold text-slate-700 outline-none focus:border-sky-400">
+                                </div>
+                            </label>
+                        </div>
+                        <div v-for="(item, idx) in block.data.items" :key="idx" class="relative flex gap-3 rounded-xl border border-sky-200 bg-gradient-to-r from-sky-50 to-fuchsia-50/40 p-3 shadow-sm">
+                            <div class="flex w-7 flex-shrink-0 items-start justify-center pt-1">
+                                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-sky-500 text-[11px] font-black text-white">{{ idx + 1 }}</span>
+                            </div>
+                            <div class="relative h-24 w-28 flex-shrink-0 overflow-hidden rounded-lg border border-dashed border-sky-300 bg-white">
+                                <input type="file" accept="image/*" :data-testid="'phonics-sentence-image-' + idx" class="absolute inset-0 z-10 cursor-pointer opacity-0" @change="compressAndUpload($event, item, 'img')">
+                                <img v-if="item.img" :src="item.img" class="h-full w-full object-contain">
+                                <div v-else class="flex h-full w-full items-center justify-center text-center text-[10px] font-bold text-slate-400 pointer-events-none">上传配图</div>
+                                <button v-if="item.img" @click.stop="item.img=''" class="btn-del-img btn-del-img-small z-20" type="button">×</button>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <label class="mb-1 block text-[11px] font-black text-sky-700">句子框架 {{ idx + 1 }}</label>
+                                <textarea v-model="item.sentence" rows="3" class="w-full resize-y rounded-lg border border-sky-200 bg-white px-3 py-2 text-sm font-semibold leading-relaxed text-slate-700 outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-200" placeholder="输入完整句子或句子框架，例如：I have got a tape."></textarea>
+                            </div>
+                            <button @click="block.data.items.splice(idx,1)" :data-testid="'phonics-sentence-delete-' + idx" class="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-rose-100 text-xs font-bold text-rose-500 shadow-sm transition hover:bg-rose-500 hover:text-white" type="button" title="删除本项">✕</button>
+                        </div>
+                        <button @click="block.data.items.push({img:'', sentence:''})" data-testid="phonics-sentence-add" class="w-full rounded-lg border border-dashed border-sky-300 bg-sky-50/70 py-2 text-sm font-bold text-sky-600 transition hover:bg-sky-100">+ 添加一组配图与句子框架</button>
+
+                        <div class="space-y-2 rounded-xl border border-amber-200 bg-amber-50/50 p-3">
+                            <label class="flex items-center gap-2 text-xs font-black text-amber-800">
+                                <input type="checkbox" v-model="block.data.showRuleNote" class="h-4 w-4 rounded text-amber-500">
+                                显示 Magic e 规则说明
+                            </label>
+                            <textarea v-if="block.data.showRuleNote" v-model="block.data.ruleNote" rows="4" class="w-full resize-y rounded-lg border border-amber-200 bg-white px-3 py-2 text-sm font-semibold leading-relaxed text-slate-700 outline-none focus:border-amber-400" placeholder="输入规则说明。变色标记：#绿色# *红色* @蓝色@ ^橘色^ ~紫色~"></textarea>
+                            <div class="text-[10px] font-bold text-amber-700">支持换行；可用 #magic e#、*/ei/* 等标记重点颜色。</div>
+                        </div>
                     </div>
 
                     <div v-else-if="block.type === 'phonicsFocus'" class="bg-amber-50 p-4 rounded-lg border border-amber-200 space-y-3">
@@ -3689,10 +4295,11 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                 <div v-else class="hengshui-font space-y-10">
     <template v-for="(block, bIdx) in blocks" :key="block.id">
         <div
-            class="worksheet-block-lineheight relative"
+            class="worksheet-block-lineheight ws-block-font-scope relative"
             :style="[
                 block.keepTitleWithContent ? {'break-inside': 'avoid', 'page-break-inside': 'avoid'} : {},
-                {'--block-line-height': getBlockLineHeight(block), '--blank-line-width': getBlankLineWidth(block) + 'px'}
+                {'--block-line-height': getBlockLineHeight(block), '--blank-line-width': getBlankLineWidth(block) + 'px'},
+                getBlockFontStyle(block)
             ]"
         >
             <div v-if="block.showQr && block.type !== 'unitEvidence'" class="ws-qr-wrap absolute top-0 right-0 z-10 flex flex-row items-start justify-end gap-1.5">
@@ -3718,11 +4325,133 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                             <div v-if="block.data.wordBank && !['clilRead', 'speaking'].includes(block.type) && !block.data.hideWordBank" class="border-[1.5px] border-yellow-300 bg-yellow-50 px-8 rounded-2xl mb-6 text-[18px] font-bold mx-auto text-yellow-900 shadow-sm flex flex-wrap justify-center" :style="{...getWordBankBoxStyle(block), ...getWordBankFlexStyle(block, (['wordSorting','phonicsSorting'].includes(block.type) ? (block.data.sortWordGap || 32) : 32))}" v-html="formatWordBankText(block.data.wordBank)"></div>
                                             
                                             <!-- v14.114 主图防重复：凡题型已有专属图片渲染区，禁止再进入通用主图渲染 -->
-                                            <div v-if="block.data.img && !hasItemImages(block.type) && !['clilRead', 'literature', 'storyRetell', 'diagram', 'lookAnswer', 'speaking', 'listenFill', 'listenComp', 'chooseComplete', 'tipBox', 'sceneHunt', 'pictureJudgeWhy', 'pictureDialogue'].includes(block.type)" class="w-full flex justify-center mb-6">
+                                            <div v-if="block.data.img && !hasItemImages(block.type) && !['clilRead', 'literature', 'storyRetell', 'diagram', 'lookAnswer', 'speaking', 'listenFill', 'listenComp', 'chooseComplete', 'tipBox', 'sceneHunt', 'pictureJudgeWhy', 'pictureDialogue', 'sharedStimulus', 'functionalText'].includes(block.type)" class="w-full flex justify-center mb-6">
                                                 <img :src="block.data.img" class="max-w-[70%] h-auto rounded-xl shadow-sm border border-slate-200" :style="getBlockImgStyle(block)">
                                             </div>
 
-                                            <div v-if="block.type === 'wordList'" class="grid grid-cols-2 gap-x-8 gap-y-4 pl-2">
+                                            <div v-if="block.data.audio" class="ws-suite-audio">
+                                                <div>🎧 {{ block.data.audioName || 'Audio track' }}</div>
+                                                <audio :src="block.data.audio" controls></audio>
+                                            </div>
+
+                                            <div v-if="comprehensiveTypeIds.includes(block.type)" class="space-y-5 pl-2" :data-testid="'suite-preview-' + block.type">
+                                                <template v-if="block.type === 'sharedStimulus'">
+                                                    <div class="grid gap-4" :class="block.data.img ? 'grid-cols-[220px_1fr]' : 'grid-cols-1'">
+                                                        <div v-if="block.data.img" class="flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-white p-2"><img :src="block.data.img" class="max-h-[230px] w-full object-contain" :style="getBlockImgStyle(block)"></div>
+                                                        <div v-if="block.data.showTextToStudents !== false || isAnswerMode" class="ws-suite-source"><div class="ws-suite-source-title">{{ block.data.stimulusTitle }}</div>{{ block.data.stimulusText }}</div>
+                                                    </div>
+                                                    <div class="ws-suite-question-list">
+                                                        <div v-for="(item, idx) in block.data.items" :key="'mixed-preview-'+idx" class="ws-suite-question">
+                                                            <div class="ws-suite-question-head"><span class="ws-suite-number">{{ idx+1 }}</span><span v-if="item.kind === 'fill'" v-html="parseBasicBlank(item.q, false, isAnswerMode)"></span><span v-else>{{ item.q }}</span></div>
+                                                            <div v-if="item.kind === 'mc'" class="ws-suite-options"><div v-for="(opt, oIdx) in splitSuiteLines(item.options)" :key="oIdx" class="ws-suite-option" :class="isAnswerMode && (opt.trim().startsWith(item.a + '.') || opt.trim() === item.a) ? 'answer' : ''">{{ opt }}</div></div>
+                                                            <div v-else-if="item.kind === 'tf'" class="ws-suite-options"><div v-for="opt in ['True','False']" :key="opt" class="ws-suite-option" :class="isAnswerMode && String(item.a).toLowerCase() === opt.toLowerCase() ? 'answer' : ''">□ {{ opt }}</div></div>
+                                                            <div v-else-if="item.kind === 'short'" class="ws-suite-answer-line"><span v-if="isAnswerMode">{{ item.a }}</span><span v-else>&nbsp;</span></div>
+                                                        </div>
+                                                    </div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'passageCloze'">
+                                                    <div class="ws-suite-source"><div class="ws-suite-source-title">{{ block.data.passageTitle }}</div><div v-html="parseSuiteCloze(block.data.passage, isAnswerMode)"></div></div>
+                                                    <div v-if="block.data.mode === 'choice'" class="ws-suite-question-list"><div v-for="(gap, idx) in block.data.gaps" :key="'gap-choice-'+idx" class="ws-suite-question"><div class="ws-suite-question-head"><span class="ws-suite-number">{{ idx+1 }}</span><span>Choose the correct word.</span></div><div class="ws-suite-options"><div v-for="opt in String(gap.options||'').split(/[\/／]+/).map(s=>s.trim()).filter(Boolean)" :key="opt" class="ws-suite-option" :class="isAnswerMode && opt === gap.answer ? 'answer' : ''">{{ opt }}</div></div></div></div>
+                                                    <div v-if="block.data.bestTitleEnabled" class="ws-suite-question"><div class="ws-suite-question-head"><span class="ws-suite-number">★</span><span>Choose the best title.</span></div><div class="ws-suite-options"><div v-for="opt in splitSuiteLines(block.data.titleOptions)" :key="opt" class="ws-suite-option" :class="isAnswerMode && opt.trim().startsWith(block.data.titleAnswer + '.') ? 'answer' : ''">{{ opt }}</div></div></div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'noteCompletion'">
+                                                    <div v-if="block.data.showSourceToStudents || isAnswerMode" class="ws-suite-source"><div class="ws-suite-source-title">{{ block.data.sourceTitle }}</div>{{ block.data.sourceText }}</div>
+                                                    <div class="rounded-2xl border border-cyan-200 bg-cyan-50/30 p-5">
+                                                        <div class="mb-4 text-center font-sans text-lg font-black text-cyan-800">{{ block.data.sourceTitle }}</div>
+                                                        <div class="ws-suite-form"><div v-for="(field, idx) in block.data.fields" :key="'form-preview-'+idx" class="ws-suite-form-row"><span class="ws-suite-form-label">{{ field.label }}</span><span class="ws-suite-form-value"><span v-if="isAnswerMode">{{ field.answer }}</span><span v-else>&nbsp;</span></span></div></div>
+                                                    </div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'dialogueCompletion'">
+                                                    <div v-if="block.data.responseBank" class="rounded-xl border border-emerald-200 bg-emerald-50 px-5 py-3 text-center text-[16px] font-bold text-emerald-800"><span v-for="(r,idx) in String(block.data.responseBank).split(/[\/／]+/).map(s=>s.trim()).filter(Boolean)" :key="idx" class="mx-3 inline-block">{{ r }}</span></div>
+                                                    <div class="space-y-3"><div v-for="(line, idx) in block.data.lines" :key="'dialogue-preview-'+idx" class="flex items-start gap-3 break-inside-avoid"><span class="flex h-8 min-w-8 items-center justify-center rounded-full bg-emerald-500 px-2 font-sans text-sm font-black text-white">{{ line.speaker }}</span><div class="flex-1 rounded-2xl border border-emerald-200 bg-emerald-50/50 px-4 py-2 text-[17px] leading-[1.8]" v-html="parseBasicBlank(line.text, false, isAnswerMode)"></div></div></div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'dataInterpretation'">
+                                                    <div class="text-center font-sans text-lg font-black text-violet-800">{{ block.data.chartTitle }}</div>
+                                                    <table class="ws-suite-table"><thead><tr><th v-for="(h,hIdx) in splitSuitePipe(block.data.headers)" :key="'chart-head-'+hIdx">{{ h }}</th></tr></thead><tbody><tr v-for="(row,rIdx) in block.data.rows" :key="'chart-preview-'+rIdx"><td v-for="(cell,cIdx) in splitSuitePipe(row.cells)" :key="cIdx">{{ cell }}</td></tr></tbody></table>
+                                                    <div class="ws-suite-question-list"><div v-for="(item, idx) in block.data.items" :key="'chart-question-'+idx" class="ws-suite-question"><div class="ws-suite-question-head"><span class="ws-suite-number">{{ idx+1 }}</span><span>{{ item.q }}</span></div><div class="ws-suite-answer-line"><span v-if="isAnswerMode">{{ item.a }}</span><span v-else>&nbsp;</span></div></div></div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'functionalText'">
+                                                    <div class="mx-auto max-w-[620px] rounded-2xl border-2 border-orange-300 bg-gradient-to-br from-orange-50 to-white p-5 shadow-sm">
+                                                        <div v-if="block.data.img" class="mb-3 flex justify-center"><img :src="block.data.img" class="max-h-[150px] max-w-full object-contain" :style="getBlockImgStyle(block)"></div>
+                                                        <div class="text-center font-sans text-xl font-black text-orange-800">{{ block.data.textTitle }}</div>
+                                                        <div class="mt-3 whitespace-pre-wrap text-center text-[17px] font-semibold leading-[1.8] text-slate-700">{{ block.data.textBody }}</div>
+                                                    </div>
+                                                    <div class="ws-suite-question-list"><div v-for="(item,idx) in block.data.items" :key="'functional-preview-'+idx" class="ws-suite-question"><div class="ws-suite-question-head"><span class="ws-suite-number">{{ idx+1 }}</span><span>{{ item.q }}</span></div><div class="ws-suite-answer-line"><span v-if="isAnswerMode">{{ item.a }}</span><span v-else>&nbsp;</span></div></div></div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'practicalWriting'">
+                                                    <div class="rounded-2xl border border-rose-200 bg-rose-50/30 p-4"><div class="font-sans text-xs font-black uppercase tracking-wider text-rose-500">{{ block.data.genre }}</div><div class="mt-1 text-[17px] font-bold text-slate-700">{{ block.data.prompt }}</div></div>
+                                                    <div v-if="block.data.checklist" class="ws-suite-checklist rounded-xl border border-yellow-200 bg-yellow-50 p-3"><div v-for="(item,idx) in String(block.data.checklist).split(/[\/／\n]+/).map(s=>s.trim()).filter(Boolean)" :key="idx" class="ws-suite-check"><span class="ws-suite-checkbox"></span><span>{{ item }}</span></div></div>
+                                                    <div class="rounded-xl border border-slate-300 bg-white p-4"><div class="grid grid-cols-[90px_1fr] gap-y-2 text-sm"><b>To:</b><span class="border-b border-slate-400">{{ block.data.recipient }}</span><b>Subject:</b><span class="border-b border-slate-400">{{ block.data.subject }}</span></div><div v-if="block.data.sentenceStarters" class="mt-3 whitespace-pre-wrap text-sm italic leading-relaxed text-slate-400">{{ block.data.sentenceStarters }}</div><div class="ws-suite-writing-lines"><div v-for="n in Number(block.data.lineCount||7)" :key="'writing-line-'+n" class="ws-suite-writing-line"></div></div></div>
+                                                    <div v-if="isAnswerMode && block.data.modelAnswer" class="rounded-xl border border-rose-200 bg-rose-50 p-4 whitespace-pre-wrap text-[16px] font-semibold leading-relaxed text-rose-700"><b>Model:</b><br>{{ block.data.modelAnswer }}</div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'pictureSequenceWriting'">
+                                                    <div class="text-center font-sans text-xl font-black text-pink-800">{{ block.data.storyTitle }}</div>
+                                                    <div class="grid gap-3" :style="{gridTemplateColumns:'repeat('+Math.min(4,Math.max(1,block.data.frames.length))+',minmax(0,1fr))'}"><div v-for="(frame,idx) in block.data.frames" :key="'seq-preview-'+idx" class="break-inside-avoid rounded-xl border border-pink-200 bg-white p-2"><div class="mb-2 flex h-28 items-center justify-center overflow-hidden rounded bg-slate-50"><img v-if="frame.img" :src="frame.img" class="h-full w-full object-contain" :style="getBlockImgStyle(block)"><span v-else class="font-sans text-xs font-bold text-slate-300">Picture {{ idx+1 }}</span></div><div class="text-center text-xs font-bold text-slate-500">{{ frame.caption }}</div></div></div>
+                                                    <div v-if="block.data.keywords" class="rounded-xl border border-yellow-200 bg-yellow-50 px-4 py-2 text-center font-bold text-yellow-800">{{ block.data.keywords }}</div>
+                                                    <div class="text-[17px] font-semibold text-slate-700">{{ block.data.starter }}</div><div class="ws-suite-writing-lines"><div v-for="n in Number(block.data.lineCount||6)" :key="'seq-line-'+n" class="ws-suite-writing-line"></div></div>
+                                                    <div v-if="isAnswerMode && block.data.modelAnswer" class="rounded-xl border border-rose-200 bg-rose-50 p-4 text-rose-700"><b>Model:</b> {{ block.data.modelAnswer }}</div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'compareDescribe'">
+                                                    <div class="ws-suite-grid-two"><div v-for="key in ['A','B']" :key="'compare-preview-'+key" class="rounded-xl border border-fuchsia-200 bg-white p-3"><div class="mb-2 flex h-52 items-center justify-center overflow-hidden rounded bg-slate-50"><img v-if="key==='A'?block.data.imgA:block.data.imgB" :src="key==='A'?block.data.imgA:block.data.imgB" class="h-full w-full object-contain"><span v-else class="font-sans text-sm font-black text-slate-300">Picture {{ key }}</span></div><div class="text-center font-sans text-sm font-black text-fuchsia-700">{{ key==='A'?block.data.labelA:block.data.labelB }}</div></div></div>
+                                                    <div class="text-[17px] font-bold text-slate-700">{{ block.data.prompt }}</div><div class="ws-suite-writing-lines"><div v-for="n in Number(block.data.lineCount||5)" :key="'compare-line-'+n" class="ws-suite-writing-line"></div></div>
+                                                    <div v-if="isAnswerMode && block.data.modelAnswer" class="rounded-xl border border-rose-200 bg-rose-50 p-4 text-rose-700"><b>Example:</b> {{ block.data.modelAnswer }}</div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'infoGapAB'">
+                                                    <div class="text-center font-sans text-xl font-black text-purple-800">{{ block.data.taskTitle }}</div><div class="text-center text-sm font-semibold text-slate-600">{{ block.data.instructions }}</div>
+                                                    <div class="ws-suite-grid-two">
+                                                        <div v-for="sheetIdx in [0,1]" :key="'sheet-'+sheetIdx" class="ws-suite-sheet"><div class="ws-suite-sheet-title">Student {{ sheetIdx===0?'A':'B' }}</div><table class="ws-suite-table"><thead><tr><th v-for="(h,hIdx) in splitSuitePipe(block.data.headers)" :key="hIdx">{{ h }}</th></tr></thead><tbody><tr v-for="(row,rIdx) in block.data.rows" :key="rIdx"><td v-for="(cell,cIdx) in splitSuitePipe(row.cells)" :key="cIdx"><span v-if="cIdx===0 || isAnswerMode || ((rIdx+cIdx+sheetIdx)%2===0)">{{ cell }}</span><span v-else class="inline-block min-w-[58px] border-b border-slate-500">&nbsp;</span></td></tr></tbody></table></div>
+                                                    </div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'rolePlayCards'">
+                                                    <div class="text-center font-sans text-xl font-black text-teal-800">{{ block.data.scenario }}</div>
+                                                    <div class="ws-suite-grid-two"><div v-for="(card,idx) in block.data.cards" :key="'role-preview-'+idx" class="ws-suite-role-card"><div class="ws-suite-role-title">{{ card.role || ('Role '+(idx+1)) }}</div><div class="space-y-3 text-[15px] leading-relaxed"><div><b>Goal:</b> {{ card.goal }}</div><div class="rounded-lg border border-purple-100 bg-white p-3"><b>Your information:</b><div class="mt-1 whitespace-pre-wrap">{{ card.information }}</div></div><div><b>Useful language:</b><div class="mt-1 whitespace-pre-wrap text-slate-600">{{ card.prompts }}</div></div></div></div></div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'assessmentRubric'">
+                                                    <div class="text-center font-sans text-xl font-black text-amber-800">{{ block.data.taskName }}</div>
+                                                    <table class="ws-suite-table"><thead><tr><th>Criteria</th><th v-for="(label,idx) in splitSuitePipe(block.data.scaleLabels)" :key="idx">{{ label }}</th></tr></thead><tbody><tr v-for="(criterion,cIdx) in block.data.criteria" :key="cIdx"><th>{{ criterion.name }}</th><td v-for="(desc,dIdx) in splitSuitePipe(criterion.descriptors)" :key="dIdx"><div>{{ desc }}</div><div class="mt-2 h-4 w-4 rounded border border-slate-500"></div></td></tr></tbody></table>
+                                                    <div v-if="block.data.showTotal" class="ml-auto w-56 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-center font-sans font-black text-amber-800">Total: ______ / ______</div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'errorAnalysis'">
+                                                    <div class="ws-suite-source">{{ block.data.reviewPrompt }}</div>
+                                                    <div class="ws-suite-checklist grid grid-cols-2 gap-x-6"><div v-for="(item,idx) in String(block.data.categories).split(/[\/／\n]+/).map(s=>s.trim()).filter(Boolean)" :key="idx" class="ws-suite-check"><span class="ws-suite-checkbox"></span><span>{{ item }}</span></div></div>
+                                                    <div class="mt-4 text-[17px] font-bold text-red-700">{{ block.data.reflectionPrompt }}</div><div class="ws-suite-writing-lines"><div v-for="n in Number(block.data.lineCount||3)" :key="'error-line-'+n" class="ws-suite-writing-line"></div></div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'exitTicket'">
+                                                    <div class="grid gap-4 md:grid-cols-2"><div class="rounded-2xl border border-sky-200 bg-sky-50/50 p-4"><div class="font-sans font-black text-sky-800">{{ block.data.learnedPrompt }}</div><div class="ws-suite-writing-lines"><div v-for="n in Number(block.data.lineCount||2)" :key="'learned-'+n" class="ws-suite-writing-line"></div></div></div><div class="rounded-2xl border border-amber-200 bg-amber-50/50 p-4"><div class="font-sans font-black text-amber-800">{{ block.data.unsurePrompt }}</div><div class="ws-suite-writing-lines"><div v-for="n in Number(block.data.lineCount||2)" :key="'unsure-'+n" class="ws-suite-writing-line"></div></div></div></div>
+                                                    <div class="ws-suite-question"><div class="ws-suite-question-head"><span class="ws-suite-number">★</span><span>{{ block.data.miniQuestion }}</span></div><div class="ws-suite-answer-line"><span v-if="isAnswerMode">{{ block.data.miniAnswer }}</span><span v-else>&nbsp;</span></div></div>
+                                                    <div class="flex flex-wrap justify-center gap-4 font-sans text-sm font-bold"><div v-for="label in String(block.data.confidenceLabels||'').split(/[\/／]+/).map(s=>s.trim()).filter(Boolean)" :key="label" class="rounded-full border border-sky-200 bg-white px-4 py-2">○ {{ label }}</div></div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'peerAssessment'">
+                                                    <div class="text-center font-sans text-xl font-black text-lime-800">{{ block.data.taskName }}</div>
+                                                    <div class="ws-suite-checklist rounded-xl border border-lime-200 bg-lime-50/40 p-4"><div v-for="(item,idx) in String(block.data.checklist).split(/[\/／\n]+/).map(s=>s.trim()).filter(Boolean)" :key="idx" class="ws-suite-check"><span class="ws-suite-checkbox"></span><span>{{ item }}</span></div></div>
+                                                    <div class="grid gap-4 md:grid-cols-2"><div><b>{{ block.data.praisePrompt }}</b><div class="ws-suite-writing-lines"><div class="ws-suite-writing-line"></div><div class="ws-suite-writing-line"></div></div></div><div><b>{{ block.data.suggestionPrompt }}</b><div class="ws-suite-writing-lines"><div class="ws-suite-writing-line"></div><div class="ws-suite-writing-line"></div></div></div></div>
+                                                    <div class="flex flex-wrap justify-center gap-4 font-sans text-sm font-bold"><div v-for="label in String(block.data.ratingLabels||'').split(/[\/／]+/).map(s=>s.trim()).filter(Boolean)" :key="label" class="rounded-full border border-lime-200 bg-white px-4 py-2">○ {{ label }}</div></div>
+                                                </template>
+
+                                                <template v-else-if="block.type === 'wordGame'">
+                                                    <div class="text-center font-sans text-xl font-black text-yellow-800">{{ block.data.gameTitle }}</div><div class="text-center text-sm font-semibold text-slate-600">{{ block.data.instructions }}</div>
+                                                    <div v-if="block.data.mode === 'wordSearch'" class="ws-suite-game-grid" :style="{gridTemplateColumns:'repeat('+Number(block.data.gridSize||8)+',1fr)'}"><div v-for="(cell,idx) in getWordSearchGrid(block.data)" :key="'search-cell-'+idx" class="ws-suite-game-cell" :class="isAnswerMode && cell.answer ? 'text-rose-600 bg-rose-50 font-black' : ''">{{ cell.ch }}</div></div>
+                                                    <div v-else-if="block.data.mode === 'bingo'" class="ws-suite-game-grid" style="grid-template-columns:repeat(5,1fr)"><div v-for="(cell,idx) in getBingoCells(block.data)" :key="'bingo-'+idx" class="ws-suite-game-cell">{{ cell }}</div></div>
+                                                    <div v-else-if="block.data.mode === 'crossword'" class="space-y-3"><div v-for="(pair,idx) in getWordGamePairs(block.data)" :key="'crossword-'+idx" class="grid grid-cols-[28px_1fr_auto] items-center gap-3 break-inside-avoid"><span class="ws-suite-number">{{ idx+1 }}</span><span>{{ pair.clue }}</span><span class="flex gap-1"><span v-for="(letter,lIdx) in pair.word" :key="lIdx" class="flex h-8 w-8 items-center justify-center border border-slate-600 font-sans font-black" :class="isAnswerMode?'text-rose-600':'text-transparent'">{{ letter }}</span></span></div></div>
+                                                    <div v-else class="grid grid-cols-4"><template v-for="(pair,idx) in getWordGamePairs(block.data)" :key="'memory-'+idx"><div class="ws-suite-cut-card font-sans font-black text-blue-700">{{ pair.word }}</div><div class="ws-suite-cut-card text-sm text-slate-700">{{ pair.clue }}</div></template></div>
+                                                </template>
+                                            </div>
+
+                                            <div v-else-if="block.type === 'wordList'" class="grid grid-cols-2 gap-x-8 gap-y-4 pl-2">
                                                 <div v-for="(item, idx) in block.data.items" :key="idx" class="flex gap-3 items-center break-inside-avoid">
                                                     <div class="w-14 h-14 border border-slate-200 rounded-lg bg-slate-50 flex items-center justify-center overflow-hidden flex-shrink-0"><img v-if="item.img" :src="item.img" class="w-full h-full object-cover" :style="getBlockImgStyle(block)"><span v-else class="text-slate-300 text-[10px] font-sans font-bold">{{ getIndexStr(block.data.items, idx, true) }}</span></div>
                                                     <div class="flex-1 border-b border-dashed border-slate-300 pb-1 flex flex-col justify-end h-full"><div class="font-bold text-[20px] text-blue-900 leading-none">{{ item.word }} <span class="text-xs font-medium text-slate-500 ml-1 font-sans">{{ item.pos }}</span></div><div class="text-xs text-slate-500 mt-1 font-sans font-medium">{{ item.phonics }}</div></div>
@@ -4170,6 +4899,41 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+
+                                            <div v-else-if="block.type === 'phonicsSentenceWrite'" class="space-y-4 pl-2">
+                                                <div v-if="block.data.showWordFamilies !== false" class="phonics-family-board">
+                                                    <div class="phonics-family-header">{{ block.data.phonicsTitle || 'Phonics Word Families' }}</div>
+                                                    <div v-for="(family, fIdx) in block.data.wordFamilies" :key="'family-preview-'+fIdx" class="phonics-family-row">
+                                                        <div class="phonics-family-label">{{ family.label || 'word family' }}</div>
+                                                        <div class="phonics-family-items">
+                                                            <div v-for="(wordItem, wIdx) in family.items" :key="'family-preview-word-'+fIdx+'-'+wIdx" class="phonics-family-item">
+                                                                <div class="phonics-family-picture">
+                                                                    <img v-if="wordItem.img" :src="wordItem.img" :alt="wordItem.word || 'Phonics picture'" :style="getBlockImgStyle(block)">
+                                                                    <span v-else class="phonics-family-picture-placeholder">PICTURE</span>
+                                                                </div>
+                                                                <div class="phonics-family-word">{{ wordItem.word || 'word' }}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="phonics-sentence-section-title">Sentence Frames</div>
+                                                <div class="phonics-sentence-frame-list" :style="{
+                                                    '--phonics-sentence-gap': Number(block.data.sentenceFrameGap ?? 12) + 'px',
+                                                    '--phonics-sentence-line-height': Number(block.data.sentenceFrameTextLineHeight ?? 1.42)
+                                                }">
+                                                    <div v-for="(item, idx) in block.data.items" :key="idx" class="phonics-sentence-frame">
+                                                        <span class="phonics-sentence-frame-no">{{ idx + 1 }}</span>
+                                                        <div class="phonics-sentence-frame-img">
+                                                            <img v-if="item.img" :src="item.img" :alt="'Sentence picture ' + (idx + 1)" :style="getBlockImgStyle(block)">
+                                                            <span v-else class="phonics-sentence-frame-placeholder">PICTURE {{ idx + 1 }}</span>
+                                                        </div>
+                                                        <div class="phonics-sentence-frame-copy">{{ item.sentence || 'Write a sentence frame here.' }}</div>
+                                                    </div>
+                                                </div>
+
+                                                <div v-if="block.data.showRuleNote !== false && block.data.ruleNote" class="phonics-rule-note" v-html="formatPhonicsRuleNote(block.data.ruleNote)"></div>
                                             </div>
 
                                             <div v-else-if="block.type === 'storyComic'" class="space-y-3 pl-2">
@@ -5285,6 +6049,22 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                     { key: 'output', label: 'Output', cls: 'ws-tag-output' },
                     { key: 'teacherFocus', label: 'Teacher Focus', cls: 'ws-tag-teacher' }
                 ];
+                const blockFontOptions = [
+                    { value: 'hengshui', label: '默认手写体 / Hengshui', stack: "'Hengshui', 'Comic Neue', 'Comic Sans MS', sans-serif" },
+                    { value: 'comic', label: 'Comic Neue', stack: "'Comic Neue', 'Comic Sans MS', cursive" },
+                    { value: 'nunito', label: 'Nunito', stack: "'Nunito', Arial, sans-serif" },
+                    { value: 'arial', label: 'Arial', stack: "Arial, 'Microsoft YaHei', sans-serif" },
+                    { value: 'georgia', label: 'Georgia', stack: "Georgia, 'Times New Roman', serif" },
+                    { value: 'times', label: 'Times New Roman', stack: "'Times New Roman', Times, serif" },
+                    { value: 'kaiti', label: '楷体 / KaiTi', stack: "KaiTi, STKaiti, 'Microsoft YaHei', serif" },
+                    { value: 'yahei', label: '微软雅黑', stack: "'Microsoft YaHei', 'PingFang SC', sans-serif" }
+                ];
+                const comprehensiveTypeIds = [
+                    'sharedStimulus', 'passageCloze', 'noteCompletion', 'dialogueCompletion',
+                    'dataInterpretation', 'functionalText', 'practicalWriting', 'pictureSequenceWriting',
+                    'compareDescribe', 'infoGapAB', 'rolePlayCards', 'assessmentRubric',
+                    'errorAnalysis', 'exitTicket', 'peerAssessment', 'wordGame'
+                ];
 
                 const questionTypes = [
                     { id: 'wordList', name: 'Vocabulary', zhName: '单词表', color: 'text-slate-600', bg: 'bg-slate-500' },
@@ -5296,6 +6076,7 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
 { id: 'lookReadNumber1', name: 'Look, read and number the pictures', zhName: '读文看图编号-版式1', color: 'text-yellow-600', bg: 'bg-yellow-400' },
 { id: 'lookReadNumber2', name: 'Look, read and number the pictures', zhName: '关键词挖空问答-版式2', color: 'text-emerald-600', bg: 'bg-emerald-400' },
                     { id: 'keywordSentence', name: 'Make Sentences', zhName: '关键词造句', color: 'text-cyan-600', bg: 'bg-cyan-400' },
+                    { id: 'phonicsSentenceWrite', name: 'Phonics Sentence Writing', zhName: '自然拼读词族+四句框架', color: 'text-sky-600', bg: 'bg-sky-500' },
                     { id: 'storyComic', name: 'Story Comic', zhName: '连环画', color: 'text-amber-500', bg: 'bg-amber-500' },
                     { id: 'lookWriteAnswer', name: 'Look Write', zhName: '看图造句', color: 'text-indigo-500', bg: 'bg-indigo-500' },
                     { id: 'reorder', name: 'Reorder', zhName: '连词成句', color: 'text-purple-500', bg: 'bg-purple-500' },
@@ -5346,17 +6127,36 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
 { id: 'venn', name: 'Venn Diagram', zhName: '韦恩图', color: 'text-purple-600', bg: 'bg-purple-500' }, 
 { id: 'tChart', name: 'T-Chart', zhName: 'T型图', color: 'text-emerald-600', bg: 'bg-emerald-500' },
 { id: 'unitEvidence', name: 'Unit Evidence', zhName: 'Unit学习证据页', color: 'text-amber-700', bg: 'bg-amber-500' },
-{ id: 'phonicsChoice', name: 'Phonics Choice', zhName: '辨音选择', color: 'text-fuchsia-600', bg: 'bg-fuchsia-500' }
+{ id: 'phonicsChoice', name: 'Phonics Choice', zhName: '辨音选择', color: 'text-fuchsia-600', bg: 'bg-fuchsia-500' },
+{ id: 'sharedStimulus', name: 'Mixed Skills Set', zhName: '综合阅读/听力题组', color: 'text-blue-700', bg: 'bg-blue-600' },
+{ id: 'passageCloze', name: 'Passage Cloze', zhName: '篇章完形填空', color: 'text-indigo-700', bg: 'bg-indigo-600' },
+{ id: 'noteCompletion', name: 'Form & Note Completion', zhName: '表格/笔记信息填空', color: 'text-cyan-700', bg: 'bg-cyan-600' },
+{ id: 'dialogueCompletion', name: 'Dialogue Completion', zhName: '对话补全与回应选择', color: 'text-emerald-700', bg: 'bg-emerald-600' },
+{ id: 'dataInterpretation', name: 'Data & Chart Reading', zhName: '图表信息理解', color: 'text-violet-700', bg: 'bg-violet-600' },
+{ id: 'functionalText', name: 'Real-life Text', zhName: '实用短文本阅读', color: 'text-orange-700', bg: 'bg-orange-600' },
+{ id: 'practicalWriting', name: 'Practical Writing', zhName: '邮件/便条/邀请函写作', color: 'text-rose-700', bg: 'bg-rose-600' },
+{ id: 'pictureSequenceWriting', name: 'Picture Sequence Writing', zhName: '图片序列写作', color: 'text-pink-700', bg: 'bg-pink-600' },
+{ id: 'compareDescribe', name: 'Compare & Describe', zhName: '双图比较描述', color: 'text-fuchsia-700', bg: 'bg-fuchsia-600' },
+{ id: 'infoGapAB', name: 'Information Gap A/B', zhName: '信息差双版本', color: 'text-purple-700', bg: 'bg-purple-600' },
+{ id: 'rolePlayCards', name: 'Role-play Cards', zhName: '双人角色任务卡', color: 'text-teal-700', bg: 'bg-teal-600' },
+{ id: 'assessmentRubric', name: 'Assessment Rubric', zhName: '写作/口语评分量表', color: 'text-amber-700', bg: 'bg-amber-600' },
+{ id: 'errorAnalysis', name: 'Error Analysis', zhName: '错因分析反思单', color: 'text-red-700', bg: 'bg-red-600' },
+{ id: 'exitTicket', name: 'Exit Ticket', zhName: '课堂出口条', color: 'text-sky-700', bg: 'bg-sky-600' },
+{ id: 'peerAssessment', name: 'Self & Peer Assessment', zhName: '自评与同伴互评', color: 'text-lime-700', bg: 'bg-lime-600' },
+{ id: 'wordGame', name: 'Word Games', zhName: '填字/找词/Bingo/配对', color: 'text-yellow-700', bg: 'bg-yellow-500' }
                 ];
 
                 const questionTypeCategories = [
-                    { key: '常用', label: '⭐ 常用', ids: ['mc','listenFill','wordForm','textQnA','match','oddOneOut','phonicsTree','phonicsChoice','lookReadNumber1','lookReadNumber2','writingCard','wrongResponses','stackedIntro','unitEvidence'] },
-                    { key: '听力', label: '🎧 听力', ids: ['listenFill','listenYesNo','listenComp','listenQuiz'] },
-                    { key: '看图', label: '🖼️ 看图/图片', ids: ['lookAnswer','lookReadNumber1','lookReadNumber2','lookWriteAnswer','picQnA','pictureDifference','sceneHunt','stickerPlacement','pictureStoryMap','pictureJudgeWhy','pictureDialogue','drawClues'] },
-                    { key: '词汇拼读', label: '🔤 词汇/拼读', ids: ['wordList','keyWords','wordSorting','phonicsSorting','phonicsFocus','phonicsTree','phonicsChoice','oddOneOut','scramble','missing','wordMorph'] },
-                    { key: '语法句型', label: '🧩 语法/句型', ids: ['grammarFocus','wordForm','transform','circle','correctMistakes','wrongResponses','reorder','chooseComplete','match','trueFalse'] },
-                    { key: '阅读写作', label: '✍️ 阅读/写作', ids: ['clilRead','literature','textQnA','writingCard','altEnding','storyRetell','storyComic','keywordSentence','speaking','wrongResponses'] },
-                    { key: '综合', label: '🌈 综合', ids: ['factFile','lifeCycle','diagram','flashcards','tipBox','orderStory','pictureStoryMap','drawClues','guideIntro','stackedIntro','unitEvidence'] },
+                    { key: '常用', label: '⭐ 常用', ids: ['sharedStimulus','passageCloze','noteCompletion','dialogueCompletion','practicalWriting','mc','listenFill','wordForm','textQnA','match','oddOneOut','phonicsTree','phonicsChoice','phonicsSentenceWrite','lookReadNumber1','lookReadNumber2','writingCard','wrongResponses','stackedIntro','unitEvidence'] },
+                    { key: '听力', label: '🎧 听力', ids: ['sharedStimulus','noteCompletion','dialogueCompletion','listenFill','listenYesNo','listenComp','listenQuiz'] },
+                    { key: '看图', label: '🖼️ 看图/图片', ids: ['pictureSequenceWriting','compareDescribe','functionalText','lookAnswer','lookReadNumber1','lookReadNumber2','lookWriteAnswer','picQnA','phonicsSentenceWrite','pictureDifference','sceneHunt','stickerPlacement','pictureStoryMap','pictureJudgeWhy','pictureDialogue','drawClues'] },
+                    { key: '词汇拼读', label: '🔤 词汇/拼读', ids: ['wordGame','wordList','keyWords','wordSorting','phonicsSorting','phonicsFocus','phonicsTree','phonicsChoice','phonicsSentenceWrite','oddOneOut','scramble','missing','wordMorph'] },
+                    { key: '语法句型', label: '🧩 语法/句型', ids: ['passageCloze','dialogueCompletion','grammarFocus','wordForm','transform','circle','correctMistakes','wrongResponses','reorder','chooseComplete','match','trueFalse'] },
+                    { key: '阅读写作', label: '✍️ 阅读/写作', ids: ['sharedStimulus','passageCloze','dataInterpretation','functionalText','practicalWriting','pictureSequenceWriting','compareDescribe','clilRead','literature','textQnA','writingCard','phonicsSentenceWrite','altEnding','storyRetell','storyComic','keywordSentence','speaking','wrongResponses'] },
+                    { key: '综合', label: '🌈 综合', ids: ['sharedStimulus','dataInterpretation','infoGapAB','rolePlayCards','assessmentRubric','errorAnalysis','exitTicket','peerAssessment','factFile','lifeCycle','diagram','flashcards','tipBox','orderStory','pictureStoryMap','drawClues','guideIntro','stackedIntro','unitEvidence'] },
+                    { key: '综合题组', label: '📚 综合题组', ids: ['sharedStimulus','passageCloze','noteCompletion','dialogueCompletion','dataInterpretation','functionalText'] },
+                    { key: '真实输出', label: '💬 真实输出', ids: ['practicalWriting','pictureSequenceWriting','compareDescribe','infoGapAB','rolePlayCards'] },
+                    { key: '评价活动', label: '📋 评价/活动', ids: ['assessmentRubric','errorAnalysis','exitTicket','peerAssessment','wordGame'] },
                     { key: '全部', label: '全部', ids: [] }
                 ];
 
@@ -5378,6 +6178,25 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                 });
 
                 const defaultInstructions = { picQnA: 'Look, ask and answer.', wordList: 'Vocabulary', readWrite: 'Read and write.', listenFill: 'Listen and fill in the blanks.', listenYesNo: 'Listen and write "Yes" or "No".', listenComp: 'After-listening comprehension.', lookAnswer: 'Answer the questions.', storyComic: 'Read the story and answer.', lookWriteAnswer: 'Look, write and answer.', reorder: 'Reorder the words to make sentences.', chooseComplete: 'Choose and complete.', grammarFocus: 'Grammar Focus', storyRetell: 'Retell.', mc: 'Choose the best answer.', wordForm: 'Write the correct form of the words.', transform: 'Rewrite the sentences as required.', circle: 'Circle the correct words.', literature: 'Literature', clilRead: 'Read and complete the text.', wordSorting: 'Sort the words.', phonicsSorting: 'Sort the words by sounds.', oddOneOut: 'Choose the odd one out.', scramble: 'Unscramble the letters.', missing: 'Complete the words.', match: 'Match the words.', factFile: 'Read and complete the fact file.', lifeCycle: 'Complete the life cycle.', diagram: 'Label the picture.', trueFalse: 'Circle True (T) or False (F).', writingCard: 'Writing Output', stackedIntro: 'Block Introduction', orderStory: 'Number the sentences in order.', correctMistakes: 'Read and correct the mistakes.', wrongResponses: 'Find the wrong responses.', altEnding: 'What happens next? Draw and write.', speaking: '🎤 Let\'s Talk!', textQnA: 'Answer the questions.', keywordSentence: 'Make Sentences', tipBox: '', keyWords: 'Key Words', venn: 'Classify the words into the Venn diagram.', tChart: 'Classify the items.', pictureDifference: 'Look, read and write a or b.', sceneHunt: 'Look carefully and write.', stickerPlacement: 'Read and place the stickers.', pictureStoryMap: 'Complete the story map.', pictureJudgeWhy: 'Look, tick or cross. Then write why.', pictureDialogue: 'Look and complete the dialogue.', drawClues: 'Read and draw.', phonicsChoice: 'Choose the word with a different sound in the underlined part.', unitEvidence: 'Unit Learning Evidence', phonicsTree: 'Phonics Split Chart'};
+                defaultInstructions.phonicsSentenceWrite = 'Look, read and practise the word families and sentence frames.';
+                Object.assign(defaultInstructions, {
+                    sharedStimulus: 'Read, look or listen. Complete the mixed tasks.',
+                    passageCloze: 'Read and complete the passage.',
+                    noteCompletion: 'Read or listen and complete the notes.',
+                    dialogueCompletion: 'Complete the dialogue with suitable responses.',
+                    dataInterpretation: 'Study the information and answer the questions.',
+                    functionalText: 'Read the real-life text and answer.',
+                    practicalWriting: 'Complete the real-life writing task.',
+                    pictureSequenceWriting: 'Look at the pictures and write the story.',
+                    compareDescribe: 'Compare the pictures and write.',
+                    infoGapAB: 'Work with a partner. Ask and complete the missing information.',
+                    rolePlayCards: 'Work in pairs and complete the role-play.',
+                    assessmentRubric: 'Use the rubric to assess the task.',
+                    errorAnalysis: 'Review your work and identify the reason for each error.',
+                    exitTicket: 'Complete the exit ticket.',
+                    peerAssessment: 'Check the work and give helpful feedback.',
+                    wordGame: 'Play the word game.'
+                });
                 const globalData = ref({ headerText: 'Unit 1 Ultimate Test', subTitle: 'All-in-One Worksheet', logo: '', theme: 'blue', showInfoRow: false });
                 const themes = {
                     blue: { border1: '#48b8e9', border2: '#2563eb', title: 'text-blue-700', badge: 'from-blue-600 to-indigo-600', btn: 'bg-blue-500' },
@@ -5393,6 +6212,7 @@ const TEACHER_GUIDE_CONTENT_DEFAULT_PAGES = ["\n<div class=\"tg-title\">《教�
                    const base = { 
     id: 'B_' + Date.now() + Math.random().toString(36).substr(2, 5), 
     type, 
+    fontKey: 'hengshui',
     instruction: defaultInstructions[type] || type, 
     subInstruction: '', 
     bulkInput: '', 
@@ -5412,7 +6232,141 @@ const TEACHER_GUIDE_CONTENT_DEFAULT_PAGES = ["\n<div class=\"tg-title\">《教�
     labels: { school: true, a1: false, output: false, teacherFocus: false }
 };
                     let data = {};
-                    if (['wordList'].includes(type)) { data = { bulkInput: '', items: [{isEg: false, img: '', word: 'mountain', pos: 'n.', phonics: '/.../'}] }; }
+                    if (type === 'sharedStimulus') { data = {
+                        stimulusTitle: 'A Day at the Science Museum',
+                        stimulusText: 'Mia and Ben visited the science museum on Saturday. They watched a film about space and built a small paper rocket.',
+                        img: '', audio: '', audioName: '', showTextToStudents: true,
+                        items: [
+                            { kind: 'mc', q: 'Where did Mia and Ben go?', options: 'A. A farm\nB. A science museum\nC. A library', a: 'B' },
+                            { kind: 'tf', q: 'They visited on Sunday.', options: '', a: 'False' },
+                            { kind: 'short', q: 'What did they build?', options: '', a: 'A small paper rocket.' }
+                        ]
+                    }; }
+                    else if (type === 'passageCloze') { data = {
+                        mode: 'bank', passageTitle: 'Our Class Garden',
+                        passage: 'Our class has a small [garden]. We water the plants every [morning]. The flowers are bright and beautiful.',
+                        wordBank: 'garden / morning / evening / kitchen',
+                        gaps: [{ answer: 'garden', options: 'garden / kitchen / playground' }, { answer: 'morning', options: 'morning / night / winter' }],
+                        bestTitleEnabled: true, titleOptions: 'A. Our Class Garden\nB. A Rainy Day\nC. My New Bike', titleAnswer: 'A'
+                    }; }
+                    else if (type === 'noteCompletion') { data = {
+                        sourceMode: 'listening', sourceTitle: 'Club Registration',
+                        sourceText: 'Teacher script: The art club meets on Tuesday at four o’clock in Room 5. Students need to bring a pencil.',
+                        showSourceToStudents: false, audio: '', audioName: '',
+                        fields: [
+                            { label: 'Club', answer: 'art club' },
+                            { label: 'Day', answer: 'Tuesday' },
+                            { label: 'Time', answer: '4:00' },
+                            { label: 'Room', answer: '5' }
+                        ]
+                    }; }
+                    else if (type === 'dialogueCompletion') { data = {
+                        responseBank: 'That sounds great! / At three o’clock. / Yes, I’d love to.',
+                        lines: [
+                            { speaker: 'A', text: 'Would you like to come to the park?' },
+                            { speaker: 'B', text: '[Yes, I’d love to.]' },
+                            { speaker: 'A', text: 'What time shall we meet?' },
+                            { speaker: 'B', text: '[At three o’clock.]' }
+                        ]
+                    }; }
+                    else if (type === 'dataInterpretation') { data = {
+                        chartTitle: 'After-school Clubs',
+                        headers: 'Club | Day | Time | Place',
+                        rows: [
+                            { cells: 'Art | Tuesday | 4:00 | Room 5' },
+                            { cells: 'Football | Thursday | 4:30 | Playground' },
+                            { cells: 'Science | Friday | 3:45 | Lab' }
+                        ],
+                        items: [
+                            { q: 'Which club meets on Friday?', a: 'Science club.' },
+                            { q: 'Where does the football club meet?', a: 'On the playground.' }
+                        ]
+                    }; }
+                    else if (type === 'functionalText') { data = {
+                        format: 'poster', textTitle: 'School Book Fair',
+                        textBody: 'Friday, 18 October\n3:30–5:30 p.m.\nSchool Hall\nBring a bag and choose a new book!',
+                        img: '',
+                        items: [
+                            { q: 'Where is the book fair?', a: 'In the school hall.' },
+                            { q: 'What should students bring?', a: 'A bag.' }
+                        ]
+                    }; }
+                    else if (type === 'practicalWriting') { data = {
+                        genre: 'email', recipient: 'Sam', subject: 'My weekend',
+                        prompt: 'Write an email to Sam about your weekend. Say where you went, who you were with and what you did.',
+                        checklist: 'greeting / three details / closing / correct punctuation',
+                        sentenceStarters: 'Hi Sam, / On Saturday, I... / See you soon,',
+                        lineCount: 7, modelAnswer: 'Hi Sam,\nOn Saturday, I went to the park with my family. We rode our bikes and had a picnic.\nSee you soon,\nAlex'
+                    }; }
+                    else if (type === 'pictureSequenceWriting') { data = {
+                        storyTitle: 'The Lost Key', keywords: 'first / next / then / finally',
+                        starter: 'One afternoon, Lily could not find her key.',
+                        frames: [
+                            { img: '', caption: 'Lily looks in her bag.' },
+                            { img: '', caption: 'She asks her brother.' },
+                            { img: '', caption: 'They find the key under a book.' }
+                        ],
+                        lineCount: 6, modelAnswer: 'First, Lily looked in her bag. Next, she asked her brother for help. Finally, they found the key under a book.'
+                    }; }
+                    else if (type === 'compareDescribe') { data = {
+                        imgA: '', imgB: '', labelA: 'Picture A', labelB: 'Picture B',
+                        prompt: 'Write three differences between the pictures.',
+                        wordBank: 'but / while / in Picture A / in Picture B',
+                        lineCount: 5, modelAnswer: 'In Picture A, the boy is running, but in Picture B, he is walking.'
+                    }; }
+                    else if (type === 'infoGapAB') { data = {
+                        taskTitle: 'Weekend Plans', instructions: 'Do not show your sheet. Ask your partner questions and complete the missing information.',
+                        headers: 'Person | Activity | Day | Time',
+                        rows: [
+                            { cells: 'Amy | swimming | Saturday | 10:00' },
+                            { cells: 'Ben | football | Sunday | 3:00' },
+                            { cells: 'Cara | music lesson | Saturday | 2:30' },
+                            { cells: 'Dan | library | Sunday | 11:00' }
+                        ]
+                    }; }
+                    else if (type === 'rolePlayCards') { data = {
+                        scenario: 'At the café',
+                        cards: [
+                            { role: 'Customer', goal: 'Order food and a drink.', information: 'You have £10. Ask about the price.', prompts: 'Could I have…? / How much is…?' },
+                            { role: 'Server', goal: 'Take the order and give the total.', information: 'Sandwich £4, soup £3, juice £2, water £1.', prompts: 'What would you like? / That is…' }
+                        ]
+                    }; }
+                    else if (type === 'assessmentRubric') { data = {
+                        taskName: 'Speaking / Writing Task', scaleLabels: '1 Beginning | 2 Developing | 3 Secure | 4 Excellent',
+                        criteria: [
+                            { name: 'Content', descriptors: 'Very limited | Some relevant ideas | Clear and complete | Detailed and engaging' },
+                            { name: 'Language', descriptors: 'Frequent errors | Some correct language | Mostly accurate | Accurate and varied' },
+                            { name: 'Organisation', descriptors: 'Hard to follow | Some order | Clear order | Very well organised' }
+                        ],
+                        showTotal: true
+                    }; }
+                    else if (type === 'errorAnalysis') { data = {
+                        reviewPrompt: 'Look back at your work. Tick the main reason for each mistake.',
+                        categories: 'I did not understand the question / I did not know the word / Grammar error / Spelling error / I rushed / My answer was incomplete',
+                        reflectionPrompt: 'Next time I will…', lineCount: 3
+                    }; }
+                    else if (type === 'exitTicket') { data = {
+                        learnedPrompt: 'Today I learned…',
+                        unsurePrompt: 'I still need help with…',
+                        miniQuestion: 'Write one complete sentence using the target language.',
+                        miniAnswer: 'I can use the target language in a complete sentence.',
+                        confidenceLabels: 'I need help / I am getting there / I can do it',
+                        lineCount: 2
+                    }; }
+                    else if (type === 'peerAssessment') { data = {
+                        taskName: 'Partner Feedback',
+                        checklist: 'The answer is complete. / The ideas are clear. / The target language is used. / Capital letters and punctuation are correct.',
+                        praisePrompt: 'One thing you did well:',
+                        suggestionPrompt: 'One helpful suggestion:',
+                        ratingLabels: 'Keep trying / Good work / Excellent'
+                    }; }
+                    else if (type === 'wordGame') { data = {
+                        mode: 'wordSearch', gameTitle: 'Vocabulary Challenge', gridSize: 8,
+                        words: 'APPLE / BOOK / CHAIR / DOG / FISH / GREEN / HOUSE / MILK',
+                        pairs: 'apple | a fruit\nbook | something we read\nchair | something we sit on\ndog | an animal',
+                        instructions: 'Find and circle the words.'
+                    }; }
+                    else if (['wordList'].includes(type)) { data = { bulkInput: '', items: [{isEg: false, img: '', word: 'mountain', pos: 'n.', phonics: '/.../'}] }; }
                     else if (['readWrite'].includes(type)) { data = { wordBank: 'river / mountain', bulkInput: '', bulkAns: '', items: [{isEg: false, q: 'High hill.', a: 'mountain'}] }; }
                     else if (['listenYesNo'].includes(type)) { data = { bulkInput: '', bulkAns: '', items: [{isEg: false, q: 'They are in the city.', a: 'No'}] }; }
                     else if (['lookAnswer'].includes(type)) { data = { img: '', bulkInput: '', bulkAns: '', layout: 'side', items: [{isEg: false, q: 'Where are they?', a: 'Farm'}] }; }
@@ -5436,6 +6390,40 @@ const TEACHER_GUIDE_CONTENT_DEFAULT_PAGES = ["\n<div class=\"tg-title\">《教�
                     else if (['wordForm'].includes(type)) { data = { bulkInput: '', items: [{isEg: false, text: 'Yesterday, I [played](play) football.'}] }; }
                     else if (['reorder'].includes(type)) { data = { bulkInput: '', bulkAns: '', items: [{isEg: false, scrambled: "my, Where's, bag?", ans: "Where's my bag?"}] }; }
                     else if (['storyComic'].includes(type)) { data = { comicImgShape: 'square', bulkInput: '', items: [{img: '', questions: [{isEg: false, q: 'Are they sleeping?', a: 'No, they aren\'t.'}]}] }; }
+                    else if (['phonicsSentenceWrite'].includes(type)) { data = {
+                        showWordFamilies: true,
+                        phonicsTitle: 'Unit 1   a e   ame ake   ate ave',
+                        wordFamilies: [
+                            { label: 'a e', items: [
+                                { img: '', word: 'tape' },
+                                { img: '', word: 'cape' },
+                                { img: '', word: 'cane' },
+                                { img: '', word: 'mane' }
+                            ] },
+                            { label: 'ame ake', items: [
+                                { img: '', word: 'game' },
+                                { img: '', word: 'cake' },
+                                { img: '', word: 'name' },
+                                { img: '', word: 'lake' }
+                            ] },
+                            { label: 'ate ave', items: [
+                                { img: '', word: 'gate' },
+                                { img: '', word: 'wave' },
+                                { img: '', word: 'skate' },
+                                { img: '', word: 'cave' }
+                            ] }
+                        ],
+                        showRuleNote: true,
+                        ruleNote: '当一个单词或音节里只有一个元音时，该元音发短音；而当这个单词或音节后面加上字母 e，刚才的元音就发长音了。字母 e 只起到让前面的元音发长音的作用，自己不发音。我们管字母 e 叫做 #magic e#。*a* 在这里的长音发音为 */ei/*。单词结尾有小 e，前面元音发长音。',
+                        sentenceFrameGap: 12,
+                        sentenceFrameTextLineHeight: 1.42,
+                        items: [
+                            { img: '', sentence: 'I have got a tape.' },
+                            { img: '', sentence: 'The man has got a cape.' },
+                            { img: '', sentence: 'My cane is new.' },
+                            { img: '', sentence: 'Horses have got manes.' }
+                        ]
+                    }; }
                     else if (['lookWriteAnswer'].includes(type)) { data = { img: '', bulkInput: '', bulkAns: '', qLineWidth: 62, aLineWidth: 30, lineGap: 16, items: [{isEg: false, hint: 'girl / read?', q: 'Is she reading?', a: 'Yes, she is.'}] }; }
                     else if (['factFile'].includes(type)) { data = { bulkInput: '# Penguin\nType | [bird]\nHome | Antarctica\nFood | fish\n\n# Camel\nType | [mammal]\nHome | desert\nFood | plants', items: [{img: '', title: 'Penguin', rows: [{isEg: false, key: 'Type', val: '[bird]'}]}] }; }
                     else if (['lifeCycle'].includes(type)) { data = { items: [{isEg: false, img: '', text: 'egg'}, {isEg: false, img: '', text: '[tadpole]'}, {isEg: false, img: '', text: 'frog'}] }; }
@@ -5651,7 +6639,7 @@ else if (type === 'tChart') { data = { titleMain: 'Topic Name', showMainTitle: t
                     return { ...base, data };
                 };
 
-                const blocks = ref([ getDefData('correctMistakes') ]);
+                const blocks = ref([]);
                 
                 // 新增：丝滑拖拽排序引擎 (带把手精准触发开关)
                 const dragIndex = ref(null);
@@ -5678,6 +6666,8 @@ else if (type === 'tChart') { data = { titleMain: 'Topic Name', showMainTitle: t
                     if (isLegacyTeacherGuideType(block.type)) block.type = 'guideIntro';
                     const allowed = new Set(difficultyOptions.map(o => o.value));
                     if (!allowed.has(block.difficultyLevel)) block.difficultyLevel = '★';
+                    const allowedFontKeys = new Set(blockFontOptions.map(o => o.value));
+                    if (!allowedFontKeys.has(block.fontKey)) block.fontKey = 'hengshui';
                     if (typeof block.showDifficulty !== 'boolean') block.showDifficulty = true;
                     block.editorCollapsed = !!block.editorCollapsed;
                     block.practiceTipEnabled = !!block.practiceTipEnabled;
@@ -5935,7 +6925,7 @@ const resetTeacherGuideContent = (block) => {
                     const d = block.data;
 
                     // 绝大多数题型：清空生成出来的题目数组
-                    ['items', 'questions', 'qaList', 'tfList', 'grammar', 'itemsTick', 'itemsNumber', 'itemsJudge'].forEach(key => {
+                    ['items', 'questions', 'qaList', 'tfList', 'grammar', 'itemsTick', 'itemsNumber', 'itemsJudge', 'gaps', 'fields', 'lines', 'rows', 'frames', 'cards', 'criteria'].forEach(key => {
                         if (Array.isArray(d[key])) d[key] = [];
                     });
 
@@ -5981,6 +6971,7 @@ const moveSubItem = (items, idx, dir) => { if(idx+dir < 0 || idx+dir >= items.le
                     else if(t==='scramble') arr.push({...b, img:'', scrambled:'', ans:''});
                     else if(t==='diagram') arr.push({...b, num:'', val:''});
                     else if(t==='orderStory') arr.push({...b, img:'', ans:'', text:''});
+                    else if(t==='phonicsSentenceWrite') arr.push({img:'', sentence:''});
 else if(t==='wordMorph') arr.push({...b, word:'', ans:''});
 else if(t==='listenQuiz') { if(block.data.plan === '1') block.data.itemsTick.push({isEg: false, q:'', img1:'', img2:'', img3:'', ans:1}); else if(block.data.plan === '2') block.data.itemsNumber.push({isEg: false, q:'', img:'', ans:''}); else if(block.data.plan === '3') block.data.itemsJudge.push({isEg: false, img:'', q:'', ans:'√'}); }
 else if(t==='picQnA') arr.push({...b, img:'', q:'', a:'', hint:''});
@@ -6753,9 +7744,13 @@ if (block.type === 'wordList') {
                 const getSecZhName = (id) => questionTypes.find(q=>q.id===id)?.zhName || id;
                 const getSecBg = (id) => questionTypes.find(q=>q.id===id)?.bg || 'bg-slate-500';
                 const getSecColor = (id) => questionTypes.find(q=>q.id===id)?.color || 'text-slate-600';
+                const getBlockFontStyle = (block) => {
+                    const selected = blockFontOptions.find(font => font.value === block?.fontKey) || blockFontOptions[0];
+                    return { '--ws-block-font-family': selected.stack };
+                };
                 const getOptColor = (idx) => ['text-blue-400', 'text-teal-400', 'text-amber-500', 'text-indigo-400', 'text-rose-400'][idx % 5];
                 const getCatColor = (idx) => [{ border: 'border-blue-300', bg: 'bg-blue-50', text: 'text-blue-800' }, { border: 'border-emerald-300', bg: 'bg-emerald-50', text: 'text-emerald-800' }, { border: 'border-amber-300', bg: 'bg-amber-50', text: 'text-amber-800' }, { border: 'border-purple-300', bg: 'bg-purple-50', text: 'text-purple-800' }][idx % 4];
-                const hasItemImages = (t) => ['mc','transform','circle','scramble','missing','match','storyComic','orderStory'].includes(t);
+                const hasItemImages = (t) => ['mc','transform','circle','scramble','missing','match','storyComic','phonicsSentenceWrite','orderStory'].includes(t);
                 
                 const getIndexStr = (items, index, hasEg=false) => {
                     if (!items || !items[index]) return '';
@@ -7101,6 +8096,15 @@ if (block.type === 'wordList') {
                 const parseGrammarColor = (t) => t?t.replace(/#(.*?)#/g,'<span class="text-emerald-600 font-black">$1</span>').replace(/\*(.*?)\*/g,'<span class="text-rose-600 font-black">$1</span>').replace(/@(.*?)@/g,'<span class="text-blue-600 font-black">$1</span>').replace(/\^(.*?)\^/g,'<span class="text-orange-500 font-black">$1</span>').replace(/~(.*?)~/g,'<span class="text-purple-500 font-black">$1</span>').replace(/\n/g,'<br>'):'';
 
                 const parsePhonicsText = (t) => t ? String(t).replace(/\{\{(.*?)\}\}/g, '<span class="text-purple-500 italic font-medium">$1</span>').replace(/\*(.*?)\*/g, '<span class="text-rose-500">$1</span>').replace(/@(.*?)@/g, '<span class="text-blue-500">$1</span>').replace(/\^(.*?)\^/g, '<span class="text-orange-500 font-bold">$1</span>') : '';
+                const formatPhonicsRuleNote = (text) => {
+                    let safe = escapeHtml(String(text || '')).replace(/\n/g, '<br>');
+                    return safe
+                        .replace(/#(.*?)#/g, '<span class="text-emerald-600 italic font-black">$1</span>')
+                        .replace(/\*(.*?)\*/g, '<span class="text-rose-500 font-black">$1</span>')
+                        .replace(/@(.*?)@/g, '<span class="text-blue-500 font-black">$1</span>')
+                        .replace(/\^(.*?)\^/g, '<span class="text-orange-500 font-black">$1</span>')
+                        .replace(/~(.*?)~/g, '<span class="text-purple-500 font-black">$1</span>');
+                };
 
 const getLitGrammarImgStyle = (size = 'lg', mode = 'preview') => {
     const previewMap = {
@@ -7268,6 +8272,39 @@ const getMatchPairs = (block) => {
                 };
 
                 const compressAndUpload = (e, obj, key) => { const f=e.target.files[0]; if(!f)return; const isPng=f.type==='image/png'; const r=new FileReader(); r.onload=(ev)=>{const i=new Image(); i.onload=()=>{const c=document.createElement('canvas'); let w=i.width,h=i.height,M=1800; if(w>h&&w>M){h*=M/w;w=M;}else if(h>M){w*=M/h;h=M;} c.width=w; c.height=h; const ctx=c.getContext('2d'); if(!isPng){ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,w,h);} ctx.drawImage(i,0,0,w,h); obj[key]=c.toDataURL(isPng?'image/png':'image/jpeg',0.95);}; i.src=ev.target.result;}; r.readAsDataURL(f); };
+                const uploadAudio = (e, obj, key = 'audio') => {
+                    const f = e?.target?.files?.[0];
+                    if (!f || !obj) return;
+                    if (!String(f.type || '').startsWith('audio/')) {
+                        alert('请选择音频文件。');
+                        e.target.value = '';
+                        return;
+                    }
+                    if (f.size > 12 * 1024 * 1024) {
+                        alert('音频文件请控制在 12MB 以内；较长录音建议使用题块二维码链接。');
+                        e.target.value = '';
+                        return;
+                    }
+                    const r = new FileReader();
+                    r.onload = (ev) => {
+                        obj[key] = ev.target.result;
+                        obj.audioName = f.name || 'Audio track';
+                        e.target.value = '';
+                    };
+                    r.readAsDataURL(f);
+                };
+                const addSuiteItem = (block) => {
+                    const d = block?.data || {};
+                    if (block.type === 'sharedStimulus') (d.items ||= []).push({ kind: 'short', q: '', options: '', a: '' });
+                    else if (block.type === 'passageCloze') (d.gaps ||= []).push({ answer: '', options: '' });
+                    else if (block.type === 'noteCompletion') (d.fields ||= []).push({ label: '', answer: '' });
+                    else if (block.type === 'dialogueCompletion') (d.lines ||= []).push({ speaker: 'A', text: '' });
+                    else if (block.type === 'dataInterpretation') (d.items ||= []).push({ q: '', a: '' });
+                    else if (block.type === 'functionalText') (d.items ||= []).push({ q: '', a: '' });
+                    else if (block.type === 'pictureSequenceWriting') (d.frames ||= []).push({ img: '', caption: '' });
+                    else if (block.type === 'rolePlayCards') (d.cards ||= []).push({ role: '', goal: '', information: '', prompts: '' });
+                    else if (block.type === 'assessmentRubric') (d.criteria ||= []).push({ name: '', descriptors: '' });
+                };
                 const compressFilesToDataUrls = (files) => Promise.all(Array.from(files || []).map(f => new Promise((resolve) => { const isPng = f.type === 'image/png'; const r = new FileReader(); r.onload = (ev) => { const i = new Image(); i.onload = () => { const c = document.createElement('canvas'); let w = i.width, h = i.height, M = 1800; if (w > h && w > M) { h *= M / w; w = M; } else if (h > M) { w *= M / h; h = M; } c.width = w; c.height = h; const ctx = c.getContext('2d'); if (!isPng) { ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,w,h); } ctx.drawImage(i,0,0,w,h); resolve(c.toDataURL(isPng ? 'image/png' : 'image/jpeg', 0.95)); }; i.src = ev.target.result; }; r.readAsDataURL(f); })));
                 const handleStackedIntroUpload = async (e, target) => {
                     const files = e.target.files;
@@ -7542,6 +8579,29 @@ const getMatchPairs = (block) => {
                             normalizeGuideLikeBlock(block, originalType);
                             normalizeBlockMeta(block);
 
+                            if (['listenFill','listenYesNo','listenComp','listenQuiz','sharedStimulus','noteCompletion'].includes(block.type)) {
+                                block.data.audio = typeof block.data.audio === 'string' ? block.data.audio : '';
+                                block.data.audioName = typeof block.data.audioName === 'string' ? block.data.audioName : '';
+                            }
+                            if (comprehensiveTypeIds.includes(block.type)) {
+                                const suiteDefaults = getDefData(block.type).data || {};
+                                ['items','gaps','fields','lines','rows','frames','cards','criteria'].forEach(key => {
+                                    if (key in suiteDefaults && !Array.isArray(block.data[key])) {
+                                        block.data[key] = Array.isArray(suiteDefaults[key]) ? suiteDefaults[key].map(item => ({...item})) : [];
+                                    }
+                                });
+                                if ('lineCount' in suiteDefaults) {
+                                    const count = Number(block.data.lineCount);
+                                    block.data.lineCount = Number.isFinite(count) ? Math.min(15, Math.max(1, count)) : suiteDefaults.lineCount;
+                                }
+                                if (block.type === 'wordGame') {
+                                    const allowedModes = new Set(['wordSearch','bingo','crossword','memory']);
+                                    if (!allowedModes.has(block.data.mode)) block.data.mode = 'wordSearch';
+                                    const gridSize = Number(block.data.gridSize);
+                                    block.data.gridSize = Number.isFinite(gridSize) ? Math.min(14, Math.max(6, gridSize)) : 8;
+                                }
+                            }
+
                             if (block.type === 'match') {
                                 block.data.bulkInput = block.data.bulkInput || '';
                                 block.data.bulkAns = block.data.bulkAns || '';
@@ -7618,6 +8678,40 @@ const getMatchPairs = (block) => {
                                         q: q?.q || '',
                                         a: q?.a || ''
                                     }))
+                                }));
+                            }
+
+                            if (block.type === 'phonicsSentenceWrite') {
+                                const sentenceDefaults = [
+                                    'I have got a tape.',
+                                    'The man has got a cape.',
+                                    'My cane is new.',
+                                    'Horses have got manes.'
+                                ];
+                                const familyDefaults = [
+                                    { label: 'a e', items: ['tape', 'cape', 'cane', 'mane'].map(word => ({ img: '', word })) },
+                                    { label: 'ame ake', items: ['game', 'cake', 'name', 'lake'].map(word => ({ img: '', word })) },
+                                    { label: 'ate ave', items: ['gate', 'wave', 'skate', 'cave'].map(word => ({ img: '', word })) }
+                                ];
+                                block.data.showWordFamilies = block.data.showWordFamilies !== false;
+                                block.data.phonicsTitle = String(block.data.phonicsTitle || 'Unit 1   a e   ame ake   ate ave');
+                                block.data.wordFamilies = (Array.isArray(block.data.wordFamilies) ? block.data.wordFamilies : familyDefaults).map((family, familyIdx) => ({
+                                    label: family?.label || family?.title || familyDefaults[familyIdx]?.label || '',
+                                    items: (Array.isArray(family?.items) ? family.items : (familyDefaults[familyIdx]?.items || [])).map(wordItem => ({
+                                        img: wordItem?.img || wordItem?.imgUrl || wordItem?.image || '',
+                                        word: wordItem?.word || wordItem?.text || wordItem?.label || ''
+                                    }))
+                                }));
+                                block.data.showRuleNote = block.data.showRuleNote !== false;
+                                block.data.ruleNote = String(block.data.ruleNote || '当一个单词或音节后面加上字母 e，前面的元音通常发长音；字母 e 自己不发音。我们管字母 e 叫做 #magic e#。*a* 在这里的长音发音为 */ei/*。');
+                                const importedSentenceGap = Number(block.data.sentenceFrameGap);
+                                block.data.sentenceFrameGap = Number.isFinite(importedSentenceGap) ? Math.min(40, Math.max(0, importedSentenceGap)) : 12;
+                                const importedSentenceLineHeight = Number(block.data.sentenceFrameTextLineHeight);
+                                block.data.sentenceFrameTextLineHeight = Number.isFinite(importedSentenceLineHeight) ? Math.min(3, Math.max(1, importedSentenceLineHeight)) : 1.42;
+                                const importedItems = Array.isArray(block.data.items) ? block.data.items : [];
+                                block.data.items = (importedItems.length ? importedItems : sentenceDefaults.map(sentence => ({ img: '', sentence }))).map((item, idx) => ({
+                                    img: item?.img || item?.imgUrl || item?.image || '',
+                                    sentence: item?.sentence || item?.text || item?.frame || sentenceDefaults[idx] || ''
                                 }));
                             }
 
@@ -7805,6 +8899,70 @@ const getMatchPairs = (block) => {
                     .replace(/>/g, '&gt;')
                     .replace(/"/g, '&quot;')
                     .replace(/'/g, '&#39;');
+
+                const splitSuiteLines = (text) => String(text || '').split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+                const splitSuitePipe = (text) => String(text || '').split(/\s*\|\s*/).map(s => s.trim());
+                const parseSuiteCloze = (text, answerMode = false) => {
+                    const raw = String(text || '');
+                    let html = '';
+                    let cursor = 0;
+                    let no = 0;
+                    const regex = /\[([^\]]*)\]/g;
+                    let match;
+                    while ((match = regex.exec(raw)) !== null) {
+                        html += escapeHtml(raw.slice(cursor, match.index));
+                        no += 1;
+                        const answer = escapeHtml(match[1] || '');
+                        html += `<span class="ws-blank-line inline-block align-baseline border-b border-slate-700 px-2 mx-1 text-center ${answerMode ? 'text-rose-600 font-bold' : 'text-transparent'}" style="min-width:var(--blank-line-width,110px)">${answerMode ? answer : '&nbsp;'}</span><sup class="font-sans text-[10px] text-slate-400">${no}</sup>`;
+                        cursor = regex.lastIndex;
+                    }
+                    html += escapeHtml(raw.slice(cursor));
+                    return html.replace(/\n/g, '<br>');
+                };
+                const getWordSearchGrid = (data) => {
+                    const size = Math.min(14, Math.max(6, Number(data?.gridSize || 8)));
+                    const words = String(data?.words || '').split(/[\/／,，、\n]+/).map(w => w.toUpperCase().replace(/[^A-Z]/g, '')).filter(w => w && w.length <= size);
+                    const grid = Array.from({ length: size }, () => Array.from({ length: size }, () => ({ ch: '', answer: false })));
+                    const directions = [[1,0],[0,1],[1,1],[-1,1]];
+                    words.forEach((word, wi) => {
+                        let placed = false;
+                        for (let attempt = 0; attempt < size * size * directions.length && !placed; attempt++) {
+                            const dir = directions[(wi + attempt) % directions.length];
+                            const x = (wi * 3 + attempt) % size;
+                            const y = (wi * 5 + Math.floor(attempt / size)) % size;
+                            const endX = x + dir[0] * (word.length - 1);
+                            const endY = y + dir[1] * (word.length - 1);
+                            if (endX < 0 || endX >= size || endY < 0 || endY >= size) continue;
+                            let ok = true;
+                            for (let i = 0; i < word.length; i++) {
+                                const cell = grid[y + dir[1] * i][x + dir[0] * i];
+                                if (cell.ch && cell.ch !== word[i]) { ok = false; break; }
+                            }
+                            if (!ok) continue;
+                            for (let i = 0; i < word.length; i++) {
+                                const cell = grid[y + dir[1] * i][x + dir[0] * i];
+                                cell.ch = word[i];
+                                cell.answer = true;
+                            }
+                            placed = true;
+                        }
+                    });
+                    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    grid.forEach((row, y) => row.forEach((cell, x) => {
+                        if (!cell.ch) cell.ch = alphabet[(x * 7 + y * 11 + size) % alphabet.length];
+                    }));
+                    return grid.flat();
+                };
+                const getBingoCells = (data) => {
+                    const words = String(data?.words || '').split(/[\/／,，、\n]+/).map(s => s.trim()).filter(Boolean);
+                    const cells = [];
+                    for (let i = 0; i < 25; i++) cells.push(i === 12 ? 'FREE' : (words[i < 12 ? i : i - 1] || ''));
+                    return cells;
+                };
+                const getWordGamePairs = (data) => splitSuiteLines(data?.pairs).map(line => {
+                    const p = splitSuitePipe(line);
+                    return { word: p[0] || '', clue: p.slice(1).join(' | ') || '' };
+                });
 
                                 const isFlashcardRowStarter = (items, idx) => {
                     const item = (items || [])[idx];
@@ -8182,6 +9340,7 @@ const hasAnyImageInBlock = (block) => {
                     if (Array.isArray(d.frames) && d.frames.some(x => x && x.img)) return true;
                     if (Array.isArray(d.steps) && d.steps.some(x => x && x.img)) return true;
                     if (Array.isArray(d.cards) && d.cards.some(x => x && x.img)) return true;
+                    if (Array.isArray(d.wordFamilies) && d.wordFamilies.some(family => Array.isArray(family?.items) && family.items.some(item => item?.img))) return true;
                     if (Array.isArray(d.characters) && d.characters.some(x => x && x.imgUrl)) return true;
                     if (Array.isArray(d.grammarPoints) && d.grammarPoints.some(x => x && x.imgUrl)) return true;
                     return false;
@@ -8312,7 +9471,26 @@ const hasAnyImageInBlock = (block) => {
 
                     const fromArray = (arr, getter) => Array.isArray(arr) && arr.forEach((item, idx) => pushAnswer(rows, getter(item, idx)));
 
-                    if (block.type === 'correctMistakes') {
+                    if (block.type === 'sharedStimulus') {
+                        fromArray(d.items, item => item.kind === 'fill' ? collectBracketAnswers(item.q || '').join(' / ') : answerTextFromItem(item));
+                    } else if (block.type === 'passageCloze') {
+                        collectBracketAnswers(d.passage || '').forEach(a => pushAnswer(rows, a));
+                        if (d.bestTitleEnabled) pushAnswer(rows, d.titleAnswer);
+                    } else if (block.type === 'noteCompletion') {
+                        fromArray(d.fields, item => item.answer);
+                    } else if (block.type === 'dialogueCompletion') {
+                        fromArray(d.lines, item => collectBracketAnswers(item.text || '').join(' / '));
+                    } else if (['dataInterpretation','functionalText'].includes(block.type)) {
+                        fromArray(d.items, item => answerTextFromItem(item));
+                    } else if (['practicalWriting','pictureSequenceWriting','compareDescribe'].includes(block.type)) {
+                        if (d.modelAnswer) rows.push({ no: '', answer: d.modelAnswer });
+                    } else if (block.type === 'infoGapAB') {
+                        fromArray(d.rows, item => item.cells);
+                    } else if (block.type === 'exitTicket') {
+                        pushAnswer(rows, d.miniAnswer);
+                    } else if (block.type === 'wordGame') {
+                        String(d.words || '').split(/[\/／,，、\n]+/).map(s => s.trim()).filter(Boolean).forEach(a => pushAnswer(rows, a));
+                    } else if (block.type === 'correctMistakes') {
                         fromArray(d.items, item => {
                             const wrongWords = collectBracketAnswers(item.q || '');
                             const correctWord = answerTextFromItem(item, ['a','ans']);
@@ -8441,7 +9619,7 @@ const hasAnyImageInBlock = (block) => {
                     .map((block) => ({
                         id: block.id,
                         title: block.instruction || getSecName(block.type),
-                        answerMode: ['writingCard','altEnding'].includes(block.type) ? 'writing' : 'list',
+                        answerMode: ['writingCard','altEnding','practicalWriting','pictureSequenceWriting','compareDescribe'].includes(block.type) ? 'writing' : 'list',
                         rows: getPureAnswersForBlock(block)
                     }))
                     .filter(b => b.rows && b.rows.length);
@@ -8453,12 +9631,12 @@ const hasAnyImageInBlock = (block) => {
                 };
 
                 return {
-                    themes, isAnswerMode, answerOnlyMode, setPreviewMode, answerOnlyBlocks, questionTypes, questionTypeCategories, filteredQuestionTypes, typeSearch, activeTypeCategory, lastAddedTypeId, typePanelOpen, difficultyOptions, assessmentLabelOptions, globalData, blocks, addBlock, removeBlock, clearAllBlocks, clearBlockContent, moveBlock, fillPU2GuideIntro, resetTeacherGuideContent, generateGuideIntroItems, generateUnitEvidenceSections, moveSubItem, addItem, quickTags, insertTransformTag, applyUnderline, generateBulkItems, getBlockLineHeight, getBlankLineWidth, getWritingBankLineHeight, getWritingScaffoldLineHeight, getBulkGuide, getBulkPlaceholder,
-                    getSecName, getSecZhName, getSecBg, getSecColor, getOptColor, getCatColor, getBlockDifficulty, isBlockLabelOn, getQrSize, hasPracticeTip, splitEvidenceItems, splitEvidenceBilingual, hasItemImages, getIndexStr, getComicQIndex, parseCorrectMistake, parseWrongResponseDialogue, formatTeacherAppendix, formatWritingWordsBank, groupFlashcardRows, isFlashcardRowStarter, groupLiteratureCharacters,
-                    parsePipe, parseBasicBlank, parseBracketLines, replaceKw, pMc, pTransform, pOdd, parseWordForm, parseCircleWord, parseGrammarColor, parsePhonicsText, parseLitGrammarHighlight, getLitGrammarImgStyle, parsePhonicsTreeNodes, getPhonicsThemeColors, getPhonicsTokenStyle, splitPhonicsExamples, formatPhonicsExampleWord,
+                    themes, isAnswerMode, answerOnlyMode, setPreviewMode, answerOnlyBlocks, questionTypes, comprehensiveTypeIds, questionTypeCategories, filteredQuestionTypes, typeSearch, activeTypeCategory, lastAddedTypeId, typePanelOpen, difficultyOptions, assessmentLabelOptions, blockFontOptions, globalData, blocks, addBlock, removeBlock, clearAllBlocks, clearBlockContent, moveBlock, fillPU2GuideIntro, resetTeacherGuideContent, generateGuideIntroItems, generateUnitEvidenceSections, moveSubItem, addItem, addSuiteItem, quickTags, insertTransformTag, applyUnderline, generateBulkItems, getBlockLineHeight, getBlankLineWidth, getWritingBankLineHeight, getWritingScaffoldLineHeight, getBulkGuide, getBulkPlaceholder,
+                    getSecName, getSecZhName, getSecBg, getSecColor, getBlockFontStyle, getOptColor, getCatColor, getBlockDifficulty, isBlockLabelOn, getQrSize, hasPracticeTip, splitEvidenceItems, splitEvidenceBilingual, hasItemImages, getIndexStr, getComicQIndex, parseCorrectMistake, parseWrongResponseDialogue, formatTeacherAppendix, formatWritingWordsBank, groupFlashcardRows, isFlashcardRowStarter, groupLiteratureCharacters,
+                    parsePipe, parseBasicBlank, parseBracketLines, replaceKw, pMc, pTransform, pOdd, parseWordForm, parseCircleWord, parseGrammarColor, parsePhonicsText, formatPhonicsRuleNote, parseLitGrammarHighlight, getLitGrammarImgStyle, parsePhonicsTreeNodes, getPhonicsThemeColors, getPhonicsTokenStyle, splitPhonicsExamples, formatPhonicsExampleWord,
 getTeacherGuideSectionControls, setTeacherGuideSectionLineHeight, normalizeTeacherGuideSectionStyles,
 getParsedMissing, getShuffledMatch, getOptionLetter, getMatchAns, getMatchPairs, pClilPassageA, pClilPassageB, pClilChoice, getQrSize, getBlockQrs, getQrTitlePadding, parseSpeakingBlank, getParsedBranches, parseSpeakingPointRows, parseSpeakingLineRows, parseSpeakingLinePairs, getSpeakingTopics, ensureSpeakingTopics, getParsedSpeakingPoints, getParsedSpeakingLines, generateLiteratureGrammar, formatLookReadNumber2Text, formatPhonicsChoiceWord, getBlockImgStyle, getGrammarFocusImgStyle, getStackedIntroColor, getStackedIntroBorder, getStackedIntroGap, getStackedIntroCardStackGap, getStackedIntroImageBoxWidth, getStackedIntroCardSideGap, ensureStackedIntroCards, getStackedIntroCards, getFirstStackedIntroCard, addStackedIntroCard, removeStackedIntroCard, hasAnyImageInBlock, hasWordBankArea, getWordBankFlexStyle, getWordBankBoxStyle, formatWordBankText, getLRQuestionWidth, getLRAnswerWidth, getLRGap,
-                    compressAndUpload, compressFilesToDataUrls, handleStackedIntroUpload, moveStackedIntroImage, sendStackedIntroImageToFront, sendStackedIntroImageToBack, removeStackedIntroImage, handleLogoUpload, saveLocal, restoreLocal, exportToFile, triggerImport, triggerAppendImport, triggerBookletImport, appendFromFiles, importBookletFromFiles, importFromFile, printPdf, onDragStart, onDrop, onDragEnd, dragEnabledIndex
+                    compressAndUpload, uploadAudio, compressFilesToDataUrls, handleStackedIntroUpload, moveStackedIntroImage, sendStackedIntroImageToFront, sendStackedIntroImageToBack, removeStackedIntroImage, handleLogoUpload, splitSuiteLines, splitSuitePipe, parseSuiteCloze, getWordSearchGrid, getBingoCells, getWordGamePairs, saveLocal, restoreLocal, exportToFile, triggerImport, triggerAppendImport, triggerBookletImport, appendFromFiles, importBookletFromFiles, importFromFile, printPdf, onDragStart, onDrop, onDragEnd, dragEnabledIndex
                 };
             }
         }).mount('#app');

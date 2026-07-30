@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Worksheet_v14_118_综合能力全题型扩展版</title>
+    <title>Worksheet_v14_126_自然拼读A4紧凑排版版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -933,38 +933,38 @@
 .phonics-sentence-frame-list {
     display: flex;
     flex-direction: column;
-    gap: var(--phonics-sentence-gap, 12px);
+    gap: var(--phonics-sentence-gap, 6px);
 }
 .phonics-sentence-frame {
     display: grid;
-    grid-template-columns: 30px 104px minmax(0, 1fr);
-    gap: 14px;
+    grid-template-columns: 24px 76px minmax(0, 1fr);
+    gap: 10px;
     align-items: center;
-    min-height: 112px;
-    padding: 10px 14px 10px 10px;
+    min-height: 76px;
+    padding: 6px 10px 6px 8px;
     border: 1.5px solid #bae6fd;
-    border-radius: 16px;
+    border-radius: 13px;
     background: linear-gradient(100deg, #f0f9ff 0%, #ffffff 46%, #fdf4ff 100%);
     box-shadow: 0 2px 7px rgba(14, 116, 144, 0.08);
     break-inside: avoid;
     page-break-inside: avoid;
 }
 .phonics-sentence-frame-no {
-    width: 27px;
-    height: 27px;
+    width: 22px;
+    height: 22px;
     border-radius: 999px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: #fff;
     background: #0ea5e9;
-    font: 900 13px/1 'Nunito', sans-serif;
+    font: 900 11px/1 'Nunito', sans-serif;
 }
 .phonics-sentence-frame-img {
-    width: 104px;
-    height: 88px;
+    width: 76px;
+    height: 62px;
     border: 1.5px solid #dbeafe;
-    border-radius: 13px;
+    border-radius: 10px;
     background: #fff;
     display: flex;
     align-items: center;
@@ -979,62 +979,72 @@
 }
 .phonics-sentence-frame-placeholder {
     color: #cbd5e1;
-    font: 800 11px/1.2 'Nunito', sans-serif;
+    font: 800 9px/1.2 'Nunito', sans-serif;
 }
 .phonics-sentence-frame-copy {
-    min-height: 64px;
-    padding: 12px 16px;
+    min-height: 48px;
+    padding: 8px 12px;
     border: 1.5px solid #e2e8f0;
-    border-radius: 13px;
+    border-radius: 10px;
     background: rgba(255, 255, 255, 0.94);
     color: #1e293b;
-    font-size: 21px;
+    font-size: 19px;
     font-weight: 700;
-    line-height: var(--phonics-sentence-line-height, 1.42);
+    line-height: var(--phonics-sentence-line-height, 1.3);
     display: flex;
     align-items: center;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
 }
 @media print {
-    .phonics-sentence-frame-list { gap: var(--phonics-sentence-gap, 10px) !important; }
+    .phonics-sentence-frame-list { gap: var(--phonics-sentence-gap, 6px) !important; }
     .phonics-sentence-frame {
-        min-height: 104px !important;
-        padding-top: 8px !important;
-        padding-bottom: 8px !important;
+        min-height: 72px !important;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
         box-shadow: none !important;
     }
-    .phonics-sentence-frame-img { height: 82px !important; }
-    .phonics-sentence-frame-copy { font-size: 20px !important; }
+    .phonics-sentence-frame-img { height: 58px !important; }
+    .phonics-sentence-frame-copy { min-height: 44px !important; padding: 6px 10px !important; font-size: 18px !important; }
 }
 
 /* v14.116 每题块独立字体：覆盖题块内原有 font-sans / hengshui-font */
 .ws-block-font-scope,
 .ws-block-font-scope * {
-    font-family: var(--ws-block-font-family, 'Hengshui', 'Comic Neue', 'Comic Sans MS', sans-serif) !important;
+    font-family: var(--ws-block-font-family, 'Comic Neue', 'Comic Sans MS', cursive) !important;
+}
+/* 大题标题区永久使用统一字体，不跟随本地字体或任何题块字体选项变化。 */
+.ws-block-font-scope > .ws-block-title,
+.ws-block-font-scope > .ws-block-title *,
+.ws-block-font-scope > .ws-block-subtitle,
+.ws-block-font-scope > .ws-practice-tip,
+.ws-block-font-scope > .ws-practice-tip * {
+    font-family: 'Comic Neue', 'Comic Sans MS', 'Microsoft YaHei', sans-serif !important;
+    font-style: normal !important;
+    letter-spacing: normal !important;
 }
 
 /* v14.116 自然拼读词族图片表 + Magic e 规则说明 */
 .phonics-family-board {
     border: 1.5px solid #a7d96b;
     border-radius: 18px;
-    padding: 12px 14px 14px;
+    padding: 10px 12px 11px;
     background: #fff;
     box-shadow: 0 3px 9px rgba(84, 166, 42, 0.10);
     break-inside: avoid;
     page-break-inside: avoid;
 }
 .phonics-family-header {
-    min-height: 48px;
-    margin-bottom: 12px;
-    padding: 8px 18px;
+    min-height: 42px;
+    margin-bottom: 8px;
+    padding: 6px 16px;
     border-radius: 12px;
     color: #15370d;
     background: linear-gradient(90deg, #91d04c, #65bd36);
     box-shadow: 0 3px 6px rgba(59, 130, 30, 0.24);
     display: flex;
     align-items: center;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 800;
     line-height: 1.25;
 }
@@ -1043,11 +1053,11 @@
     grid-template-columns: 112px minmax(0, 1fr);
     gap: 14px;
     align-items: center;
-    padding: 7px 0;
+    padding: 4px 0;
 }
 .phonics-family-label {
-    min-height: 54px;
-    padding: 7px 10px;
+    min-height: 46px;
+    padding: 6px 9px;
     border-radius: 11px;
     color: #fff;
     background: linear-gradient(135deg, #83cb43, #5fb82f);
@@ -1056,7 +1066,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
     line-height: 1.2;
 }
@@ -1072,7 +1082,7 @@
     page-break-inside: avoid;
 }
 .phonics-family-picture {
-    height: 68px;
+    height: 54px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1080,27 +1090,27 @@
 }
 .phonics-family-picture img {
     max-width: 100%;
-    max-height: 68px;
+    max-height: 54px;
     object-fit: contain;
     display: block;
 }
 .phonics-family-picture-placeholder {
-    width: 58px;
-    height: 52px;
-    border-radius: 14px;
+    width: 52px;
+    height: 44px;
+    border-radius: 12px;
     color: #a3c991;
     background: #f3faef;
     border: 1px dashed #8fca6b;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 900;
 }
 .phonics-family-word {
-    min-height: 37px;
-    margin-top: 3px;
-    padding: 4px 2px;
+    min-height: 31px;
+    margin-top: 2px;
+    padding: 3px 2px;
     border: 1.5px dashed #65bd36;
     border-radius: 9px;
     color: #ef4444;
@@ -1108,7 +1118,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 800;
     line-height: 1.1;
     white-space: nowrap;
@@ -1116,33 +1126,33 @@
     overflow-wrap: normal;
 }
 .phonics-rule-note {
-    padding: 10px 14px;
+    padding: 8px 12px;
     border: 1.5px solid #7fbe43;
     border-left-color: #f3b241;
     border-radius: 16px;
     color: #334155;
     background: linear-gradient(90deg, #fffdf6, #fbfff8);
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 650;
-    line-height: 1.65;
+    line-height: 1.5;
     break-inside: avoid;
     page-break-inside: avoid;
 }
 .phonics-sentence-section-title {
-    margin: 2px 0 8px 4px;
+    margin: 0 0 4px 4px;
     color: #0ea5e9;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 900;
 }
 @media print {
-    .phonics-family-board { padding: 10px 12px 12px !important; box-shadow: none !important; }
-    .phonics-family-header { min-height: 44px !important; margin-bottom: 9px !important; font-size: 20px !important; box-shadow: none !important; }
-    .phonics-family-row { padding: 5px 0 !important; }
-    .phonics-family-label { min-height: 50px !important; box-shadow: none !important; }
-    .phonics-family-picture { height: 62px !important; }
-    .phonics-family-picture img { max-height: 62px !important; }
-    .phonics-family-word { min-height: 34px !important; font-size: 17px !important; }
-    .phonics-rule-note { padding: 8px 12px !important; font-size: 14px !important; }
+    .phonics-family-board { padding: 8px 10px 9px !important; box-shadow: none !important; }
+    .phonics-family-header { min-height: 38px !important; margin-bottom: 6px !important; font-size: 19px !important; box-shadow: none !important; }
+    .phonics-family-row { padding: 3px 0 !important; }
+    .phonics-family-label { min-height: 42px !important; font-size: 17px !important; box-shadow: none !important; }
+    .phonics-family-picture { height: 50px !important; }
+    .phonics-family-picture img { max-height: 50px !important; }
+    .phonics-family-word { min-height: 29px !important; font-size: 16px !important; }
+    .phonics-rule-note { padding: 7px 10px !important; font-size: 13px !important; line-height: 1.42 !important; }
 }
 
 /* v14.118 综合能力扩展题型 */
@@ -1549,7 +1559,21 @@
         <select v-model="block.fontKey" :data-testid="'block-font-select-' + bIdx" class="min-w-40 rounded border border-emerald-200 bg-white px-2 py-1 text-xs font-bold text-slate-700 outline-none focus:border-emerald-400">
             <option v-for="font in blockFontOptions" :key="font.value" :value="font.value">{{ font.label }}</option>
         </select>
-        <span class="text-[10px] text-slate-500">仅影响当前题块的预览和打印；其他题块可以选择不同字体。</span>
+        <label class="relative inline-flex cursor-pointer items-center rounded bg-emerald-600 px-2.5 py-1 text-xs font-bold text-white shadow-sm hover:bg-emerald-700">
+            <input type="file" class="absolute inset-0 h-full w-full cursor-pointer opacity-0" accept=".ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2" @change="uploadBlockFont($event, block)">
+            选择本地字体文件
+        </label>
+        <span v-if="block.customFontName" class="max-w-48 truncate rounded bg-white px-2 py-1 text-[10px] font-bold text-emerald-700" :title="block.customFontName">
+            已载入：{{ block.customFontName }}
+        </span>
+        <button v-if="block.customFontData" type="button" @click="clearBlockCustomFont(block)" class="rounded border border-rose-200 bg-white px-2 py-1 text-[10px] font-bold text-rose-500 hover:bg-rose-50">
+            删除本地字体
+        </button>
+        <label v-if="block.customFontData" class="inline-flex cursor-pointer items-center gap-1.5 rounded border border-emerald-200 bg-white px-2 py-1 text-[10px] font-bold text-emerald-700">
+            <input type="checkbox" v-model="block.customFontSafeSymbols" class="h-3.5 w-3.5 rounded text-emerald-600 focus:ring-0">
+            / - 使用默认 Comic Neue
+        </label>
+        <span class="text-[10px] text-slate-500">支持 TTF / OTF / WOFF / WOFF2；仅修改当前题块的练习内容，不修改大题标题或其他题块。</span>
     </div>
 
     <div class="ml-[5.5rem] mt-1 bg-violet-50 border border-violet-100 rounded px-2 py-1 w-[calc(100%-5.5rem)] max-w-full overflow-hidden">
@@ -4296,8 +4320,9 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
     <template v-for="(block, bIdx) in blocks" :key="block.id">
         <div
             class="worksheet-block-lineheight ws-block-font-scope relative"
+            :class="{ 'ws-custom-local-font': block.fontKey === 'custom' }"
             :style="[
-                block.keepTitleWithContent ? {'break-inside': 'avoid', 'page-break-inside': 'avoid'} : {},
+                (block.keepTitleWithContent || block.type === 'phonicsSentenceWrite') ? {'break-inside': 'avoid', 'page-break-inside': 'avoid'} : {},
                 {'--block-line-height': getBlockLineHeight(block), '--blank-line-width': getBlankLineWidth(block) + 'px'},
                 getBlockFontStyle(block)
             ]"
@@ -4312,12 +4337,12 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                 </div>
             </div>
                                             
-                                            <h3 v-if="!['literature', 'phonicsFocus', 'tipBox', 'unitEvidence'].includes(block.type)" class="text-[20px] font-bold flex flex-wrap items-center gap-y-1 font-sans text-slate-800" :class="(block.subInstruction || hasPracticeTip(block)) ? 'mb-1.5' : 'mb-5'" :style="block.showQr ? { paddingRight: getQrTitlePadding(block) + 'px' } : {}">
+                                            <h3 v-if="!['literature', 'phonicsFocus', 'tipBox', 'unitEvidence'].includes(block.type)" class="ws-block-title text-[20px] font-bold flex flex-wrap items-center gap-y-1 font-sans text-slate-800" :class="(block.subInstruction || hasPracticeTip(block)) ? 'mb-1.5' : 'mb-5'" :style="block.showQr ? { paddingRight: getQrTitlePadding(block) + 'px' } : {}">
                                                 <span class="w-1.5 h-5 mr-3 block rounded-sm shadow-sm" :class="getSecBg(block.type)"></span><span class="mr-2">{{ block.instruction || getSecName(block.type) }}</span><span v-if="block.showPoints" class="mr-2 font-black text-slate-800">({{ block.points || '___' }} points)</span>
                                                 <span v-if="block.showDifficulty !== false" class="ws-meta-star mr-1">{{ getBlockDifficulty(block) }}</span>
                                                 <template v-for="tag in assessmentLabelOptions" :key="'preview-tag-'+block.id+'-'+tag.key"><span v-if="isBlockLabelOn(block, tag.key)" class="ws-meta-tag mr-1" :class="tag.cls">{{ tag.label }}</span></template>
                                             </h3>
-                                            <div v-if="block.type !== 'literature' && block.subInstruction" class="text-[16px] text-slate-500 mb-2 font-sans leading-snug break-words ml-4">{{ block.subInstruction }}</div>
+                                            <div v-if="block.type !== 'literature' && block.subInstruction" class="ws-block-subtitle text-[16px] text-slate-500 mb-2 font-sans leading-snug break-words ml-4">{{ block.subInstruction }}</div>
                                             <div v-if="hasPracticeTip(block)" class="ws-practice-tip"><span class="ws-practice-tip-icon">💡</span><span class="ws-practice-tip-label">Practice Tip:</span><span class="ws-practice-tip-text">{{ block.practiceTipText }}</span></div>
 
                                             <div v-if="block.data.keywords && ((['chooseComplete', 'storyRetell'].includes(block.type) && !block.data.hideWordBank) || (block.type === 'listenFill' && block.data.showKeywordBank))" class="border-[1.5px] border-yellow-300 bg-yellow-50 px-8 rounded-2xl mb-6 text-[18px] font-bold mx-auto text-yellow-900 shadow-sm flex flex-wrap justify-center" :style="{...getWordBankBoxStyle(block), ...getWordBankFlexStyle(block, 32)}" v-html="formatWordBankText(block.data.keywords)"></div>
@@ -4901,7 +4926,7 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                                 </div>
                                             </div>
 
-                                            <div v-else-if="block.type === 'phonicsSentenceWrite'" class="space-y-4 pl-2">
+                                            <div v-else-if="block.type === 'phonicsSentenceWrite'" class="space-y-2 pl-2">
                                                 <div v-if="block.data.showWordFamilies !== false" class="phonics-family-board">
                                                     <div class="phonics-family-header">{{ block.data.phonicsTitle || 'Phonics Word Families' }}</div>
                                                     <div v-for="(family, fIdx) in block.data.wordFamilies" :key="'family-preview-'+fIdx" class="phonics-family-row">
@@ -4920,8 +4945,8 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
 
                                                 <div class="phonics-sentence-section-title">Sentence Frames</div>
                                                 <div class="phonics-sentence-frame-list" :style="{
-                                                    '--phonics-sentence-gap': Number(block.data.sentenceFrameGap ?? 12) + 'px',
-                                                    '--phonics-sentence-line-height': Number(block.data.sentenceFrameTextLineHeight ?? 1.42)
+                                                    '--phonics-sentence-gap': Number(block.data.sentenceFrameGap ?? 6) + 'px',
+                                                    '--phonics-sentence-line-height': Number(block.data.sentenceFrameTextLineHeight ?? 1.3)
                                                 }">
                                                     <div v-for="(item, idx) in block.data.items" :key="idx" class="phonics-sentence-frame">
                                                         <span class="phonics-sentence-frame-no">{{ idx + 1 }}</span>
@@ -6050,8 +6075,10 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                     { key: 'teacherFocus', label: 'Teacher Focus', cls: 'ws-tag-teacher' }
                 ];
                 const blockFontOptions = [
-                    { value: 'hengshui', label: '默认手写体 / Hengshui', stack: "'Hengshui', 'Comic Neue', 'Comic Sans MS', sans-serif" },
-                    { value: 'comic', label: 'Comic Neue', stack: "'Comic Neue', 'Comic Sans MS', cursive" },
+                    { value: 'comic', label: '默认字体 / Comic Neue', stack: "'Comic Neue', 'Comic Sans MS', cursive" },
+                    { value: 'hengshui', label: '衡水手写体 / Hengshui', stack: "'Hengshui', 'Comic Neue', 'Comic Sans MS', sans-serif" },
+                    { value: 'shuyaoItalic', label: '舒窈意大利斜体 / Shuyao Italic', stack: "'shuyaoyidalixieti', '舒窈意大利斜体', 'Shuyao Italic', cursive" },
+                    { value: 'custom', label: '已选择的本地字体文件', stack: "'Comic Neue', 'Comic Sans MS', cursive" },
                     { value: 'nunito', label: 'Nunito', stack: "'Nunito', Arial, sans-serif" },
                     { value: 'arial', label: 'Arial', stack: "Arial, 'Microsoft YaHei', sans-serif" },
                     { value: 'georgia', label: 'Georgia', stack: "Georgia, 'Times New Roman', serif" },
@@ -6212,7 +6239,7 @@ const TEACHER_GUIDE_CONTENT_DEFAULT_PAGES = ["\n<div class=\"tg-title\">《教�
                    const base = { 
     id: 'B_' + Date.now() + Math.random().toString(36).substr(2, 5), 
     type, 
-    fontKey: 'hengshui',
+    fontKey: 'comic',
     instruction: defaultInstructions[type] || type, 
     subInstruction: '', 
     bulkInput: '', 
@@ -6415,8 +6442,9 @@ const TEACHER_GUIDE_CONTENT_DEFAULT_PAGES = ["\n<div class=\"tg-title\">《教�
                         ],
                         showRuleNote: true,
                         ruleNote: '当一个单词或音节里只有一个元音时，该元音发短音；而当这个单词或音节后面加上字母 e，刚才的元音就发长音了。字母 e 只起到让前面的元音发长音的作用，自己不发音。我们管字母 e 叫做 #magic e#。*a* 在这里的长音发音为 */ei/*。单词结尾有小 e，前面元音发长音。',
-                        sentenceFrameGap: 12,
-                        sentenceFrameTextLineHeight: 1.42,
+                        sentenceFrameLayoutVersion: 2,
+                        sentenceFrameGap: 6,
+                        sentenceFrameTextLineHeight: 1.3,
                         items: [
                             { img: '', sentence: 'I have got a tape.' },
                             { img: '', sentence: 'The man has got a cape.' },
@@ -6667,7 +6695,11 @@ else if (type === 'tChart') { data = { titleMain: 'Topic Name', showMainTitle: t
                     const allowed = new Set(difficultyOptions.map(o => o.value));
                     if (!allowed.has(block.difficultyLevel)) block.difficultyLevel = '★';
                     const allowedFontKeys = new Set(blockFontOptions.map(o => o.value));
-                    if (!allowedFontKeys.has(block.fontKey)) block.fontKey = 'hengshui';
+                    if (!allowedFontKeys.has(block.fontKey)) block.fontKey = 'comic';
+                    if (typeof block.customFontData !== 'string') block.customFontData = '';
+                    if (typeof block.customFontName !== 'string') block.customFontName = '';
+                    if (typeof block.customFontSafeSymbols !== 'boolean') block.customFontSafeSymbols = true;
+                    if (block.fontKey === 'custom' && !block.customFontData) block.fontKey = 'comic';
                     if (typeof block.showDifficulty !== 'boolean') block.showDifficulty = true;
                     block.editorCollapsed = !!block.editorCollapsed;
                     block.practiceTipEnabled = !!block.practiceTipEnabled;
@@ -7744,9 +7776,72 @@ if (block.type === 'wordList') {
                 const getSecZhName = (id) => questionTypes.find(q=>q.id===id)?.zhName || id;
                 const getSecBg = (id) => questionTypes.find(q=>q.id===id)?.bg || 'bg-slate-500';
                 const getSecColor = (id) => questionTypes.find(q=>q.id===id)?.color || 'text-slate-600';
+                const getBlockCustomFontFamily = (block) => `WSLocalFont_${String(block?.id || 'block').replace(/[^a-zA-Z0-9_-]/g, '_')}`;
+                const getBlockCustomFontStyleId = (block) => `ws-local-font-${String(block?.id || 'block').replace(/[^a-zA-Z0-9_-]/g, '_')}`;
+                const registerBlockCustomFont = (block) => {
+                    if (!block?.customFontData) return '';
+                    const family = getBlockCustomFontFamily(block);
+                    const styleId = getBlockCustomFontStyleId(block);
+                    const safeSymbols = block.customFontSafeSymbols !== false;
+                    const signature = `${safeSymbols ? 'slash-hyphen-fallback' : 'all-glyphs'}:${block.customFontData.length}:${block.customFontData.slice(-32)}`;
+                    let style = document.getElementById(styleId);
+                    if (style?.dataset?.fontSignature === signature) return family;
+                    if (!style) {
+                        style = document.createElement('style');
+                        style.id = styleId;
+                        document.head.appendChild(style);
+                    }
+                    style.dataset.fontSignature = signature;
+                    const unicodeRange = safeSymbols
+                        ? 'unicode-range: U+0000-002C, U+002E, U+0030-10FFFF;'
+                        : '';
+                    style.textContent = `@font-face { font-family: "${family}"; src: url("${block.customFontData}"); font-style: normal; font-weight: 100 900; font-display: swap; ${unicodeRange} }`;
+                    return family;
+                };
                 const getBlockFontStyle = (block) => {
+                    if (block?.fontKey === 'custom' && block.customFontData) {
+                        const family = registerBlockCustomFont(block);
+                        return { '--ws-block-font-family': `"${family}", 'Comic Neue', 'Comic Sans MS', Arial, 'Microsoft YaHei', 'PingFang SC', sans-serif` };
+                    }
                     const selected = blockFontOptions.find(font => font.value === block?.fontKey) || blockFontOptions[0];
                     return { '--ws-block-font-family': selected.stack };
+                };
+                const uploadBlockFont = (e, block) => {
+                    const file = e?.target?.files?.[0];
+                    if (!file || !block) return;
+                    const validExtension = /\.(ttf|otf|woff|woff2)$/i.test(file.name || '');
+                    const validMime = /^font\//i.test(file.type || '') || /font|woff|opentype|truetype/i.test(file.type || '');
+                    if (!validExtension && !validMime) {
+                        alert('请选择 TTF、OTF、WOFF 或 WOFF2 字体文件。');
+                        e.target.value = '';
+                        return;
+                    }
+                    if (file.size > 12 * 1024 * 1024) {
+                        alert('字体文件请控制在 12MB 以内。');
+                        e.target.value = '';
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        block.customFontData = String(ev.target?.result || '');
+                        block.customFontName = file.name || 'Local font';
+                        block.customFontSafeSymbols = true;
+                        block.fontKey = 'custom';
+                        registerBlockCustomFont(block);
+                        e.target.value = '';
+                    };
+                    reader.onerror = () => {
+                        alert('字体文件读取失败，请重新选择。');
+                        e.target.value = '';
+                    };
+                    reader.readAsDataURL(file);
+                };
+                const clearBlockCustomFont = (block) => {
+                    const style = document.getElementById(getBlockCustomFontStyleId(block));
+                    if (style) style.remove();
+                    block.customFontData = '';
+                    block.customFontName = '';
+                    block.fontKey = 'comic';
                 };
                 const getOptColor = (idx) => ['text-blue-400', 'text-teal-400', 'text-amber-500', 'text-indigo-400', 'text-rose-400'][idx % 5];
                 const getCatColor = (idx) => [{ border: 'border-blue-300', bg: 'bg-blue-50', text: 'text-blue-800' }, { border: 'border-emerald-300', bg: 'bg-emerald-50', text: 'text-emerald-800' }, { border: 'border-amber-300', bg: 'bg-amber-50', text: 'text-amber-800' }, { border: 'border-purple-300', bg: 'bg-purple-50', text: 'text-purple-800' }][idx % 4];
@@ -8704,10 +8799,14 @@ const getMatchPairs = (block) => {
                                 }));
                                 block.data.showRuleNote = block.data.showRuleNote !== false;
                                 block.data.ruleNote = String(block.data.ruleNote || '当一个单词或音节后面加上字母 e，前面的元音通常发长音；字母 e 自己不发音。我们管字母 e 叫做 #magic e#。*a* 在这里的长音发音为 */ei/*。');
+                                const isLegacySentenceLayout = Number(block.data.sentenceFrameLayoutVersion || 0) < 2;
                                 const importedSentenceGap = Number(block.data.sentenceFrameGap);
-                                block.data.sentenceFrameGap = Number.isFinite(importedSentenceGap) ? Math.min(40, Math.max(0, importedSentenceGap)) : 12;
+                                const normalizedSentenceGap = Number.isFinite(importedSentenceGap) ? Math.min(40, Math.max(0, importedSentenceGap)) : 6;
+                                block.data.sentenceFrameGap = isLegacySentenceLayout && Math.abs(normalizedSentenceGap - 12) < 0.001 ? 6 : normalizedSentenceGap;
                                 const importedSentenceLineHeight = Number(block.data.sentenceFrameTextLineHeight);
-                                block.data.sentenceFrameTextLineHeight = Number.isFinite(importedSentenceLineHeight) ? Math.min(3, Math.max(1, importedSentenceLineHeight)) : 1.42;
+                                const normalizedSentenceLineHeight = Number.isFinite(importedSentenceLineHeight) ? Math.min(3, Math.max(1, importedSentenceLineHeight)) : 1.3;
+                                block.data.sentenceFrameTextLineHeight = isLegacySentenceLayout && Math.abs(normalizedSentenceLineHeight - 1.42) < 0.001 ? 1.3 : normalizedSentenceLineHeight;
+                                block.data.sentenceFrameLayoutVersion = 2;
                                 const importedItems = Array.isArray(block.data.items) ? block.data.items : [];
                                 block.data.items = (importedItems.length ? importedItems : sentenceDefaults.map(sentence => ({ img: '', sentence }))).map((item, idx) => ({
                                     img: item?.img || item?.imgUrl || item?.image || '',
@@ -9632,7 +9731,7 @@ const hasAnyImageInBlock = (block) => {
 
                 return {
                     themes, isAnswerMode, answerOnlyMode, setPreviewMode, answerOnlyBlocks, questionTypes, comprehensiveTypeIds, questionTypeCategories, filteredQuestionTypes, typeSearch, activeTypeCategory, lastAddedTypeId, typePanelOpen, difficultyOptions, assessmentLabelOptions, blockFontOptions, globalData, blocks, addBlock, removeBlock, clearAllBlocks, clearBlockContent, moveBlock, fillPU2GuideIntro, resetTeacherGuideContent, generateGuideIntroItems, generateUnitEvidenceSections, moveSubItem, addItem, addSuiteItem, quickTags, insertTransformTag, applyUnderline, generateBulkItems, getBlockLineHeight, getBlankLineWidth, getWritingBankLineHeight, getWritingScaffoldLineHeight, getBulkGuide, getBulkPlaceholder,
-                    getSecName, getSecZhName, getSecBg, getSecColor, getBlockFontStyle, getOptColor, getCatColor, getBlockDifficulty, isBlockLabelOn, getQrSize, hasPracticeTip, splitEvidenceItems, splitEvidenceBilingual, hasItemImages, getIndexStr, getComicQIndex, parseCorrectMistake, parseWrongResponseDialogue, formatTeacherAppendix, formatWritingWordsBank, groupFlashcardRows, isFlashcardRowStarter, groupLiteratureCharacters,
+                    getSecName, getSecZhName, getSecBg, getSecColor, getBlockFontStyle, uploadBlockFont, clearBlockCustomFont, getOptColor, getCatColor, getBlockDifficulty, isBlockLabelOn, getQrSize, hasPracticeTip, splitEvidenceItems, splitEvidenceBilingual, hasItemImages, getIndexStr, getComicQIndex, parseCorrectMistake, parseWrongResponseDialogue, formatTeacherAppendix, formatWritingWordsBank, groupFlashcardRows, isFlashcardRowStarter, groupLiteratureCharacters,
                     parsePipe, parseBasicBlank, parseBracketLines, replaceKw, pMc, pTransform, pOdd, parseWordForm, parseCircleWord, parseGrammarColor, parsePhonicsText, formatPhonicsRuleNote, parseLitGrammarHighlight, getLitGrammarImgStyle, parsePhonicsTreeNodes, getPhonicsThemeColors, getPhonicsTokenStyle, splitPhonicsExamples, formatPhonicsExampleWord,
 getTeacherGuideSectionControls, setTeacherGuideSectionLineHeight, normalizeTeacherGuideSectionStyles,
 getParsedMissing, getShuffledMatch, getOptionLetter, getMatchAns, getMatchPairs, pClilPassageA, pClilPassageB, pClilChoice, getQrSize, getBlockQrs, getQrTitlePadding, parseSpeakingBlank, getParsedBranches, parseSpeakingPointRows, parseSpeakingLineRows, parseSpeakingLinePairs, getSpeakingTopics, ensureSpeakingTopics, getParsedSpeakingPoints, getParsedSpeakingLines, generateLiteratureGrammar, formatLookReadNumber2Text, formatPhonicsChoiceWord, getBlockImgStyle, getGrammarFocusImgStyle, getStackedIntroColor, getStackedIntroBorder, getStackedIntroGap, getStackedIntroCardStackGap, getStackedIntroImageBoxWidth, getStackedIntroCardSideGap, ensureStackedIntroCards, getStackedIntroCards, getFirstStackedIntroCard, addStackedIntroCard, removeStackedIntroCard, hasAnyImageInBlock, hasWordBankArea, getWordBankFlexStyle, getWordBankBoxStyle, formatWordBankText, getLRQuestionWidth, getLRAnswerWidth, getLRGap,

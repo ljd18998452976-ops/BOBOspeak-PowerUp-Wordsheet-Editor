@@ -1768,6 +1768,162 @@
         .tg-content-only .kb-write-line { min-height:28px; border-bottom:1.4px solid #64748b; margin:0 4px 8px; }
     
     </style>
+<style id="ws-editor-dark-ui">
+/* Screen-only application chrome. Worksheet content and print styles are isolated. */
+@media screen {
+    body, #app {
+        background-color: #181818 !important;
+        background-image: none !important;
+    }
+    #app > .preview-panel {
+        background-color: #262626 !important;
+        background-image: none !important;
+        scrollbar-color: #888888 #262626;
+    }
+    #app > .editor-panel {
+        color-scheme: dark;
+        scrollbar-color: #777777 #181818;
+        border-color: #484848 !important;
+    }
+    #app > .editor-panel,
+    #app > .editor-panel :where(div, section, header, footer, form, fieldset, label, p, span,
+        h1, h2, h3, h4, h5, h6, summary, details, table, thead, tbody, tfoot, tr, td, th,
+        ul, ol, li, a, button, input, textarea, select, option, pre, code):not(.ws-editor-theme-swatch) {
+        background-color: #181818 !important;
+        background-image: none !important;
+        color: #a3a3a3 !important;
+        border-color: #484848 !important;
+        box-shadow: none !important;
+        --tw-ring-color: #cccccc;
+        --tw-ring-offset-color: #181818;
+    }
+    #app > .editor-panel :is(input, textarea, select, option, button):not(.ws-editor-theme-swatch),
+    #app > .editor-panel [contenteditable="true"] {
+        background-color: #212121 !important;
+    }
+    #app > .editor-panel input,
+    #app > .editor-panel textarea,
+    #app > .editor-panel [contenteditable="true"] {
+        caret-color: #bbbbbb;
+    }
+    #app > .editor-panel ::placeholder {
+        color: #888888 !important;
+        opacity: 1;
+    }
+    #app > .editor-panel :is(input, select, textarea, button, summary, [contenteditable="true"]):focus-visible {
+        outline: 2px solid #cccccc !important;
+        outline-offset: 2px;
+    }
+    #app > .editor-panel :is(button, summary, label):hover:not(.ws-editor-theme-swatch) {
+        border-color: #999999 !important;
+        color: #bbbbbb !important;
+    }
+    #app > .editor-panel :is(input, textarea, select, button):disabled {
+        color: #737373 !important;
+        border-color: #444444 !important;
+    }
+    #app > .editor-panel input:is([type="checkbox"], [type="radio"], [type="range"]) {
+        accent-color: #cccccc !important;
+    }
+    #app > .editor-panel .mode-tab-btn:is(.active-student, .active-teacher, .active-answer) {
+        border-color: #bbbbbb !important;
+        box-shadow: inset 0 -2px 0 #bbbbbb !important;
+    }
+    #app > .editor-panel button[class~="bg-blue-500"][class~="border-blue-400"]:not(.ws-editor-theme-swatch) {
+        border-color: #aaaaaa !important;
+        box-shadow: inset 0 -1px 0 #aaaaaa !important;
+    }
+    #app > .editor-panel .toggle-checkbox:checked + .toggle-label {
+        border: 1px solid #bbbbbb;
+    }
+    #app > .editor-panel ::selection {
+        background-color: #cccccc;
+        color: #181818;
+    }
+    #app > .editor-panel ::-webkit-scrollbar-track {
+        background-color: #181818;
+    }
+    #app > .preview-panel::-webkit-scrollbar-track {
+        background-color: #262626;
+    }
+    #app > .editor-panel ::-webkit-scrollbar-thumb,
+    #app > .editor-panel::-webkit-scrollbar-thumb,
+    #app > .preview-panel::-webkit-scrollbar-thumb {
+        background-color: #777777;
+    }
+    /* Muted semantic accents, confined to the editor's per-question setting rows. */
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="bg-blue-50"] { --setting-accent: #87acd1; }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="bg-cyan-50"] { --setting-accent: #82b8bf; }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="bg-slate-50"] { --setting-accent: #a2abb8; }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="bg-amber-50"] { --setting-accent: #c8ad77; }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="bg-orange-50"] { --setting-accent: #ce9d7d; }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="bg-rose-50"] { --setting-accent: #c694ab; }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="bg-indigo-50"] { --setting-accent: #a39bcf; }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="bg-emerald-50"] { --setting-accent: #8bb89d; }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="bg-teal-50"] { --setting-accent: #81b9ae; }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="bg-violet-50"] { --setting-accent: #b19bce; }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="bg-sky-50"] { --setting-accent: #85b3ce; }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="bg-yellow-50"] { --setting-accent: #c2b77e; }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="border"][class*="-50"] {
+        border-color: color-mix(in srgb, var(--setting-accent, #a3a3a3) 35%, #181818) !important;
+        border-left: 3px solid var(--setting-accent, #a3a3a3) !important;
+    }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="border"][class*="-50"]:is(label),
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="border"][class*="-50"] :is(label, span, summary):is(.font-bold, .font-black) {
+        color: var(--setting-accent, #a3a3a3) !important;
+    }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="border"][class*="-50"] input:is([type="range"], [type="checkbox"], [type="radio"]) {
+        accent-color: var(--setting-accent, #a3a3a3) !important;
+    }
+    #app > .editor-panel [class~="ml-[5.5rem]"][class~="border"][class*="-50"] :is(input, select, textarea, button, summary):focus-visible {
+        outline-color: var(--setting-accent, #cccccc) !important;
+    }
+    /* The colour swatches represent the paper's theme, not the application background. */
+    #app > .editor-panel .ws-editor-theme-swatch {
+        border-color: #888888;
+    }
+    #app > .editor-panel .ws-editor-theme-swatch[class~="border-white"] {
+        border-color: #cccccc;
+    }
+    #app > .preview-panel > .a4-paper {
+        color-scheme: only light;
+    }
+}
+</style>
+<style id="ws-paper-screen-theme">
+/* Screen-only reading colours. Chromatic labels, speaker names and images stay original. */
+@media screen {
+    #app > .preview-panel > .a4-paper {
+        --ws-paper-surface: #303030;
+        --ws-reader-ink: #c5c5c5;
+        --ws-reader-muted: #aaaaaa;
+        --ws-reader-line: #aaaaaa;
+        color: var(--ws-reader-ink) !important;
+    }
+    #app > .preview-panel > .a4-paper > .main-print-table > :is(thead, tbody, tfoot) > tr > :is(.print-header-wrap, .print-content-wrap, .print-footer-wrap) {
+        background-color: var(--ws-paper-surface, white) !important;
+    }
+    /* Only neutral text classes: do not target all spans, names, or inline colours. */
+    #app > .preview-panel > .a4-paper :is(.text-slate-600, .text-slate-700, .text-slate-800, .text-slate-900,
+        .text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900, .text-black):not([style*="color"]):not(.text-transparent) {
+        color: var(--ws-reader-ink) !important;
+    }
+    #app > .preview-panel > .a4-paper :is(.text-slate-400, .text-slate-500, .text-gray-400, .text-gray-500):not([style*="color"]):not(.text-transparent) {
+        color: var(--ws-reader-muted) !important;
+    }
+    #app > .preview-panel > .a4-paper :is(.ws-blank-line, .ws-answer-line) {
+        border-color: var(--ws-reader-line) !important;
+    }
+    /* Keep neutral text dark inside existing light-coloured cards, not paper cells. */
+    #app > .preview-panel > .a4-paper :is(.bg-white, .bg-slate-50, .bg-slate-100, .bg-gray-50,
+        .bg-blue-50, .bg-cyan-50, .bg-emerald-50, .bg-green-50, .bg-teal-50, .bg-sky-50,
+        .bg-rose-50, .bg-orange-50, .bg-amber-50, .bg-yellow-50, .bg-purple-50, .bg-violet-50, .bg-indigo-50):not(.print-header-wrap):not(.print-content-wrap):not(.print-footer-wrap) {
+        --ws-reader-ink: #1f2937;
+        --ws-reader-muted: #64748b;
+        --ws-reader-line: #334155;
+    }
+}
+</style>
 </head>
 <body class="bg-slate-50 text-slate-800 h-screen overflow-hidden font-sans">
     <div id="app" class="flex h-full w-full">
@@ -1824,7 +1980,7 @@
                         <input v-model="globalData.subTitle" type="text" placeholder="右上角大副标题" class="w-full bg-slate-700 border border-slate-600 rounded px-3 py-1.5 text-sm outline-none focus:border-blue-400">
                         <div class="flex gap-2 items-center mt-1 px-1">
                             <span class="text-xs font-bold text-slate-400">主题色:</span>
-                            <button v-for="(val, key) in themes" :key="key" @click="globalData.theme = key" class="w-5 h-5 rounded-full border-2 transition-transform hover:scale-110" :class="[val.btn, globalData.theme === key ? 'border-white shadow-[0_0_0_2px_currentColor]' : 'border-transparent']" :style="`color: ${val.border2}`"></button>
+                            <button v-for="(val, key) in themes" :key="key" @click="globalData.theme = key" class="ws-editor-theme-swatch w-5 h-5 rounded-full border-2 transition-transform hover:scale-110" :class="[val.btn, globalData.theme === key ? 'border-white shadow-[0_0_0_2px_currentColor]' : 'border-transparent']" :style="`color: ${val.border2}`"></button>
                         </div>
                         <label class="flex items-center gap-2 cursor-pointer w-max bg-slate-700/80 border border-slate-600 rounded px-2.5 py-1.5 text-xs font-bold text-slate-200 hover:bg-slate-700 transition">
                             <input type="checkbox" v-model="globalData.showInfoRow" class="w-4 h-4 text-blue-500 rounded focus:ring-0">
@@ -3294,7 +3450,7 @@
                             <div class="flex-1 flex flex-col gap-1.5">
                                 <template v-if="block.type === 'wordList'">
                                     <div class="flex gap-2"><input v-model="item.word" class="flex-1 border-b bg-transparent outline-none text-sm font-bold text-blue-800" placeholder="单词"><input v-model="item.pos" class="w-16 border-b bg-transparent outline-none text-sm" placeholder="词性"></div>
-                                    <input v-model="item.phonics" class="w-full border-b bg-transparent outline-none text-sm" placeholder="音素 / 音节拆分">
+                                    <input v-model="item.phonics" class="w-full border-b bg-transparent outline-none text-sm" placeholder="音素 / 音节拆分（剑桥英式）" title="多音节按剑桥英式读音分音节；单音节保留音素分块。已填写的拆分不会被自动重拆。">
                                 </template>
                                 <template v-else-if="block.type === 'orderStory'">
                                     <div class="flex gap-2">
@@ -3851,6 +4007,28 @@
                                 <input type="number" min="20" max="60" step="1" v-model.number="block.data.listenImgWidth" class="w-20 border border-indigo-200 rounded px-2 py-1 text-xs text-center outline-none focus:border-indigo-400">
                                 <span class="text-[11px] text-slate-500">默认 35%，文字超过图片高度后会自动顺移到左侧留白</span>
                             </div>
+                            <details v-if="getListenBlankEntries(block).length" class="w-full border-t border-indigo-100 pt-2" data-testid="listen-blank-width-panel">
+                                <summary class="cursor-pointer text-xs font-bold text-indigo-700">每空单独调节（共 {{ getListenBlankEntries(block).length }} 空）</summary>
+                                <div class="flex flex-wrap items-center gap-2 mt-2 mb-2">
+                                    <button type="button" class="px-2 py-1 rounded border border-indigo-200 bg-white text-xs text-indigo-700" @click="autoSizeListenBlanks(block)" data-testid="listen-blank-auto">按答案长度自动调整</button>
+                                    <button type="button" class="px-2 py-1 rounded border border-slate-200 bg-white text-xs text-slate-600" @click="resetListenBlankWidths(block)">全部恢复默认</button>
+                                    <span class="text-[11px] text-slate-500">未单独设置的空跟随整题线长；学生版、教师版共用，导出 JSON 会保存。</span>
+                                </div>
+                                <div class="space-y-2">
+                                    <div v-for="entry in getListenBlankEntries(block)" :key="entry.key" class="flex flex-wrap items-center gap-2 bg-white border border-indigo-100 rounded p-2" :data-testid="'listen-blank-row-' + entry.number">
+                                        <span class="text-xs font-bold text-indigo-700">第 {{ entry.number }} 空<span v-if="entry.isExample">（示例）</span></span>
+                                        <span class="text-xs text-slate-600 break-words" :title="entry.answer">{{ entry.answer || '空白答案' }}</span>
+                                        <button type="button" class="px-2 py-1 rounded border text-xs" @click="setListenBlankWidth(block, entry, 80)">短</button>
+                                        <button type="button" class="px-2 py-1 rounded border text-xs" @click="setListenBlankWidth(block, entry, 140)">中</button>
+                                        <button type="button" class="px-2 py-1 rounded border text-xs" @click="setListenBlankWidth(block, entry, 220)">长</button>
+                                        <input type="range" min="40" max="1200" step="10" class="w-32 accent-indigo-500" :value="getListenBlankWidth(block, entry)" @input="setListenBlankWidth(block, entry, $event.target.value)" :aria-label="'第 ' + entry.number + ' 空横线长度'">
+                                        <input type="number" min="40" max="1200" step="1" class="w-16 border border-indigo-200 rounded px-2 py-1 text-xs text-center" :value="getListenBlankWidth(block, entry)" @input="setListenBlankWidth(block, entry, $event.target.value)" :aria-label="'第 ' + entry.number + ' 空长度数值'">
+                                        <span class="text-[11px] text-slate-500">px · {{ hasListenBlankWidth(block, entry) ? '单独设置' : '跟随默认' }}</span>
+                                        <button type="button" class="px-2 py-1 rounded border text-xs text-slate-500" @click="resetListenBlankWidths(block, entry)">恢复默认</button>
+                                    </div>
+                                </div>
+                                <p class="text-[11px] text-slate-500 mt-2">按答案对应保存；改写某个答案后，该空使用默认长度。其他不同答案的设置不受影响。</p>
+                            </details>
                         </div>
                         <div v-if="['chooseComplete', 'storyRetell'].includes(block.type)" class="bg-teal-50/50 p-2.5 rounded-lg border border-teal-100 flex gap-4 items-center mb-2">
                             <span class="text-xs font-bold text-teal-700">选项开关:</span>
@@ -4926,7 +5104,7 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
         </div>
 
         <div class="preview-panel w-[45%] h-full overflow-y-auto bg-slate-300 py-8 px-12 flex justify-center">
-            <div class="a4-paper text-slate-800 w-full bg-white relative" :style="`max-width: 210mm; background: linear-gradient(white, white) padding-box, linear-gradient(135deg, ${(themes[globalData.theme] || themes.blue).border1}, ${(themes[globalData.theme] || themes.blue).border2}) border-box;`">
+            <div class="a4-paper text-slate-800 w-full bg-white relative" :style="`max-width: 210mm; background: linear-gradient(var(--ws-paper-surface, white), var(--ws-paper-surface, white)) padding-box, linear-gradient(135deg, ${(themes[globalData.theme] || themes.blue).border1}, ${(themes[globalData.theme] || themes.blue).border2}) border-box;`">
                 <table class="main-print-table w-full bg-transparent">
                     <thead class="table-header-group w-full">
                         <tr>
@@ -5820,14 +5998,14 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                                     <div v-if="block.data.img" class="float-left mt-1 mr-8 mb-3 break-inside-avoid" :style="{ width: (block.data.listenImgWidth || 35) + '%' }">
                                                         <img :src="block.data.img" class="w-full h-auto object-contain rounded-xl shadow-sm border border-slate-200" :style="getBlockImgStyle(block)">
                                                     </div>
-                                                    <div class="w-full" v-html="replaceKw(block.data.text, block.data.keywords, true, block.data.hasEg, isAnswerMode)"></div>
+                                                    <div class="w-full" v-html="replaceKw(block.data.text, block.data.keywords, true, block.data.hasEg, isAnswerMode, block)"></div>
                                                     <div class="clear-both"></div>
                                                 </template>
                                                 <template v-else>
                                                     <div v-if="block.data.img" class="flex-shrink-0 mt-1 break-inside-avoid" :class="(block.type === 'listenFill' && block.data.layout === 'col') ? 'w-[65%]' : 'w-[35%]'">
                                                         <img :src="block.data.img" class="w-full h-auto object-contain" :class="(block.type === 'listenFill' && block.data.layout === 'col') ? 'rounded-xl shadow-sm border border-slate-200' : ''" :style="getBlockImgStyle(block)">
                                                     </div>
-                                                    <div class="w-full" :class="(block.type === 'listenFill' && block.data.layout === 'col') ? 'px-4' : 'flex-1 pl-2'" v-html="replaceKw(block.data.text, block.data.keywords, ['listenFill','listenComp'].includes(block.type), block.data.hasEg, isAnswerMode)"></div>
+                                                    <div class="w-full" :class="(block.type === 'listenFill' && block.data.layout === 'col') ? 'px-4' : 'flex-1 pl-2'" v-html="replaceKw(block.data.text, block.data.keywords, ['listenFill','listenComp'].includes(block.type), block.data.hasEg, isAnswerMode, block)"></div>
                                                 </template>
                                             </div>
 
@@ -9008,7 +9186,7 @@ if (block.type === 'wordList') {
     });
 };
                 
-                const replaceKw = (t, k, clr, hEg, isAns) => {
+                const prepareKwText = (t, k, clr) => {
                     if(!t) return ''; 
                     let pt = t;
                     
@@ -9062,14 +9240,84 @@ if (block.type === 'wordList') {
                         }
                     }
                     
+                    return pt;
+                };
+
+                // Answer + occurrence keys keep independent widths stable when a different blank is inserted.
+                const getListenBlankKey = (answer, occurrences) => {
+                    const value = String(answer || '').trim();
+                    const occurrence = (occurrences.get(value) || 0) + 1;
+                    occurrences.set(value, occurrence);
+                    return JSON.stringify([value, occurrence]);
+                };
+                const getListenBlankOverride = (block, key) => {
+                    if (block?.type !== 'listenFill') return null;
+                    const widths = block.data?.listenBlankWidths;
+                    if (!widths || typeof widths !== 'object' || Array.isArray(widths) || !Object.prototype.hasOwnProperty.call(widths, key)) return null;
+                    const width = Number(widths[key]);
+                    return Number.isFinite(width) && width > 0 ? Math.round(Math.max(40, Math.min(1200, width))) : null;
+                };
+                const getListenBlankEntries = (block) => {
+                    if (block?.type !== 'listenFill') return [];
+                    const entries = [], occurrences = new Map();
+                    prepareKwText(block.data?.text || '', block.data?.keywords || '', true).replace(/\[(.*?)\]/g, (match, answer) => {
+                        entries.push({ key: getListenBlankKey(answer, occurrences), number: entries.length + 1, answer: plainText(answer), isExample: !!block.data?.hasEg && entries.length === 0 });
+                        return match;
+                    });
+                    return entries;
+                };
+                const getListenBlankWidth = (block, entry) => getListenBlankOverride(block, entry.key) ?? getBlankLineWidth(block);
+                const hasListenBlankWidth = (block, entry) => getListenBlankOverride(block, entry.key) !== null;
+                const resetListenBlankWidths = (block, entry = null) => {
+                    if (block?.type !== 'listenFill' || !block.data) return;
+                    if (!entry) { delete block.data.listenBlankWidths; return; }
+                    const widths = block.data.listenBlankWidths;
+                    if (widths && typeof widths === 'object' && !Array.isArray(widths)) {
+                        const nextWidths = { ...widths };
+                        delete nextWidths[entry.key];
+                        if (Object.keys(nextWidths).length) block.data.listenBlankWidths = nextWidths;
+                        else delete block.data.listenBlankWidths;
+                    }
+                };
+                const setListenBlankWidth = (block, entry, value) => {
+                    if (block?.type !== 'listenFill' || !block.data || !entry?.key) return;
+                    const width = Number(value);
+                    if (value === '' || value === null || !Number.isFinite(width) || width <= 0) { resetListenBlankWidths(block, entry); return; }
+                    const widths = block.data.listenBlankWidths;
+                    // Replace the map so newly configured blanks also refresh every rendered consumer.
+                    // Own-property checks for absent keys do not register a Vue property dependency.
+                    block.data.listenBlankWidths = {
+                        ...(widths && typeof widths === 'object' && !Array.isArray(widths) ? widths : {}),
+                        [entry.key]: Math.round(Math.max(40, Math.min(1200, width)))
+                    };
+                };
+                const autoSizeListenBlanks = (block) => {
+                    const entries = getListenBlankEntries(block);
+                    if (!entries.length) return;
+                    const fontSize = block.contentFontSizeEnabled ? getBlockContentFontSize(block) : 17;
+                    const widths = {};
+                    entries.forEach(entry => {
+                        const units = Array.from(entry.answer).reduce((sum, ch) => sum + (/\s/.test(ch) ? 0.55 : /[MWmw]/.test(ch) ? 1.2 : 1), 0);
+                        widths[entry.key] = Math.round(Math.max(60, Math.min(500, units * Math.max(9, fontSize * 0.75) + 24)) / 10) * 10;
+                    });
+                    block.data.listenBlankWidths = widths;
+                };
+
+                const replaceKw = (t, k, clr, hEg, isAns, block = null) => {
+                    if (!t) return '';
+                    let pt = prepareKwText(t, k, clr);
                     let c = 1;
+                    const occurrences = new Map();
                     pt = pt.replace(/\[(.*?)\]/g, (m, p) => {
                         let isE = (hEg && c === 1);
+                        const key = getListenBlankKey(p, occurrences);
+                        const width = getListenBlankOverride(block, key);
+                        const widthStyle = width === null ? 'min-width: var(--blank-line-width, 110px);' : `width:${width}px;min-width:0;max-width:100%;box-sizing:border-box;white-space:normal;overflow-wrap:anywhere;`;
                         if (isAns || isE) {
                             let cls = (isE && !isAns) ? 'text-slate-500 font-bold px-1' : 'text-rose-600 font-bold px-1';
-                            return `(${c++}) <span class="ws-blank-line inline-block align-baseline border-b border-slate-700 text-center leading-none mx-1 ${cls}" style="min-width: var(--blank-line-width, 110px);">${p}</span>`;
+                            return `(${c++}) <span class="ws-blank-line inline-block align-baseline border-b border-slate-700 text-center leading-none mx-1 ${cls}" style="${widthStyle}">${p}</span>`;
                         } else {
-                            return `(${c++}) <span class="ws-blank-line inline-block align-baseline border-b border-slate-700 text-center leading-none mx-1 text-transparent" style="min-width: var(--blank-line-width, 110px);">&nbsp;</span>`; 
+                            return `(${c++}) <span class="ws-blank-line inline-block align-baseline border-b border-slate-700 text-center leading-none mx-1 text-transparent" style="${widthStyle}">&nbsp;</span>`; 
                         }
                     });
                     
@@ -10544,78 +10792,707 @@ const escapeRegExp = (str) => String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '
                     .map(t => t.trim())
                     .filter(Boolean);
 
-                const vocabularyPhonicsOverrides = Object.freeze({
-                    one: 'o · ne',
-                    two: 't · wo',
-                    three: 'th · r · ee',
-                    four: 'f · our',
-                    five: 'f · ive',
-                    six: 's · i · x',
-                    seven: 'sev · en',
-                    eight: 'eigh · t',
-                    nine: 'n · ine',
-                    ten: 't · e · n'
-                });
-
-                const isLikelySingleSyllableWord = (value) => {
-                    const word = String(value || '').trim().toLowerCase();
-                    if (!/^[a-z]+$/.test(word)) return false;
-                    if (vocabularyPhonicsOverrides[word]) return word !== 'seven';
-                    if (word.length > 3 && /[bcdfghjklmnpqrstvwxyz]le$/.test(word)) return false;
-                    const withoutSilentE = word.length > 3 ? word.replace(/e$/, '') : word;
-                    const vowelGroups = withoutSilentE.match(/[aeiouy]+/g) || [];
-                    return vowelGroups.length <= 1;
-                };
-
-                const splitSingleSyllableGraphemes = (value) => {
-                    const word = String(value || '').trim().toLowerCase();
-                    if (!word) return '';
-                    if (vocabularyPhonicsOverrides[word]) return vocabularyPhonicsOverrides[word];
-                    const clusters = [
-                        'eigh', 'ough', 'augh',
-                        'scr', 'shr', 'spl', 'spr', 'squ', 'str', 'thr',
-                        'igh', 'tch', 'dge', 'air', 'ear', 'ure',
-                        'sh', 'ch', 'th', 'wh', 'ph', 'gh', 'ng', 'nk', 'qu', 'ck',
-                        'bl', 'cl', 'fl', 'gl', 'pl', 'sl',
-                        'br', 'cr', 'dr', 'fr', 'gr', 'pr', 'tr', 'wr',
-                        'sc', 'sk', 'sm', 'sn', 'sp', 'st', 'sw', 'tw', 'dw',
-                        'nd', 'nt', 'mp', 'ld', 'lt', 'lk', 'lf', 'lp', 'ft', 'ct', 'pt', 'xt',
-                        'bb', 'cc', 'dd', 'ff', 'gg', 'll', 'mm', 'nn', 'pp', 'rr', 'ss', 'tt', 'zz',
-                        'ee', 'oo', 'ai', 'ay', 'ea', 'ey', 'oa', 'oe', 'ow', 'ou',
-                        'oi', 'oy', 'ie', 'ue', 'ui', 'ew', 'au', 'aw',
-                        'ar', 'or', 'er', 'ir', 'ur'
-                    ];
-                    const magicEMatch = word.match(/^(.*)([aeiou][bcdfghjklmnpqrstvwxyz]e)$/);
-                    const body = magicEMatch ? magicEMatch[1] : word;
-                    const parts = [];
-                    let index = 0;
-                    while (index < body.length) {
-                        const cluster = clusters.find(token => body.startsWith(token, index));
-                        if (cluster) {
-                            parts.push(cluster);
-                            index += cluster.length;
-                        } else {
-                            parts.push(body[index]);
-                            index += 1;
-                        }
-                    }
-                    if (magicEMatch) parts.push(magicEMatch[2]);
-                    return parts.join(' · ');
-                };
+                // Cambridge UK guided syllable cues; keep existing single-syllable sound chunks.
+                // Never guess syllable counts from vowel letters or re-split teacher-saved content.
+                const vocabularyCambridgeChunks = Object.freeze({
+  "a": "a",
+  "ache": "a · ch · e",
+  "active": "ac · tive",
+  "activity": "ac · tiv · i · ty",
+  "advantage": "ad · van · tage",
+  "adventure": "ad · ven · ture",
+  "after": "af · ter",
+  "agency": "a · gen · cy",
+  "alex": "Al · ex",
+  "alien": "a · li · en",
+  "always": "al · ways",
+  "angry": "an · gry",
+  "answer": "an · swer",
+  "antarctica": "An · tarc · ti · ca",
+  "apple": "ap · ple",
+  "arctic": "Arc · tic",
+  "arm": "ar · m",
+  "ate": "ate",
+  "atlas": "at · las",
+  "attach": "at · tach",
+  "aunt": "au · nt",
+  "author": "au · thor",
+  "baby": "ba · by",
+  "backache": "back · ache",
+  "bad": "b · a · d",
+  "badly": "bad · ly",
+  "badminton": "bad · min · ton",
+  "balcony": "bal · co · ny",
+  "ball": "b · a · ll",
+  "banana": "ba · na · na",
+  "bank": "b · a · nk",
+  "baseball": "base · ball",
+  "basement": "base · ment",
+  "basket": "ba · sket",
+  "basketball": "ba · sket · ball",
+  "bat": "b · a · t",
+  "bath": "b · a · th",
+  "bathroom": "bath · room",
+  "beach": "b · ea · ch",
+  "bear": "b · ear",
+  "beard": "b · ear · d",
+  "beautiful": "beau · ti · ful",
+  "bed": "b · e · d",
+  "bedroom": "bed · room",
+  "better": "bet · ter",
+  "big": "b · i · g",
+  "bike": "b · ike",
+  "bird": "b · ir · d",
+  "black": "bl · a · ck",
+  "blanket": "blan · ket",
+  "blood": "bl · oo · d",
+  "blue": "bl · ue",
+  "board": "b · oa · r · d",
+  "boat": "b · oa · t",
+  "body": "bod · y",
+  "bone": "b · one",
+  "book": "b · oo · k",
+  "bookcase": "book · case",
+  "boring": "bo · ring",
+  "bottle": "bot · tle",
+  "bowl": "b · ow · l",
+  "box": "b · o · x",
+  "brass": "br · a · ss",
+  "bread": "br · ea · d",
+  "breakfast": "break · fast",
+  "brother": "broth · er",
+  "brown": "br · ow · n",
+  "brush": "br · u · sh",
+  "burger": "bur · ger",
+  "bus": "b · u · s",
+  "busy": "bus · y",
+  "button": "but · ton",
+  "cafe": "caf · e",
+  "café": "caf · é",
+  "cake": "c · ake",
+  "calcium": "cal · ci · um",
+  "calculation": "cal · cu · la · tion",
+  "camera": "cam · era",
+  "camp": "c · a · mp",
+  "captain": "cap · tain",
+  "car": "c · ar",
+  "carbohydrates": "car · bo · hy · drates",
+  "careful": "care · ful",
+  "carefully": "care · ful · ly",
+  "carry": "car · ry",
+  "cat": "c · a · t",
+  "catch": "c · a · tch",
+  "cave": "c · ave",
+  "centre": "cen · tre",
+  "chair": "ch · air",
+  "cheese": "ch · e · ese",
+  "chess": "ch · e · ss",
+  "chicken": "chick · en",
+  "chips": "ch · i · p · s",
+  "chocolate": "choc · olate",
+  "chronicle": "chron · i · cle",
+  "cinema": "cin · e · ma",
+  "city": "cit · y",
+  "clean": "cl · ea · n",
+  "clever": "clev · er",
+  "climb": "cl · i · m · b",
+  "climbing": "cli · mbing",
+  "clip": "cl · i · p",
+  "clock": "cl · o · ck",
+  "cloudy": "clou · dy",
+  "club": "cl · u · b",
+  "coach": "c · oa · ch",
+  "cold": "c · o · ld",
+  "colour": "col · our",
+  "competition": "com · pe · ti · tion",
+  "computer": "com · pu · ter",
+  "correctly": "cor · rect · ly",
+  "cough": "c · ough",
+  "country": "coun · try",
+  "countryside": "coun · try · side",
+  "cousin": "cous · in",
+  "cow": "c · ow",
+  "cream": "cr · ea · m",
+  "crocodile": "croc · o · dile",
+  "cup": "c · u · p",
+  "cupboard": "cup · board",
+  "curious": "cu · ri · ous",
+  "curly": "cur · ly",
+  "daddy": "dad · dy",
+  "dairy": "dai · ry",
+  "dance": "d · a · n · c · e",
+  "dark": "d · ar · k",
+  "daughter": "daugh · ter",
+  "dentist": "den · tist",
+  "depth": "d · e · pt · h",
+  "desk": "d · e · sk",
+  "detective": "de · tec · tive",
+  "diary": "di · a · ry",
+  "difficult": "dif · fi · cult",
+  "dining": "di · ning",
+  "dinner": "din · ner",
+  "dirty": "dir · ty",
+  "disadvantage": "dis · ad · van · tage",
+  "dishwasher": "dish · wash · er",
+  "do": "d · o",
+  "doctor": "doc · tor",
+  "dog": "d · o · g",
+  "doll": "d · o · ll",
+  "dolphin": "dol · phin",
+  "door": "d · oo · r",
+  "downstairs": "down · stairs",
+  "drank": "dr · a · nk",
+  "draw": "dr · aw",
+  "dress": "dr · e · ss",
+  "dressed": "dr · e · ss · ed",
+  "drive": "dr · ive",
+  "dry": "dr · y",
+  "duck": "d · u · ck",
+  "dvd": "DVD",
+  "ear": "ear",
+  "earache": "ear · ache",
+  "easy": "ea · sy",
+  "eat": "ea · t",
+  "eggs": "e · gg · s",
+  "eight": "eigh · t",
+  "eighteen": "eigh · teen",
+  "eighty": "eigh · ty",
+  "elephant": "el · e · phant",
+  "eleven": "e · lev · en",
+  "email": "e · mail",
+  "embarrassed": "em · bar · rassed",
+  "endangered": "en · dan · gered",
+  "eraser": "e · ra · ser",
+  "excited": "ex · ci · ted",
+  "exciting": "ex · ci · ting",
+  "exhibition": "ex · hi · bi · tion",
+  "expedition": "ex · pe · di · tion",
+  "explore": "ex · plore",
+  "explorer": "ex · plo · rer",
+  "eye": "eye",
+  "face": "f · ace",
+  "fact": "f · a · ct",
+  "fair": "f · air",
+  "family": "fam · i · ly",
+  "famous": "fa · mous",
+  "farmer": "far · mer",
+  "fat": "f · a · t",
+  "father": "fa · ther",
+  "feed": "f · ee · d",
+  "feet": "f · ee · t",
+  "field": "f · ie · ld",
+  "fifteen": "fif · teen",
+  "fifth": "f · i · ft · h",
+  "fifty": "fif · ty",
+  "fight": "f · igh · t",
+  "final": "fi · nal",
+  "fish": "f · i · sh",
+  "five": "f · ive",
+  "flat": "fl · a · t",
+  "flippers": "flip · pers",
+  "fly": "fl · y",
+  "food": "f · oo · d",
+  "foolish": "foo · lish",
+  "foot": "f · oo · t",
+  "football": "foot · ball",
+  "forest": "for · est",
+  "forty": "for · ty",
+  "four": "f · our",
+  "fourteen": "four · teen",
+  "friend": "fr · ie · nd",
+  "fries": "fr · ie · s",
+  "frightened": "frigh · tened",
+  "frog": "fr · o · g",
+  "fruit": "fr · ui · t",
+  "fun": "f · u · n",
+  "funny": "fun · ny",
+  "fur": "f · ur",
+  "game": "g · ame",
+  "gave": "g · ave",
+  "get": "g · e · t",
+  "giraffe": "gi · raffe",
+  "give": "g · ive",
+  "glass": "gl · a · ss",
+  "glasses": "glas · ses",
+  "go": "g · o",
+  "goat": "g · oa · t",
+  "good": "g · oo · d",
+  "grandchildren": "grand · chil · dren",
+  "granddaughter": "grand · daugh · ter",
+  "grandfather": "grand · fa · ther",
+  "grandma": "grand · ma",
+  "grandmother": "grand · moth · er",
+  "grandpa": "grand · pa",
+  "grandparents": "grand · pa · rents",
+  "grandson": "grand · son",
+  "grape": "gr · ape",
+  "grass": "gr · a · ss",
+  "greek": "Gr · ee · k",
+  "green": "gr · ee · n",
+  "grey": "gr · ey",
+  "grown": "gr · ow · n",
+  "guitar": "gui · tar",
+  "habitat": "hab · i · tat",
+  "had": "h · a · d",
+  "hall": "h · a · ll",
+  "hand": "h · a · nd",
+  "handbag": "hand · bag",
+  "hands": "h · a · nd · s",
+  "happy": "hap · py",
+  "hat": "h · a · t",
+  "have": "h · ave",
+  "head": "h · ea · d",
+  "headache": "head · ache",
+  "hear": "h · ear",
+  "heart": "h · ear · t",
+  "heartbeat": "heart · beat",
+  "height": "h · eigh · t",
+  "helicopter": "hel · i · cop · ter",
+  "help": "h · e · lp",
+  "hero": "he · ro",
+  "hippo": "hip · po",
+  "hit": "h · i · t",
+  "hockey": "hock · ey",
+  "holiday": "hol · i · day",
+  "hollow": "hol · low",
+  "homework": "home · work",
+  "horse": "h · or · s · e",
+  "hospital": "hos · pi · tal",
+  "hot": "h · o · t",
+  "house": "h · o · use",
+  "hundred": "hun · dred",
+  "hungry": "hun · gry",
+  "ice": "ice",
+  "in": "i · n",
+  "information": "in · for · ma · tion",
+  "inside": "in · side",
+  "internet": "In · ter · net",
+  "interview": "in · ter · view",
+  "island": "is · land",
+  "jacket": "jack · et",
+  "jar": "j · ar",
+  "jeans": "j · ea · n · s",
+  "juice": "j · u · ice",
+  "jump": "j · u · mp",
+  "jungle": "jun · gle",
+  "kangaroo": "kan · ga · roo",
+  "key": "k · ey",
+  "keyboard": "key · board",
+  "kick": "k · i · ck",
+  "kitchen": "kitch · en",
+  "kite": "k · ite",
+  "knees": "k · n · ee · s",
+  "lake": "l · ake",
+  "lamp": "l · a · mp",
+  "last": "l · a · st",
+  "laugh": "l · augh",
+  "leaf": "l · ea · f",
+  "leave": "l · e · ave",
+  "leg": "l · e · g",
+  "lemon": "lem · on",
+  "lemonade": "lem · o · nade",
+  "length": "l · e · ng · th",
+  "lenny": "Len · ny",
+  "library": "li · brar · y",
+  "lift": "l · i · ft",
+  "lion": "li · on",
+  "listen": "lis · ten",
+  "living": "liv · ing",
+  "lizard": "liz · ard",
+  "lock": "l · o · ck",
+  "long": "l · o · ng",
+  "look": "l · oo · k",
+  "lorry": "lor · ry",
+  "loud": "l · ou · d",
+  "loudly": "loud · ly",
+  "lunch": "l · u · n · ch",
+  "lunchtime": "lunch · time",
+  "lung": "l · u · ng",
+  "lungs": "l · u · ng · s",
+  "magnifying": "mag · ni · fy · ing",
+  "man": "m · a · n",
+  "marie": "Ma · rie",
+  "market": "mar · ket",
+  "maskman": "Mask · man",
+  "mat": "m · a · t",
+  "measure": "meas · ure",
+  "measurement": "meas · ure · ment",
+  "medicine": "med · i · cine",
+  "meera": "Mee · ra",
+  "message": "mes · sage",
+  "mice": "m · ice",
+  "milk": "m · i · lk",
+  "mineral": "min · er · al",
+  "mirror": "mir · ror",
+  "mobile": "mo · bile",
+  "monkey": "mon · key",
+  "monster": "mon · ster",
+  "monty": "Mon · ty",
+  "mother": "moth · er",
+  "motorbike": "mo · tor · bike",
+  "mountain": "moun · tain",
+  "mouse": "m · o · use",
+  "moustache": "mou · stache",
+  "mouth": "m · ou · th",
+  "mp": "MP",
+  "mr": "Mr",
+  "mrs": "Mrs",
+  "mummy": "mum · my",
+  "muscle": "mus · cle",
+  "music": "mu · sic",
+  "must": "m · u · st",
+  "naughty": "naugh · ty",
+  "never": "nev · er",
+  "next": "n · e · xt",
+  "nine": "n · ine",
+  "nineteen": "nine · teen",
+  "ninety": "nine · ty",
+  "nose": "n · ose",
+  "novel": "nov · el",
+  "nurse": "n · ur · s · e",
+  "off": "o · ff",
+  "office": "of · fice",
+  "officer": "of · fi · cer",
+  "old": "o · ld",
+  "older": "old · er",
+  "on": "o · n",
+  "one": "o · ne",
+  "open": "o · pen",
+  "orange": "or · ange",
+  "outside": "out · side",
+  "oxygen": "ox · y · gen",
+  "paint": "p · ai · nt",
+  "painting": "pain · ting",
+  "panda": "pan · da",
+  "parents": "pa · rents",
+  "park": "p · ar · k",
+  "parrot": "par · rot",
+  "party": "par · ty",
+  "pasta": "pas · ta",
+  "pear": "p · ear",
+  "pen": "p · e · n",
+  "pencil": "pen · cil",
+  "percent": "per · cent",
+  "percussion": "per · cuss · ion",
+  "pet": "p · e · t",
+  "phone": "ph · one",
+  "photograph": "pho · to · graph",
+  "piano": "pi · an · o",
+  "picnic": "pic · nic",
+  "picture": "pic · ture",
+  "pink": "p · i · nk",
+  "pirate": "pi · rate",
+  "plane": "pl · ane",
+  "plant": "pl · a · nt",
+  "plate": "pl · ate",
+  "play": "pl · ay",
+  "player": "play · er",
+  "poem": "po · em",
+  "poet": "po · et",
+  "point": "p · oi · nt",
+  "police": "po · lice",
+  "pool": "p · oo · l",
+  "post": "p · o · st",
+  "press": "pr · e · ss",
+  "products": "prod · ucts",
+  "program": "pro · gram",
+  "protein": "pro · tein",
+  "pupil": "pu · pil",
+  "purple": "pur · ple",
+  "put": "p · u · t",
+  "pyjamas": "py · ja · mas",
+  "quick": "qu · i · ck",
+  "quickly": "quick · ly",
+  "quiet": "qui · et",
+  "quietly": "qui · et · ly",
+  "quiz": "qu · i · z",
+  "rainbow": "rain · bow",
+  "raining": "rai · ning",
+  "read": "r · ea · d",
+  "really": "real · ly",
+  "red": "r · e · d",
+  "restaurant": "res · tau · rant",
+  "rib": "r · i · b",
+  "rice": "r · ice",
+  "rich": "r · i · ch",
+  "ride": "r · ide",
+  "river": "riv · er",
+  "robber": "rob · ber",
+  "robot": "ro · bot",
+  "rock": "r · o · ck",
+  "room": "r · oo · m",
+  "rover": "ro · ver",
+  "row": "r · ow",
+  "rowing": "row · ing",
+  "ruler": "ru · ler",
+  "run": "r · u · n",
+  "sad": "s · a · d",
+  "sail": "s · ai · l",
+  "salad": "sal · ad",
+  "sand": "s · a · nd",
+  "sandwich": "sand · wich",
+  "sausage": "sau · sage",
+  "save": "s · ave",
+  "saw": "s · aw",
+  "scales": "sc · ale · s",
+  "school": "sc · h · oo · l",
+  "science": "sci · ence",
+  "screen": "scr · ee · n",
+  "sea": "s · ea",
+  "see": "s · ee",
+  "seven": "sev · en",
+  "seventeen": "sev · en · teen",
+  "seventy": "sev · en · ty",
+  "shark": "sh · ar · k",
+  "sheep": "sh · ee · p",
+  "shell": "sh · e · ll",
+  "shirt": "sh · ir · t",
+  "shocked": "sh · o · ck · ed",
+  "shoes": "sh · oe · s",
+  "shop": "sh · o · p",
+  "shopping": "shop · ping",
+  "short": "sh · or · t",
+  "shoulder": "shoul · der",
+  "show": "sh · ow",
+  "shower": "show · er",
+  "simon": "Si · mon",
+  "sing": "s · i · ng",
+  "sister": "sis · ter",
+  "sit": "s · i · t",
+  "six": "s · i · x",
+  "sixteen": "six · teen",
+  "sixty": "six · ty",
+  "skate": "sk · ate",
+  "skeleton": "skel · e · ton",
+  "skip": "sk · i · p",
+  "skirt": "sk · ir · t",
+  "skull": "sk · u · ll",
+  "sleep": "sl · ee · p",
+  "slow": "sl · ow",
+  "slowly": "slow · ly",
+  "small": "sm · a · ll",
+  "smaller": "small · er",
+  "smell": "sm · e · ll",
+  "snake": "sn · ake",
+  "snowing": "snow · ing",
+  "society": "so · ci · e · ty",
+  "socks": "s · o · ck · s",
+  "sofa": "so · fa",
+  "somebody": "some · bod · y",
+  "something": "some · thing",
+  "sometimes": "some · times",
+  "son": "s · o · n",
+  "song": "s · o · ng",
+  "soup": "s · ou · p",
+  "spider": "spi · der",
+  "sports": "sp · or · t · s",
+  "staff": "st · a · ff",
+  "stairs": "st · air · s",
+  "star": "st · ar",
+  "station": "sta · tion",
+  "stella": "Stel · la",
+  "stole": "st · ole",
+  "stomach": "stom · ach",
+  "stop": "st · o · p",
+  "straight": "str · ai · gh · t",
+  "street": "str · ee · t",
+  "strings": "str · i · ng · s",
+  "strong": "str · o · ng",
+  "submarine": "sub · ma · rine",
+  "suit": "s · ui · t",
+  "sun": "s · u · n",
+  "sunglasses": "sun · gla · sses",
+  "sunny": "sun · ny",
+  "supermarket": "su · per · mar · ket",
+  "support": "sup · port",
+  "suzy": "Su · zy",
+  "swim": "sw · i · m",
+  "swimming": "swim · ming",
+  "t": "t",
+  "table": "ta · ble",
+  "tail": "t · ai · l",
+  "take": "t · ake",
+  "talk": "t · a · lk",
+  "tall": "t · a · ll",
+  "taste": "t · a · st · e",
+  "tea": "t · ea",
+  "teacher": "tea · cher",
+  "technology": "tech · nol · o · gy",
+  "teeth": "t · ee · th",
+  "television": "tel · e · vi · sion",
+  "temperature": "tem · pera · ture",
+  "ten": "t · e · n",
+  "tennis": "ten · nis",
+  "terrible": "ter · ri · ble",
+  "text": "t · e · xt",
+  "the": "th · e",
+  "theatre": "thea · tre",
+  "thief": "th · ie · f",
+  "thin": "th · i · n",
+  "thirsty": "thir · sty",
+  "thirteen": "thir · teen",
+  "thirty": "thir · ty",
+  "three": "th · r · ee",
+  "throw": "thr · ow",
+  "thursday": "Thurs · day",
+  "ticket": "tick · et",
+  "tiger": "ti · ger",
+  "tired": "tired",
+  "to": "t · o",
+  "toes": "t · oe · s",
+  "took": "t · oo · k",
+  "toothache": "tooth · ache",
+  "torch": "t · or · ch",
+  "touch": "t · ou · ch",
+  "towel": "tow · el",
+  "town": "t · ow · n",
+  "train": "tr · ai · n",
+  "trevor": "Trev · or",
+  "trip": "tr · i · p",
+  "trousers": "trou · sers",
+  "tv": "TV",
+  "twelve": "tw · e · l · v · e",
+  "twenty": "twen · ty",
+  "two": "t · wo",
+  "ugly": "ug · ly",
+  "uncle": "un · cle",
+  "under": "un · der",
+  "understand": "un · der · stand",
+  "undressed": "un · dressed",
+  "up": "u · p",
+  "upstairs": "up · stairs",
+  "vase": "v · ase",
+  "vegetables": "vege · ta · bles",
+  "video": "vid · e · o",
+  "village": "vil · lage",
+  "vitamin": "vit · a · min",
+  "waiter": "wai · ter",
+  "wake": "w · ake",
+  "walk": "w · a · lk",
+  "wall": "w · a · ll",
+  "wanted": "wan · ted",
+  "wardrobe": "war · drobe",
+  "was": "w · a · s",
+  "wash": "w · a · sh",
+  "watch": "w · a · tch",
+  "water": "wa · ter",
+  "waterfall": "wa · ter · fall",
+  "watermelon": "wa · ter · mel · on",
+  "weak": "w · ea · k",
+  "weather": "weath · er",
+  "week": "w · ee · k",
+  "weigh": "w · eigh",
+  "well": "w · e · ll",
+  "went": "w · e · nt",
+  "were": "w · ere",
+  "wet": "w · e · t",
+  "whale": "wh · ale",
+  "white": "wh · ite",
+  "whiteboard": "white · board",
+  "width": "w · i · d · th",
+  "windy": "win · dy",
+  "witch": "w · i · tch",
+  "woodwind": "wood · wind",
+  "worse": "w · or · s · e",
+  "wrong": "wr · o · ng",
+  "yellow": "yel · low",
+  "young": "y · ou · ng",
+  "younger": "young · er",
+  "zoo": "z · oo",
+  "a week": "a week",
+  "activity centre": "ac · tiv · i · ty cen · tre",
+  "adventure holiday": "ad · ven · ture hol · i · day",
+  "answer the phone": "an · swer the phone",
+  "bank robber": "bank rob · ber",
+  "bus station": "bus sta · tion",
+  "car thief": "car thief",
+  "cat family": "cat fam · i · ly",
+  "catch the bus": "catch the bus",
+  "climbing wall": "cli · mbing wall",
+  "colour a picture": "col · our a pic · ture",
+  "computer game": "com · pu · ter game",
+  "dairy products": "dai · ry prod · ucts",
+  "detective agency": "de · tec · tive a · gen · cy",
+  "dining room": "di · ning room",
+  "do homework": "do home · work",
+  "draw a picture": "draw a pic · ture",
+  "eat fish": "eat fish",
+  "fifth row": "fifth row",
+  "fun fair": "fun · fair",
+  "get dressed": "get dressed",
+  "get undressed": "get un · dressed",
+  "get up": "get up",
+  "give somebody something": "give some · bod · y some · thing",
+  "go to bed": "go to bed",
+  "go to school": "go to school",
+  "grandma star": "Grand · ma Star",
+  "grandpa star": "Grand · pa Star",
+  "grown-up": "grown-up",
+  "have / take a shower": "have / take a show · er",
+  "have a bath": "have a bath",
+  "have breakfast": "have break · fast",
+  "have dinner": "have din · ner",
+  "have lunch": "have lunch",
+  "ice cream": "ice cream",
+  "lamp post": "lamp post",
+  "last thursday": "last Thurs · day",
+  "leave a message": "leave a mes · sage",
+  "listen to music": "lis · ten to mu · sic",
+  "living room": "liv · ing room",
+  "look after": "look af · ter",
+  "magnifying glass": "mag · ni · fy · ing glass",
+  "mobile phone": "mo · bile phone",
+  "mp3 player": "MP3 play · er",
+  "mr star": "Mr Star",
+  "mrs star": "Mrs Star",
+  "next to": "next to",
+  "one hundred": "one hun · dred",
+  "open the door": "o · pen the door",
+  "parrot food": "par · rot food",
+  "pet thief": "pet thief",
+  "picnic thief": "pic · nic thief",
+  "play a game": "play a game",
+  "play badminton": "play bad · min · ton",
+  "play baseball": "play base · ball",
+  "play basketball": "play ba · sket · ball",
+  "play chess": "play chess",
+  "play football": "play foot · ball",
+  "play hockey": "play hock · ey",
+  "play table tennis": "play ta · ble ten · nis",
+  "play tennis": "play ten · nis",
+  "play the guitar": "play the gui · tar",
+  "play the piano": "play the pi · an · o",
+  "police officer": "po · lice of · fi · cer",
+  "police station": "po · lice sta · tion",
+  "put on": "put on",
+  "read a book": "read a book",
+  "ride a bike": "ride a bike",
+  "ride a horse": "ride a horse",
+  "rowing boat": "row · ing boat",
+  "save the sea society": "Save the Sea So · ci · e · ty",
+  "school show": "school show",
+  "snake house": "snake house",
+  "sports centre": "sports cen · tre",
+  "stomach-ache": "stom · ach-ache",
+  "swimming club": "swim · ming club",
+  "swimming cup": "swim · ming cup",
+  "swimming pool": "swim · ming pool",
+  "t-shirt": "T-shirt",
+  "take off": "take off",
+  "text a friend": "text a friend",
+  "video clip": "vid · e · o clip",
+  "wake up": "wake up",
+  "wash hands": "w · a · sh / h · a · nd · s",
+  "watch tv": "watch TV",
+  "wrong man": "wrong man",
+  "zoo staff": "zoo staff"
+});
 
                 const getVocabularyPhonics = (item) => {
                     const word = String(item?.word || '').trim();
                     const saved = String(item?.phonics || '').trim();
-                    if (!word) return saved;
-                    const key = word.toLowerCase();
-                    if (vocabularyPhonicsOverrides[key]) return vocabularyPhonicsOverrides[key];
-                    const savedLetters = saved.toLowerCase().replace(/[^a-z]/g, '');
-                    const consonantLeMatch = key.match(/^(.+)([bcdfghjklmnpqrstvwxyz]le)$/);
-                    if (consonantLeMatch && savedLetters === key) return `${consonantLeMatch[1]} · ${consonantLeMatch[2]}`;
-                    if (savedLetters === key && isLikelySingleSyllableWord(word)) return splitSingleSyllableGraphemes(word);
-                    if (saved && saved.toLowerCase() !== key) return saved;
-                    if (isLikelySingleSyllableWord(word)) return splitSingleSyllableGraphemes(word);
-                    return saved || word;
+                    if (saved) return saved;
+                    return vocabularyCambridgeChunks[word.toLowerCase()] || word;
                 };
 
                 const parsePhonicsTreeNodes = (structure, fallbackWord = '') => {
@@ -11142,6 +12019,7 @@ const hasAnyImageInBlock = (block) => {
                 };
 
                 return {
+                    getListenBlankEntries, getListenBlankWidth, hasListenBlankWidth, setListenBlankWidth, resetListenBlankWidths, autoSizeListenBlanks,
                     themes, isAnswerMode, answerOnlyMode, setPreviewMode, answerOnlyBlocks, questionTypes, comprehensiveTypeIds, questionTypeCategories, filteredQuestionTypes, typeSearch, activeTypeCategory, lastAddedTypeId, typePanelOpen, difficultyOptions, assessmentLabelOptions, blockFontOptions, globalData, blocks, addBlock, removeBlock, clearAllBlocks, clearBlockContent, moveBlock, fillPU2GuideIntro, resetTeacherGuideContent, generateGuideIntroItems, generateUnitEvidenceSections, moveSubItem, addItem, addSuiteItem, quickTags, insertTransformTag, applyUnderline, generateBulkItems, generateDefaultPhonicsWords, generateDefaultPhonicsSentences, getBlockLineHeight, getBlankLineWidth, getWritingBankLineHeight, getWritingScaffoldLineHeight, getBulkGuide, getBulkPlaceholder,
                     getSecName, getSecZhName, getSecBg, getSecColor, getBlockFontStyle, getPhonicsRuleFontStyle, getBlockContentFontSize, getFontSizeStyle, getPhonicsFamilyBoardStyle, getPhonicsFamilyHeaderStyle, getPhonicsFamilyLabelStyle, uploadBlockFont, clearBlockCustomFont, getOptColor, getCatColor, getBlockDifficulty, isBlockLabelOn, getQrSize, hasPracticeTip, splitEvidenceItems, splitEvidenceBilingual, hasItemImages, getIndexStr, getComicQIndex, parseCorrectMistake, parseWrongResponseDialogue, formatTeacherAppendix, formatWritingWordsBank, groupFlashcardRows, isFlashcardRowStarter, groupLiteratureCharacters,
                     parsePipe, parseBasicBlank, parseBracketLines, replaceKw, pMc, pTransform, pOdd, parseWordForm, parseCircleWord, parseGrammarColor, parsePhonicsText, parsePhonicsReviewText, formatPhonicsSourceHtml, formatPhonicsRuleNote, formatPhonicsSymbolText, formatPhonicsFamilyWord, parseLitGrammarHighlight, getLitGrammarImgStyle, getVocabularyPhonics, parsePhonicsTreeNodes, getPhonicsThemeColors, getPhonicsTokenStyle, splitPhonicsExamples, formatPhonicsExampleWord,

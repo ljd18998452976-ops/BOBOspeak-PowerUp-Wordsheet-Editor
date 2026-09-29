@@ -2,27 +2,28 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kid's Box Worksheet Editor · KBE–KB4 Universal</title>
-    <script src="./tailwindcss-cdn.js"></script>
-    <script src="./vue.global.prod.js"></script>
+    <script src="./assets/tailwindcss-cdn.js"></script>
+    <script src="./assets/vue.global.prod.js"></script>
     <!-- Offline version embeds Comic Neue locally. -->
     
     <style>
         @font-face {
             font-family: 'Comic Neue';
-            src: url('./ComicNeue-Regular.woff2') format('woff2');
+            src: url('./assets/fonts/ComicNeue-Regular.woff2') format('woff2');
             font-style: normal;
             font-weight: 400;
             font-display: swap;
         }
         @font-face {
             font-family: 'Comic Neue';
-            src: url('./ComicNeue-Bold.woff2') format('woff2');
+            src: url('./assets/fonts/ComicNeue-Bold.woff2') format('woff2');
             font-style: normal;
             font-weight: 700;
             font-display: swap;
@@ -379,7 +380,7 @@
 }
 .worksheet-block-lineheight .writing-card-scaffold,
 .worksheet-block-lineheight .writing-card-scaffold * {
-    line-height: var(--writing-scaffold-line-height, 2.2) !important;
+    line-height: var(--writing-scaffold-line-height, 1.5) !important;
 }
 /* v14.10 Writing Output：作文脚手架右侧保留固定留白，横线到留白处自动停止 */
 .worksheet-block-lineheight .writing-card-scaffold-limited {
@@ -2797,6 +2798,12 @@
                         </template>
 
                         <template v-else-if="block.type === 'noteCompletion'">
+                            <label class="flex items-center gap-2 text-sm text-cyan-700"><input type="checkbox" v-model="block.data.comparisonMode"> 对比表格版式（共用行标题）</label>
+                            <div v-if="block.data.comparisonMode" class="grid gap-2 md:grid-cols-2">
+                                <input v-model="block.data.comparisonHeaders" class="w-full rounded border px-3 py-2 text-sm" placeholder="列标题，例如 House | Flat">
+                                <input v-model="block.data.comparisonRows" class="w-full rounded border px-3 py-2 text-sm" placeholder="行标题，例如 Where? | What has it got?">
+                            </div>
+
                             <div class="grid gap-3 md:grid-cols-2"><input v-model="block.data.sourceTitle" class="rounded border border-cyan-200 bg-white px-3 py-2 text-sm font-black" placeholder="表格标题"><select v-model="block.data.sourceMode" class="rounded border border-cyan-200 bg-white px-3 py-2 text-sm font-bold text-cyan-700"><option value="listening">听力信息</option><option value="reading">阅读信息</option></select></div>
                             <label class="flex items-center gap-2 text-xs font-bold text-cyan-700"><input type="checkbox" v-model="block.data.showSourceToStudents">学生卷显示信息源文字</label>
                             <textarea v-model="block.data.sourceText" rows="5" class="w-full rounded border border-cyan-200 bg-white px-3 py-2 text-sm leading-relaxed" placeholder="阅读材料或教师听力文本"></textarea>
@@ -4047,6 +4054,14 @@
         <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600"><input type="radio" value="single" v-model="block.data.retellImgMode" class="w-3.5 h-3.5 text-rose-500"> 单图模式</label>
         <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-600"><input type="radio" value="grid6" v-model="block.data.retellImgMode" class="w-3.5 h-3.5 text-rose-500"> 6图模式（上3下3）</label>
     </div>
+    <label class="flex items-center gap-2 text-sm text-rose-700"><input type="checkbox" v-model="block.data.retellOral"> 看图复述（每幅图显示关键词）</label>
+    <label v-if="block.data.retellOral" class="flex items-center gap-2 text-sm text-rose-700"><input type="checkbox" v-model="block.data.retellWithText"> 图片下方显示词库和填空短文（只按方括号挖空）</label>
+    <div v-if="block.data.retellOral" class="grid grid-cols-2 gap-2">
+        <label v-for="n in 6" :key="'retell-prompt-' + n" class="text-xs text-slate-600">图 {{ n }} 关键词
+            <input :value="(block.data.retellPrompts || [])[n - 1] || ''" @input="block.data.retellPrompts = Array.from({length: 6}, (_, i) => i === n - 1 ? $event.target.value : ((block.data.retellPrompts || [])[i] || ''))" class="w-full border rounded px-2 py-1.5 text-sm bg-white" placeholder="关键词用 · 分隔">
+        </label>
+    </div>
+
     <div v-if="block.data.retellImgMode === 'grid6'" class="grid grid-cols-3 gap-3">
         <div v-for="n in 6" :key="'retell-grid-upload-' + n" class="relative h-20 bg-white border border-dashed border-rose-200 rounded-lg flex items-center justify-center overflow-hidden">
             <input type="file" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-10" @change="compressAndUpload($event, (block.data.retellImgs || (block.data.retellImgs = ['', '', '', '', '', ''])), n - 1)">
@@ -5180,7 +5195,7 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                             <div v-if="!['literature', 'fullPageImage'].includes(block.type) && block.subInstruction" class="ws-block-subtitle text-[16px] text-slate-500 mb-2 font-sans leading-snug break-words ml-4">{{ block.subInstruction }}</div>
                                             <div v-if="hasPracticeTip(block)" class="ws-practice-tip"><span class="ws-practice-tip-icon">💡</span><span class="ws-practice-tip-label">Practice Tip:</span><span class="ws-practice-tip-text">{{ block.practiceTipText }}</span></div>
 
-                                            <div v-if="block.data.keywords && ((['chooseComplete', 'storyRetell'].includes(block.type) && !block.data.hideWordBank) || (block.type === 'listenFill' && block.data.showKeywordBank))" class="border-[1.5px] border-yellow-300 bg-yellow-50 px-8 rounded-2xl mb-6 text-[18px] font-bold mx-auto text-yellow-900 shadow-sm flex flex-wrap justify-center" :style="{...getWordBankBoxStyle(block), ...getWordBankFlexStyle(block, 32)}" v-html="formatWordBankText(block.data.keywords)"></div>
+                                            <div v-if="!(block.type === 'storyRetell' && block.data.retellOral && block.data.retellWithText) && block.data.keywords && ((['chooseComplete', 'storyRetell'].includes(block.type) && !block.data.hideWordBank) || (block.type === 'listenFill' && block.data.showKeywordBank))" class="border-[1.5px] border-yellow-300 bg-yellow-50 px-8 rounded-2xl mb-6 text-[18px] font-bold mx-auto text-yellow-900 shadow-sm flex flex-wrap justify-center" :style="{...getWordBankBoxStyle(block), ...getWordBankFlexStyle(block, 32)}" v-html="formatWordBankText(block.data.keywords)"></div>
 
                                             <div v-if="block.data.wordBank && !['clilRead', 'speaking'].includes(block.type) && !block.data.hideWordBank" class="border-[1.5px] border-yellow-300 bg-yellow-50 px-8 rounded-2xl mb-6 text-[18px] font-bold mx-auto text-yellow-900 shadow-sm flex flex-wrap justify-center" :style="{...getWordBankBoxStyle(block), ...getWordBankFlexStyle(block, (['wordSorting','phonicsSorting'].includes(block.type) ? (block.data.sortWordGap || 32) : 32))}" v-html="formatWordBankText(block.data.wordBank)"></div>
                                             
@@ -5250,7 +5265,20 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
 
                                                 <template v-else-if="block.type === 'noteCompletion'">
                                                     <div v-if="block.data.showSourceToStudents || isAnswerMode" class="ws-suite-source"><div class="ws-suite-source-title">{{ block.data.sourceTitle }}</div>{{ block.data.sourceText }}</div>
-                                                    <div class="rounded-2xl border border-cyan-200 bg-cyan-50/30 p-5">
+                                                    <table v-if="block.data.comparisonMode" class="ws-suite-table" style="table-layout:fixed;width:100%">
+                                                        <thead><tr><th style="width:27%" aria-label="Compare"></th><th v-for="(heading, col) in splitSuitePipe(block.data.comparisonHeaders)" :key="'compare-head-'+col" scope="col" style="text-align:center">{{ heading }}</th></tr></thead>
+                                                        <tbody><tr v-for="(label, row) in splitSuitePipe(block.data.comparisonRows)" :key="'compare-row-'+row" class="break-inside-avoid">
+                                                            <th scope="row" style="text-align:left;font-weight:500;padding:14px 12px">{{ label }}</th>
+                                                            <td v-for="(heading, col) in splitSuitePipe(block.data.comparisonHeaders)" :key="'compare-cell-'+col" style="padding:12px 16px;vertical-align:middle">
+                                                                <div style="min-height:42px;display:flex;align-items:center;justify-content:center">
+                                                                    <span v-if="isAnswerMode" class="text-rose-600" style="text-align:center;overflow-wrap:anywhere">{{ (block.data.fields[col * splitSuitePipe(block.data.comparisonRows).length + row] || {}).answer }}</span>
+                                                                    <span v-else class="ws-answer-line border-b border-slate-700" style="display:block;width:100%;height:20px"></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr></tbody>
+                                                    </table>
+
+                                                    <div v-else class="rounded-2xl border border-cyan-200 bg-cyan-50/30 p-5">
                                                         <div class="mb-4 text-center font-sans text-lg font-black text-cyan-800">{{ block.data.sourceTitle }}</div>
                                                         <div class="ws-suite-form"><div v-for="(field, idx) in block.data.fields" :key="'form-preview-'+idx" class="ws-suite-form-row"><span class="ws-suite-form-label">{{ field.label }}</span><span class="ws-suite-form-value"><span v-if="isAnswerMode">{{ field.answer }}</span><span v-else>&nbsp;</span></span></div></div>
                                                     </div>
@@ -6030,7 +6058,18 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
                                             </div>
 
                                             <div v-else-if="block.type === 'storyRetell'" class="flex flex-col items-center px-2">
-    <template v-if="(block.data.retellImgMode || 'single') === 'grid6'">
+    <template v-if="block.data.retellOral">
+        <div class="grid grid-cols-3 gap-4 w-full mb-5">
+            <figure v-for="(img, idx) in (block.data.retellImgs || [])" :key="'retell-oral-' + idx" class="m-0 min-w-0 break-inside-avoid">
+                <div class="aspect-[4/3] bg-white overflow-hidden rounded-lg">
+                    <img v-if="img" :src="img" :alt="'Story picture ' + (idx + 1)" class="w-full h-full object-contain" :style="getBlockImgStyle(block)">
+                </div>
+                <figcaption class="mt-2 text-left text-slate-800" style="line-height:1.45;overflow-wrap:anywhere"><span class="text-rose-600 font-bold">{{ idx + 1 }}.</span> {{ (block.data.retellPrompts || [])[idx] || '' }}</figcaption>
+            </figure>
+        </div>
+    </template>
+
+    <template v-else-if="(block.data.retellImgMode || 'single') === 'grid6'">
         <div v-if="block.data.retellImgs && block.data.retellImgs.some(img => img)" class="grid grid-cols-3 gap-3 w-[78%] mb-6 break-inside-avoid">
             <template v-for="(img, idx) in block.data.retellImgs" :key="'retell-preview-' + idx">
                 <div v-if="img" class="aspect-[4/3] rounded-xl shadow-sm border border-slate-200 bg-white overflow-hidden">
@@ -6040,7 +6079,12 @@ What is it doing? | It is [running]."></textarea><div class="text-[10px] text-sl
         </div>
     </template>
     <img v-else-if="block.data.img" :src="block.data.img" class="max-w-[70%] h-auto mb-6 rounded-xl shadow-sm border border-slate-200 break-inside-avoid" :style="getBlockImgStyle(block)">
-    <div class="leading-[2.2] text-[18px] text-justify w-full text-slate-800" v-html="replaceKw(block.data.text, block.data.keywords, false, block.data.hasEg, isAnswerMode).replace(/\(\d+\)\s/g, '')"></div>
+    <template v-if="block.data.retellOral && block.data.retellWithText">
+        <div v-if="block.data.keywords && !block.data.hideWordBank" class="border border-yellow-300 bg-yellow-50 px-5 py-3 rounded-xl mb-4 w-full text-yellow-900 flex flex-wrap justify-center" :style="{...getWordBankBoxStyle(block), ...getWordBankFlexStyle(block, 24)}" v-html="formatWordBankText(block.data.keywords)"></div>
+        <div class="w-full text-slate-800" style="text-align:left" :style="{lineHeight: isAnswerMode ? (block.data.teacherLineHeight || 1.5) : (block.data.studentLineHeight || 1.5)}" v-html="replaceKw(block.data.text, '', false, block.data.hasEg, isAnswerMode).replace(/\(\d+\)\s/g, '')"></div>
+    </template>
+    <div v-else-if="block.data.retellOral && block.data.text" class="text-center w-full text-slate-600" style="white-space:pre-line;line-height:1.6">{{ block.data.text }}</div>
+    <div v-if="!block.data.retellOral" class="leading-[2.2] text-[18px] text-justify w-full text-slate-800" v-html="replaceKw(block.data.text, block.data.keywords, false, block.data.hasEg, isAnswerMode).replace(/\(\d+\)\s/g, '')"></div>
 </div>
 
                                             <div v-else-if="block.type === 'grammarFocus'" class="space-y-5 pl-2">
@@ -7479,7 +7523,7 @@ const TEACHER_GUIDE_CONTENT_DEFAULT_PAGES = ["\n<div class=\"tg-title\">《教�
                         bulkInput: '',
                         items: getPU2GuideItems()
                     };
-                } else if (['stackedIntro'].includes(type)) { data = { title: '', subtitle: '', text: '单元习题实时检测：\n单元测试包含听力、填空、选择、排序、判断对错、阅读等题型，可多维度检测学生掌握情况，针对性调整学习方向。\n题目设计覆盖校内考察题型，可同步提升孩子应试能力。', images: [], imgWidth: 185, imgHeight: 250, fanRotate: 6, fanOffsetX: 20, fanOffsetY: 10, imageLayout: 'fan', verticalGap: 12, imageBoxWidth: 260, textBoxWidth: 295, textBoxMinHeight: 180, blockGap: 10, cardStackGap: 6, boxPadding: 16, borderMode: 'theme', borderWidth: 2, borderColor: '#16a34a', cards: [{ title: '', subtitle: '', text: '单元习题实时检测：\n单元测试包含听力、填空、选择、排序、判断对错、阅读等题型，可多维度检测学生掌握情况，针对性调整学习方向。\n题目设计覆盖校内考察题型，可同步提升孩子应试能力。', images: [], imageSideGap: 0 }] }; } else if (['fullPageImage'].includes(type)) { data = { img: '', pageTitle: 'Look, read and enjoy the story.', fitMode: 'contain', pageMargin: 0, background: '#ffffff' }; } else if (['unitEvidence'].includes(type)) { data = {"evidenceVersion": "bilingualChecklistSmallZhV1","pageTitle": "Unit Learning Evidence","pageSubtitle": "","studentLabel": "","teacherLabel": "","noteLines": 3,"bulkInput": "# Vocabulary Understanding / 词汇理解\nCan recognize and read the core vocabulary. / 能认读核心词汇\nCan hear key words in listening. / 能在听力里听出关键词\nCan understand and use the words in sentences. / 能把词放进句子中理解和使用\n\n# Story Understanding / 故事理解\nCan answer story detail questions. / 能回答故事细节问题\nCan decide whether story information is correct. / 能判断故事信息是否正确\nCan retell the story in order. / 能按照顺序复述故事\n\n# Grammar Use / 语法运用\nCan complete basic word changes. / 能完成基础变形\nCan reorder words to make sentences. / 能完成句子重组\nCan use the target sentence pattern from pictures. / 能看图说出目标句型\n\n# Cross-curricular Topic / 跨学科主题\nCan understand the topic key words. / 能理解主题关键词\nCan answer topic questions. / 能回答主题问题\nCan retell the topic content with a frame. / 能用框架复述主题内容\n\n# A1 / Exam Skills / A1 考级能力\nCan understand the questions. / 能听懂问题\nCan give complete answers. / 能完整回答\nCan complete picture description / topic speaking tasks. / 能完成看图表达或主题表达","sections": [{"title": "Vocabulary Understanding / 词汇理解","items": "Can recognize and read the core vocabulary. / 能认读核心词汇\nCan hear key words in listening. / 能在听力里听出关键词\nCan understand and use the words in sentences. / 能把词放进句子中理解和使用"},{"title": "Story Understanding / 故事理解","items": "Can answer story detail questions. / 能回答故事细节问题\nCan decide whether story information is correct. / 能判断故事信息是否正确\nCan retell the story in order. / 能按照顺序复述故事"},{"title": "Grammar Use / 语法运用","items": "Can complete basic word changes. / 能完成基础变形\nCan reorder words to make sentences. / 能完成句子重组\nCan use the target sentence pattern from pictures. / 能看图说出目标句型"},{"title": "Cross-curricular Topic / 跨学科主题","items": "Can understand the topic key words. / 能理解主题关键词\nCan answer topic questions. / 能回答主题问题\nCan retell the topic content with a frame. / 能用框架复述主题内容"},{"title": "A1 / Exam Skills / A1 考级能力","items": "Can understand the questions. / 能听懂问题\nCan give complete answers. / 能完整回答\nCan complete picture description / topic speaking tasks. / 能完成看图表达或主题表达"}]}; } else if (['writingCard'].includes(type)) { data = { drawImg: '', wordsBank: 'bag / book', sentenceBank: 'I have a *bag*.\nIt is *red*.', writingPrompt: 'Draw your story and write.', showOutputTitle: false, outputTitle: 'My Writing', writingScaffold: 'I have a [bag].', bankLineHeight: 1.8, scaffoldLineHeight: 2.2, enableScaffoldRightBlank: false, scaffoldRightBlank: 0, wordBankGap: 28, wordBankBoxPaddingY: 20 }; }
+                } else if (['stackedIntro'].includes(type)) { data = { title: '', subtitle: '', text: '单元习题实时检测：\n单元测试包含听力、填空、选择、排序、判断对错、阅读等题型，可多维度检测学生掌握情况，针对性调整学习方向。\n题目设计覆盖校内考察题型，可同步提升孩子应试能力。', images: [], imgWidth: 185, imgHeight: 250, fanRotate: 6, fanOffsetX: 20, fanOffsetY: 10, imageLayout: 'fan', verticalGap: 12, imageBoxWidth: 260, textBoxWidth: 295, textBoxMinHeight: 180, blockGap: 10, cardStackGap: 6, boxPadding: 16, borderMode: 'theme', borderWidth: 2, borderColor: '#16a34a', cards: [{ title: '', subtitle: '', text: '单元习题实时检测：\n单元测试包含听力、填空、选择、排序、判断对错、阅读等题型，可多维度检测学生掌握情况，针对性调整学习方向。\n题目设计覆盖校内考察题型，可同步提升孩子应试能力。', images: [], imageSideGap: 0 }] }; } else if (['fullPageImage'].includes(type)) { data = { img: '', pageTitle: 'Look, read and enjoy the story.', fitMode: 'contain', pageMargin: 0, background: '#ffffff' }; } else if (['unitEvidence'].includes(type)) { data = {"evidenceVersion": "bilingualChecklistSmallZhV1","pageTitle": "Unit Learning Evidence","pageSubtitle": "","studentLabel": "","teacherLabel": "","noteLines": 3,"bulkInput": "# Vocabulary Understanding / 词汇理解\nCan recognize and read the core vocabulary. / 能认读核心词汇\nCan hear key words in listening. / 能在听力里听出关键词\nCan understand and use the words in sentences. / 能把词放进句子中理解和使用\n\n# Story Understanding / 故事理解\nCan answer story detail questions. / 能回答故事细节问题\nCan decide whether story information is correct. / 能判断故事信息是否正确\nCan retell the story in order. / 能按照顺序复述故事\n\n# Grammar Use / 语法运用\nCan complete basic word changes. / 能完成基础变形\nCan reorder words to make sentences. / 能完成句子重组\nCan use the target sentence pattern from pictures. / 能看图说出目标句型\n\n# Cross-curricular Topic / 跨学科主题\nCan understand the topic key words. / 能理解主题关键词\nCan answer topic questions. / 能回答主题问题\nCan retell the topic content with a frame. / 能用框架复述主题内容\n\n# A1 / Exam Skills / A1 考级能力\nCan understand the questions. / 能听懂问题\nCan give complete answers. / 能完整回答\nCan complete picture description / topic speaking tasks. / 能完成看图表达或主题表达","sections": [{"title": "Vocabulary Understanding / 词汇理解","items": "Can recognize and read the core vocabulary. / 能认读核心词汇\nCan hear key words in listening. / 能在听力里听出关键词\nCan understand and use the words in sentences. / 能把词放进句子中理解和使用"},{"title": "Story Understanding / 故事理解","items": "Can answer story detail questions. / 能回答故事细节问题\nCan decide whether story information is correct. / 能判断故事信息是否正确\nCan retell the story in order. / 能按照顺序复述故事"},{"title": "Grammar Use / 语法运用","items": "Can complete basic word changes. / 能完成基础变形\nCan reorder words to make sentences. / 能完成句子重组\nCan use the target sentence pattern from pictures. / 能看图说出目标句型"},{"title": "Cross-curricular Topic / 跨学科主题","items": "Can understand the topic key words. / 能理解主题关键词\nCan answer topic questions. / 能回答主题问题\nCan retell the topic content with a frame. / 能用框架复述主题内容"},{"title": "A1 / Exam Skills / A1 考级能力","items": "Can understand the questions. / 能听懂问题\nCan give complete answers. / 能完整回答\nCan complete picture description / topic speaking tasks. / 能完成看图表达或主题表达"}]}; } else if (['writingCard'].includes(type)) { data = { drawImg: '', wordsBank: 'bag / book', sentenceBank: 'I have a *bag*.\nIt is *red*.', writingPrompt: 'Draw your story and write.', showOutputTitle: false, outputTitle: 'My Writing', writingScaffold: 'I have a [bag].', bankLineHeight: 1.8, scaffoldLineHeight: 1.5, enableScaffoldRightBlank: false, scaffoldRightBlank: 0, wordBankGap: 28, wordBankBoxPaddingY: 20 }; }
                     else if (['clilRead'].includes(type)) { data = { layout: 'A', title: 'Our planet Earth', img: '', wordBankA: 'oxygen / Earth', passageA: 'There is [oxygen] on Earth.', wordBankB: 'grow plants\nEarth', passageB: 'This is planet [B]. You can [A].', enableChoice: false, itemsChoice: [], enableUnscramble: false, itemsUnscramble: [], enableBlank: false, itemsBlank: [] }; }
                     else if (['orderStory'].includes(type)) { data = { bulkInput: '', bulkAns: '', items: [{isEg: false, img: '', ans: '3', text: 'He went to school.'}] }; }
                     else if (['correctMistakes'].includes(type)) { data = { bulkInput: '', bulkAns: '', items: [{isEg: false, q: 'I [has] an apple.', a: 'have'}] }; }
@@ -8795,7 +8839,7 @@ if (block.type === 'wordList') {
                 };
 
                 const getWritingBankLineHeight = (block) => clampLineHeight(block?.data?.bankLineHeight, 1.8);
-                const getWritingScaffoldLineHeight = (block) => clampLineHeight(block?.data?.scaffoldLineHeight, 2.2);
+                const getWritingScaffoldLineHeight = (block) => clampLineHeight(block?.data?.scaffoldLineHeight, 1.5);
 
                 const getBulkGuide = (type) => {
                     const guide = {
@@ -11878,7 +11922,7 @@ const hasAnyImageInBlock = (block) => {
                     } else if (block.type === 'match') {
                         fromArray(d.items, item => answerTextFromItem(item, ['word','a','ans']));
                     } else if (['listenFill','listenComp','chooseComplete','storyRetell'].includes(block.type)) {
-                        const ans = collectAutoBlankAnswers(d.text || '', d.keywords || '');
+                        const ans = collectAutoBlankAnswers(d.text || '', block.type === 'storyRetell' && d.retellOral && d.retellWithText ? '' : (d.keywords || ''));
                         ans.forEach(a => pushAnswer(rows, a));
                     } else if (block.type === 'storyComic') {
                         Array.isArray(d.items) && d.items.forEach(card => {
